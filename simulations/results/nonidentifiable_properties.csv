@@ -1,0 +1,5 @@
+property,base_value,extension_value,varies_within_empirical_class,reachable_observations_equal,all_tested_experiment_outcomes_equal
+latent cardinality,6,12,True,True,True
+maximum observation fiber size,1,2,True,True,True
+existence of an exact latent decoder,True,False,True,True,True
+presence of a Boolean hidden factor,False,True,True,True,True
