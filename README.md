@@ -15,8 +15,9 @@ After following the steps above, you can remove this section from the README fil
 ## Executable simulations
 
 Finite Python simulations illustrating the formal generative-model,
-hidden-extension, admissible-experiment, predicate-profile, and empirical
-quotient structures are available in [`simulations/`](simulations/README.md).
+hidden-extension, admissible-experiment, predicate-profile, empirical
+quotient, and interface-refinement structures are available in
+[`simulations/`](simulations/README.md).
 They are computational examples, not additional proofs or empirical support
 for claims beyond the formal BoundaryObserver framework. Reproduction and
 output instructions are documented in the simulation README.

@@ -15,11 +15,15 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 try:  # Support both ``python simulations/run_simulations.py`` and ``python -m``.
     from .boundary_observer.analysis import (
+        collapsed_pair_rows,
         compare_experiment_outcomes,
         empirical_quotient_rows,
+        interface_summary_rows,
         nonidentifiable_property_rows,
         observation_fiber_rows,
         predicate_profile_rows,
+        quotient_map_rows,
+        refinement_summary_rows,
         summarize_multiplicities,
     )
     from .boundary_observer.experiments import (
@@ -34,13 +38,18 @@ try:  # Support both ``python simulations/run_simulations.py`` and ``python -m``
         boolean_hidden_extension,
         make_base_model,
     )
+    from .boundary_observer.interfaces import standard_refinement_family
 except ImportError:
     from boundary_observer.analysis import (
+        collapsed_pair_rows,
         compare_experiment_outcomes,
         empirical_quotient_rows,
+        interface_summary_rows,
         nonidentifiable_property_rows,
         observation_fiber_rows,
         predicate_profile_rows,
+        quotient_map_rows,
+        refinement_summary_rows,
         summarize_multiplicities,
     )
     from boundary_observer.experiments import (
@@ -55,6 +64,7 @@ except ImportError:
         boolean_hidden_extension,
         make_base_model,
     )
+    from boundary_observer.interfaces import standard_refinement_family
 
 
 SIMULATIONS_DIR = Path(__file__).resolve().parent
@@ -134,6 +144,41 @@ def _plot_experiment_outcomes(
     axis.set_xticks(multiplicities)
     axis.grid(alpha=0.3)
     axis.legend(fontsize=8)
+    figure.tight_layout()
+    figure.savefig(path, dpi=160)
+    plt.close(figure)
+
+
+def _plot_interface_quotient_sizes(
+    rows: list[dict[str, object]], path: Path
+) -> None:
+    labels = [str(row["interface"]).replace("_interface", "") for row in rows]
+    sizes = [int(row["observable_quotient_size"]) for row in rows]
+    figure, axis = plt.subplots(figsize=(8.0, 4.8))
+    bars = axis.bar(labels, sizes, color=("#2563eb", "#7c3aed", "#db2777", "#0891b2"))
+    axis.bar_label(bars, padding=3)
+    axis.set_ylabel("Observable quotient class count")
+    axis.set_title("Finite interfaces retain different numbers of distinctions")
+    axis.set_ylim(0, max(sizes) + 1.5)
+    axis.grid(axis="y", alpha=0.25)
+    axis.tick_params(axis="x", rotation=15)
+    figure.tight_layout()
+    figure.savefig(path, dpi=160)
+    plt.close(figure)
+
+
+def _plot_collapsed_pairs(
+    rows: list[dict[str, object]], path: Path
+) -> None:
+    labels = [str(row["refinement"]).replace("_to_", " → ") for row in rows]
+    counts = [int(row["collapsed_world_pair_count"]) for row in rows]
+    figure, axis = plt.subplots(figsize=(8.0, 4.8))
+    bars = axis.barh(labels, counts, color="#c2410c")
+    axis.bar_label(bars, padding=3)
+    axis.set_xlabel("Pairs distinguished by fine and identified by coarse")
+    axis.set_title("Collapsed pairs under finite coarsening")
+    axis.set_xlim(0, max(counts) + 2)
+    axis.grid(axis="x", alpha=0.25)
     figure.tight_layout()
     figure.savefig(path, dpi=160)
     plt.close(figure)
@@ -308,6 +353,88 @@ This is a finite witness within the framework, not a claim beyond it.
     path.write_text(report, encoding="utf-8")
 
 
+def _write_refinement_report(
+    path: Path,
+    interface_rows: list[dict[str, object]],
+    refinement_rows: list[dict[str, object]],
+    quotient_rows: list[dict[str, object]],
+    collapsed_rows: list[dict[str, object]],
+) -> None:
+    interface_table = _markdown_table(
+        ["Interface", "Reachable observations", "Quotient classes", "Injective?"],
+        [
+            [
+                row["interface"],
+                row["reachable_observation_count"],
+                row["observable_quotient_size"],
+                row["observation_function_injective"],
+            ]
+            for row in interface_rows
+        ],
+    )
+    refinement_table = _markdown_table(
+        [
+            "Refinement",
+            "Strict?",
+            "Collapsed pairs",
+            "Reverse exists?",
+            "Quotient map surjective?",
+            "Injective?",
+        ],
+        [
+            [
+                row["refinement"],
+                row["strict_refinement"],
+                row["collapsed_world_pair_count"],
+                row["reverse_refinement_exists"],
+                row["quotient_map_surjective"],
+                row["quotient_map_injective"],
+            ]
+            for row in refinement_rows
+        ],
+    )
+    report = f"""# BoundaryObserver interface-refinement simulation report
+
+## Scope
+
+This report contains exhaustive calculations for four interfaces on one
+eight-state finite world. It illustrates the refinement, strict-refinement,
+and observable-quotient-map definitions in `BoundaryObserver.lean`. It is not
+an additional proof and makes no claim beyond the formal framework.
+
+## Interfaces
+
+{interface_table}
+
+The identity and relabeled interfaces retain the same eight distinctions in
+different observation representations. Paired buckets retain four classes,
+and the binary region interface retains two.
+
+## Refinements
+
+{refinement_table}
+
+For each listed relation, the explicit coarsening function satisfies the
+observation-preservation equation on every enumerated world state. The three
+strict rows contain a calculated collapsed pair and have noninjective induced
+quotient maps. The two relabeling rows have the same observational resolution
+and bijective quotient maps.
+
+## Detailed finite records
+
+- `quotient_maps.csv` contains {len(quotient_rows)} class-map entries.
+- `collapsed_pairs.csv` contains {len(collapsed_rows)} strict-collapse records.
+- `interface_summary.csv` and `refinement_summary.csv` contain the aggregate
+  calculations used above.
+
+## Generated plots
+
+- `observable_quotient_size_by_interface.png`
+- `collapsed_pairs_by_refinement.png`
+"""
+    path.write_text(report, encoding="utf-8")
+
+
 def run(output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -367,6 +494,11 @@ def run(output_dir: Path) -> None:
     fiber_rows = observation_fiber_rows(
         [base, noninjective_base, boolean_extension, *multiplicity_models]
     )
+    interfaces, refinements = standard_refinement_family()
+    interface_rows = interface_summary_rows(interfaces)
+    refinement_rows = refinement_summary_rows(refinements)
+    interface_quotient_rows = quotient_map_rows(refinements)
+    interface_collapsed_rows = collapsed_pair_rows(refinements)
 
     # Fail loudly if a construction no longer satisfies its intended finite checks.
     assert base.reachable_observations == boolean_extension.reachable_observations
@@ -380,6 +512,24 @@ def run(output_dir: Path) -> None:
     assert all(bool(row["matches_base_outcomes"]) for row in experiment_rows)
     assert all(bool(row["matches_base_profile"]) for row in predicate_rows)
     assert all(bool(row["varies_within_empirical_class"]) for row in property_rows)
+    assert all(bool(row["observation_preserved"]) for row in refinement_rows)
+    assert all(
+        bool(row["fine_obs_equivalence_implies_coarse"])
+        for row in refinement_rows
+    )
+    assert all(bool(row["quotient_map_surjective"]) for row in refinement_rows)
+    assert all(
+        not bool(row["quotient_map_injective"])
+        and not bool(row["reverse_refinement_exists"])
+        for row in refinement_rows
+        if bool(row["strict_refinement"])
+    )
+    assert all(
+        bool(row["quotient_map_bijective"])
+        and bool(row["same_observational_resolution"])
+        for row in refinement_rows
+        if not bool(row["strict_refinement"])
+    )
 
     write_csv(output_dir / "model_summary.csv", model_rows)
     write_csv(output_dir / "multiplicity_summary.csv", multiplicity_rows)
@@ -388,6 +538,10 @@ def run(output_dir: Path) -> None:
     write_csv(output_dir / "empirical_quotient.csv", quotient_rows)
     write_csv(output_dir / "nonidentifiable_properties.csv", property_rows)
     write_csv(output_dir / "observation_fibers.csv", fiber_rows)
+    write_csv(output_dir / "interface_summary.csv", interface_rows)
+    write_csv(output_dir / "refinement_summary.csv", refinement_rows)
+    write_csv(output_dir / "quotient_maps.csv", interface_quotient_rows)
+    write_csv(output_dir / "collapsed_pairs.csv", interface_collapsed_rows)
 
     _plot_metric(
         multiplicity_rows,
@@ -416,6 +570,14 @@ def run(output_dir: Path) -> None:
         multiplicity_models,
         output_dir / "experiment_outcome_count_vs_hidden_multiplicity.png",
     )
+    _plot_interface_quotient_sizes(
+        interface_rows,
+        output_dir / "observable_quotient_size_by_interface.png",
+    )
+    _plot_collapsed_pairs(
+        refinement_rows,
+        output_dir / "collapsed_pairs_by_refinement.png",
+    )
     _write_report(
         output_dir / "report.md",
         base,
@@ -427,9 +589,19 @@ def run(output_dir: Path) -> None:
         quotient_rows,
         property_rows,
     )
+    _write_refinement_report(
+        output_dir / "refinement_report.md",
+        interface_rows,
+        refinement_rows,
+        interface_quotient_rows,
+        interface_collapsed_rows,
+    )
 
     print(f"Simulation outputs written to {output_dir}")
-    print("Verified Boolean, multiplicity, experiment, predicate, and quotient checks.")
+    print(
+        "Verified Boolean, multiplicity, experiment, predicate, quotient, "
+        "and interface-refinement checks."
+    )
 
 
 def parse_args() -> argparse.Namespace:

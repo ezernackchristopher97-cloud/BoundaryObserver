@@ -15,6 +15,89 @@ from .models import (
     finite_hidden_extension,
     group_by_empirical_equivalence,
 )
+from .interfaces import (
+    FiniteObserverInterface,
+    InterfaceRefinement,
+    find_refinement,
+)
+
+
+def interface_summary_rows(
+    interfaces: Iterable[FiniteObserverInterface],
+) -> list[dict[str, object]]:
+    return [interface.summary() for interface in interfaces]
+
+
+def refinement_summary_rows(
+    refinements: Iterable[InterfaceRefinement],
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for refinement in refinements:
+        reverse = find_refinement(refinement.coarse, refinement.fine)
+        rows.append(
+            {
+                "refinement": refinement.name,
+                "fine_interface": refinement.fine.name,
+                "coarse_interface": refinement.coarse.name,
+                "observation_preserved": refinement.observation_preserved,
+                "fine_obs_equivalence_implies_coarse": (
+                    refinement.preserves_observational_equivalence
+                ),
+                "strict_refinement": refinement.is_strict,
+                "collapsed_world_pair_count": len(refinement.collapsed_pairs()),
+                "reverse_refinement_exists": reverse is not None,
+                "same_observational_resolution": (
+                    refinement.same_observational_resolution
+                ),
+                "fine_quotient_size": refinement.fine.observable_quotient_size,
+                "coarse_quotient_size": (
+                    refinement.coarse.observable_quotient_size
+                ),
+                "quotient_map_surjective": refinement.quotient_map_surjective,
+                "quotient_map_injective": refinement.quotient_map_injective,
+                "quotient_map_bijective": refinement.quotient_map_bijective,
+            }
+        )
+    return rows
+
+
+def quotient_map_rows(
+    refinements: Iterable[InterfaceRefinement],
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for refinement in refinements:
+        for fine_class, coarse_class in refinement.quotient_map_entries():
+            rows.append(
+                {
+                    "refinement": refinement.name,
+                    "fine_observation": repr(fine_class.observation),
+                    "fine_class_members": fine_class.canonical_members,
+                    "coarse_observation": repr(coarse_class.observation),
+                    "coarse_class_members": coarse_class.canonical_members,
+                }
+            )
+    return rows
+
+
+def collapsed_pair_rows(
+    refinements: Iterable[InterfaceRefinement],
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for refinement in refinements:
+        for left, right in refinement.collapsed_pairs():
+            rows.append(
+                {
+                    "refinement": refinement.name,
+                    "left_world_state": repr(left),
+                    "right_world_state": repr(right),
+                    "left_fine_observation": repr(refinement.fine.observe(left)),
+                    "right_fine_observation": repr(refinement.fine.observe(right)),
+                    "common_coarse_observation": repr(
+                        refinement.coarse.observe(left)
+                    ),
+                }
+            )
+    return rows
 
 
 def observation_fiber_rows(

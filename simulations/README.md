@@ -14,9 +14,12 @@ not new proofs and are not empirical confirmation of any metaphysical claim.
   Boolean and arbitrary finite hidden-factor extensions.
 - `boundary_observer/experiments.py` defines observation-only admissible
   experiments and finite observation-predicate profiles.
+- `boundary_observer/interfaces.py` defines finite observer interfaces,
+  explicit refinement witnesses, strict-refinement checks, composition, and
+  induced maps between observable quotient classes.
 - `boundary_observer/analysis.py` compares multiplicities, outcome sets,
-  predicate profiles, empirical quotient classes, and selected latent
-  properties.
+  predicate profiles, empirical quotient classes, interface refinements, and
+  selected latent properties.
 - `run_simulations.py` runs all examples and writes CSV, Markdown, and PNG
   outputs to `results/`.
 - `tests/` verifies the computational analogues requested for these examples.
@@ -34,6 +37,10 @@ not new proofs and are not empirical confirmation of any metaphysical claim.
 | `finite_hidden_extension(base, m)` | hidden extension by a finite type with exactly `m` values |
 | `observation_fibers` | finite enumeration of `LatentFiber` |
 | empirical quotient grouping | grouping by the equality used in `ModelObsEq` |
+| `FiniteObserverInterface` | `ObserverInterface` on an enumerated finite world |
+| `InterfaceRefinement` | an explicit witness for `InterfaceRefines` |
+| `is_strict` | finite witness search for `StrictlyRefines` |
+| `quotient_map_entries` | finite enumeration of `quotientMapOfRefinement` |
 
 The Python multiplicity argument is the literal number of hidden copies. In
 Lean, `finiteMultiplicityModel M n` uses `Fin (n + 1)`, so Python multiplicity
@@ -48,6 +55,10 @@ The Lean file formally proves general statements including:
   observations while introducing latent collisions;
 - finite hidden multiplicities preserve observational equivalence and can make
   latent fibers arbitrarily large.
+- refinement preserves observational equivalence and induces a surjective map
+  from the finer observable quotient to the coarser quotient;
+- strict refinement makes that quotient map noninjective and prevents reverse
+  refinement, while mutual refinement induces a quotient equivalence.
 
 The Python suite merely calculates these relationships for its finite sample
 models. A passing Python test does not replace or strengthen a Lean theorem.
@@ -76,6 +87,22 @@ observation sets are equal. Its canonical display label is a stable sorted
 representation of the common reachable set; grouping itself uses actual set
 equality.
 
+## Interface refinement example
+
+The runner also uses one eight-state world with four interfaces:
+
+- an identity interface with eight observable classes;
+- a paired-bucket interface with four classes;
+- a binary-region interface with two classes;
+- a relabeled identity interface with the same eight distinctions as the
+  identity interface.
+
+Explicit coarsening maps form the strict chain identity → paired buckets →
+binary regions. The composed identity → region map illustrates transitivity.
+Identity and relabeled identity refine one another, illustrating equal
+observational resolution under a change of representation. The runner
+enumerates collapsed state pairs and every entry of the induced quotient maps.
+
 ## Reproduce the results
 
 From the repository root:
@@ -98,8 +125,13 @@ The runner deterministically overwrites its named outputs in
 - `empirical_quotient.csv`
 - `nonidentifiable_properties.csv`
 - `observation_fibers.csv`
+- `interface_summary.csv`
+- `refinement_summary.csv`
+- `quotient_maps.csv`
+- `collapsed_pairs.csv`
 - `report.md`
-- four clearly labeled PNG plots
+- `refinement_report.md`
+- six clearly labeled PNG plots
 
 The Lean development can be rechecked independently with:
 
