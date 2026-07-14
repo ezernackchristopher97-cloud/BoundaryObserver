@@ -21,7 +21,8 @@ try:  # Support both ``python simulations/run_simulations.py`` and ``python -m``
         interface_summary_rows,
         nonidentifiable_property_rows,
         observation_fiber_rows,
-        predicate_profile_rows,
+        predicate_success_profile_rows,
+        predicate_truth_profile_rows,
         quotient_map_rows,
         refinement_summary_rows,
         summarize_multiplicities,
@@ -47,7 +48,8 @@ except ImportError:
         interface_summary_rows,
         nonidentifiable_property_rows,
         observation_fiber_rows,
-        predicate_profile_rows,
+        predicate_success_profile_rows,
+        predicate_truth_profile_rows,
         quotient_map_rows,
         refinement_summary_rows,
         summarize_multiplicities,
@@ -202,7 +204,8 @@ def _write_report(
     boolean_extension: GenerativeModel,
     multiplicity_rows: list[dict[str, object]],
     experiment_rows: list[dict[str, object]],
-    predicate_rows: list[dict[str, object]],
+    predicate_success_rows: list[dict[str, object]],
+    predicate_truth_rows: list[dict[str, object]],
     quotient_rows: list[dict[str, object]],
     property_rows: list[dict[str, object]],
 ) -> None:
@@ -322,11 +325,24 @@ multiplicity.  Fiber and collision values are calculations for these models.
 
 Each experiment is a function of accessible observations only.
 
-## Predicate profiles
+## Predicate success profiles
 
-All {len(predicate_rows)} model/predicate profile comparisons match the base:
-`{all(bool(row['matches_base_profile']) for row in predicate_rows)}`.
-The full truth profiles are stored in `predicate_profiles.csv`.
+For all {len(predicate_success_rows)} model/predicate comparisons, the models
+agree with the base on whether the predicate succeeds on at least one reachable
+observation:
+`{all(bool(row['matches_base_success_profile']) for row in predicate_success_rows)}`.
+These existential profiles are stored in `predicate_success_profiles.csv` and
+correspond directly to the Lean `PredicateCanSucceed`/`PredicateProfile`
+construction.
+
+## Predicate truth profiles
+
+All {len(predicate_truth_rows)} complete finite truth-table comparisons match
+the base:
+`{all(bool(row['matches_base_truth_profile']) for row in predicate_truth_rows)}`.
+The stronger diagnostic is stored in `predicate_truth_profiles.csv`; it records
+every predicate value on every reachable observation and is not definitionally
+identical to the Lean existential predicate profile.
 
 ## Finite empirical quotient
 
@@ -473,7 +489,10 @@ def run(output_dir: Path) -> None:
             "is_endpoint", lambda observation: observation in {0, 5}
         ),
     )
-    predicate_rows = predicate_profile_rows(
+    predicate_success_rows = predicate_success_profile_rows(
+        base, compared_models, predicates
+    )
+    predicate_truth_rows = predicate_truth_profile_rows(
         base, compared_models, predicates
     )
     quotient_rows = empirical_quotient_rows(
@@ -510,7 +529,14 @@ def run(output_dir: Path) -> None:
         for row in multiplicity_rows
     )
     assert all(bool(row["matches_base_outcomes"]) for row in experiment_rows)
-    assert all(bool(row["matches_base_profile"]) for row in predicate_rows)
+    assert all(
+        bool(row["matches_base_success_profile"])
+        for row in predicate_success_rows
+    )
+    assert all(
+        bool(row["matches_base_truth_profile"])
+        for row in predicate_truth_rows
+    )
     assert all(bool(row["varies_within_empirical_class"]) for row in property_rows)
     assert all(bool(row["observation_preserved"]) for row in refinement_rows)
     assert all(
@@ -534,7 +560,14 @@ def run(output_dir: Path) -> None:
     write_csv(output_dir / "model_summary.csv", model_rows)
     write_csv(output_dir / "multiplicity_summary.csv", multiplicity_rows)
     write_csv(output_dir / "experiment_outcomes.csv", experiment_rows)
-    write_csv(output_dir / "predicate_profiles.csv", predicate_rows)
+    write_csv(
+        output_dir / "predicate_success_profiles.csv",
+        predicate_success_rows,
+    )
+    write_csv(
+        output_dir / "predicate_truth_profiles.csv",
+        predicate_truth_rows,
+    )
     write_csv(output_dir / "empirical_quotient.csv", quotient_rows)
     write_csv(output_dir / "nonidentifiable_properties.csv", property_rows)
     write_csv(output_dir / "observation_fibers.csv", fiber_rows)
@@ -585,7 +618,8 @@ def run(output_dir: Path) -> None:
         boolean_extension,
         multiplicity_rows,
         experiment_rows,
-        predicate_rows,
+        predicate_success_rows,
+        predicate_truth_rows,
         quotient_rows,
         property_rows,
     )

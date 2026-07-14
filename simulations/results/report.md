@@ -49,11 +49,24 @@ multiplicity.  Fiber and collision values are calculations for these models.
 
 Each experiment is a function of accessible observations only.
 
-## Predicate profiles
+## Predicate success profiles
 
-All 21 model/predicate profile comparisons match the base:
+For all 21 model/predicate comparisons, the models
+agree with the base on whether the predicate succeeds on at least one reachable
+observation:
 `True`.
-The full truth profiles are stored in `predicate_profiles.csv`.
+These existential profiles are stored in `predicate_success_profiles.csv` and
+correspond directly to the Lean `PredicateCanSucceed`/`PredicateProfile`
+construction.
+
+## Predicate truth profiles
+
+All 21 complete finite truth-table comparisons match
+the base:
+`True`.
+The stronger diagnostic is stored in `predicate_truth_profiles.csv`; it records
+every predicate value on every reachable observation and is not definitionally
+identical to the Lean existential predicate profile.
 
 ## Finite empirical quotient
 

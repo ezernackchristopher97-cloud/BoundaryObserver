@@ -7,7 +7,8 @@ from typing import Iterable
 from .experiments import (
     AdmissibleExperiment,
     ObservationPredicate,
-    predicate_profile,
+    predicate_success_profile,
+    predicate_truth_profile,
 )
 from .models import (
     GenerativeModel,
@@ -163,16 +164,16 @@ def compare_experiment_outcomes(
     return rows
 
 
-def predicate_profile_rows(
+def predicate_truth_profile_rows(
     base: GenerativeModel,
     models: Iterable[GenerativeModel],
     predicates: Iterable[ObservationPredicate],
 ) -> list[dict[str, object]]:
     predicates = tuple(predicates)
-    base_profile = predicate_profile(base, predicates)
+    base_profile = predicate_truth_profile(base, predicates)
     rows: list[dict[str, object]] = []
     for model in models:
-        model_profile = predicate_profile(model, predicates)
+        model_profile = predicate_truth_profile(model, predicates)
         for predicate in predicates:
             entries = model_profile[predicate.name]
             formatted = "; ".join(
@@ -185,9 +186,34 @@ def predicate_profile_rows(
                 {
                     "model": model.name,
                     "predicate": predicate.name,
-                    "profile": formatted,
-                    "matches_base_profile": (
+                    "truth_table": formatted,
+                    "matches_base_truth_profile": (
                         entries == base_profile[predicate.name]
+                    ),
+                }
+            )
+    return rows
+
+
+def predicate_success_profile_rows(
+    base: GenerativeModel,
+    models: Iterable[GenerativeModel],
+    predicates: Iterable[ObservationPredicate],
+) -> list[dict[str, object]]:
+    predicates = tuple(predicates)
+    base_profile = predicate_success_profile(base, predicates)
+    rows: list[dict[str, object]] = []
+    for model in models:
+        model_profile = predicate_success_profile(model, predicates)
+        for predicate in predicates:
+            can_succeed = model_profile[predicate.name]
+            rows.append(
+                {
+                    "model": model.name,
+                    "predicate": predicate.name,
+                    "can_succeed": can_succeed,
+                    "matches_base_success_profile": (
+                        can_succeed == base_profile[predicate.name]
                     ),
                 }
             )

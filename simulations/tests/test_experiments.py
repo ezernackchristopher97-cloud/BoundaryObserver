@@ -5,7 +5,8 @@ from simulations.boundary_observer.experiments import (
     categorical_partition_experiment,
     compressed_numerical_experiment,
     identity_experiment,
-    predicate_profile,
+    predicate_success_profile,
+    predicate_truth_profile,
     threshold_experiment,
 )
 from simulations.boundary_observer.models import (
@@ -43,7 +44,7 @@ def test_observationally_equivalent_models_have_equal_outcome_sets() -> None:
         )
 
 
-def test_predicate_profiles_agree_for_equivalent_models() -> None:
+def test_predicate_success_profiles_agree_for_equivalent_models() -> None:
     base = make_base_model(6, injective=True)
     extension = finite_hidden_extension(base, 5)
     predicates = (
@@ -51,7 +52,20 @@ def test_predicate_profiles_agree_for_equivalent_models() -> None:
         ObservationPredicate("at_least_three", lambda observation: observation >= 3),
     )
 
-    assert predicate_profile(base, predicates) == predicate_profile(
+    assert predicate_success_profile(base, predicates) == predicate_success_profile(
+        extension, predicates
+    )
+
+
+def test_predicate_truth_profiles_agree_for_equivalent_models() -> None:
+    base = make_base_model(6, injective=True)
+    extension = finite_hidden_extension(base, 5)
+    predicates = (
+        ObservationPredicate("even", lambda observation: observation % 2 == 0),
+        ObservationPredicate("at_least_three", lambda observation: observation >= 3),
+    )
+
+    assert predicate_truth_profile(base, predicates) == predicate_truth_profile(
         extension, predicates
     )
 

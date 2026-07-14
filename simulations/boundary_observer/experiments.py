@@ -1,4 +1,4 @@
-"""Admissible observation-only experiments and finite predicate profiles."""
+"""Admissible experiments and two finite observation-predicate diagnostics."""
 
 from __future__ import annotations
 
@@ -86,18 +86,34 @@ class ObservationPredicate:
         return bool(self.evaluate(observation))
 
 
-PredicateProfile = dict[str, frozenset[tuple[Hashable, bool]]]
+PredicateTruthProfile = dict[str, frozenset[tuple[Hashable, bool]]]
+PredicateSuccessProfile = dict[str, bool]
 
 
-def predicate_profile(
+def predicate_truth_profile(
     model: GenerativeModel,
     predicates: Iterable[ObservationPredicate],
-) -> PredicateProfile:
+) -> PredicateTruthProfile:
     """Record every tested predicate value on every reachable observation."""
 
     return {
         predicate.name: frozenset(
             (observation, predicate(observation))
+            for observation in model.reachable_observations
+        )
+        for predicate in predicates
+    }
+
+
+def predicate_success_profile(
+    model: GenerativeModel,
+    predicates: Iterable[ObservationPredicate],
+) -> PredicateSuccessProfile:
+    """Record whether each predicate succeeds on some reachable observation."""
+
+    return {
+        predicate.name: any(
+            predicate(observation)
             for observation in model.reachable_observations
         )
         for predicate in predicates

@@ -13,13 +13,14 @@ not new proofs and are not empirical confirmation of any metaphysical claim.
   collisions, injectivity, and finite exact-decoder existence. It also builds
   Boolean and arbitrary finite hidden-factor extensions.
 - `boundary_observer/experiments.py` defines observation-only admissible
-  experiments and finite observation-predicate profiles.
+  experiments, existential predicate-success profiles, and complete finite
+  predicate truth tables.
 - `boundary_observer/interfaces.py` defines finite observer interfaces,
   explicit refinement witnesses, strict-refinement checks, composition, and
   induced maps between observable quotient classes.
 - `boundary_observer/analysis.py` compares multiplicities, outcome sets,
-  predicate profiles, empirical quotient classes, interface refinements, and
-  selected latent properties.
+  both predicate diagnostics, empirical quotient classes, interface
+  refinements, and selected latent properties.
 - `run_simulations.py` runs all examples and writes CSV, Markdown, and PNG
   outputs to `results/`.
 - `tests/` verifies the computational analogues requested for these examples.
@@ -37,6 +38,8 @@ not new proofs and are not empirical confirmation of any metaphysical claim.
 | `finite_hidden_extension(base, m)` | hidden extension by a finite type with exactly `m` values |
 | `observation_fibers` | finite enumeration of `LatentFiber` |
 | empirical quotient grouping | grouping by the equality used in `ModelObsEq` |
+| `predicate_success_profile` | finite decision procedure for existential predicate success (`PredicateCanSucceed`/`PredicateProfile`) |
+| `predicate_truth_profile` | additional complete truth table; stronger than the Lean existential profile |
 | `FiniteObserverInterface` | `ObserverInterface` on an enumerated finite world |
 | `InterfaceRefinement` | an explicit witness for `InterfaceRefines` |
 | `is_strict` | finite witness search for `StrictlyRefines` |
@@ -80,7 +83,11 @@ extensions similarly use `(base_state, hidden_index)`.
 
 The admissible experiments are identity, Boolean threshold, categorical
 partition, and compressed numerical binning. Each receives only an accessible
-observation. Predicate profiles likewise evaluate only observation predicates.
+observation. Predicate diagnostics likewise evaluate only observation
+predicates. The predicate-success profile records whether each predicate is
+true for at least one reachable observation; this is the direct finite
+counterpart of the Lean existential profile. The predicate-truth profile keeps
+the value at every reachable observation as a separate, stronger diagnostic.
 
 The empirical quotient is computed by grouping models whose reachable
 observation sets are equal. Its canonical display label is a stable sorted
@@ -121,7 +128,8 @@ The runner deterministically overwrites its named outputs in
 - `model_summary.csv`
 - `multiplicity_summary.csv`
 - `experiment_outcomes.csv`
-- `predicate_profiles.csv`
+- `predicate_success_profiles.csv`
+- `predicate_truth_profiles.csv`
 - `empirical_quotient.csv`
 - `nonidentifiable_properties.csv`
 - `observation_fibers.csv`

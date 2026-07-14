@@ -1,4 +1,4 @@
-model,predicate,profile,matches_base_profile
+model,predicate,truth_table,matches_base_truth_profile
 injective_base,is_even,0:True; 1:False; 2:True; 3:False; 4:True; 5:False,True
 injective_base,at_least_three,0:False; 1:False; 2:False; 3:True; 4:True; 5:True,True
 injective_base,is_endpoint,0:True; 1:False; 2:False; 3:False; 4:False; 5:True,True
