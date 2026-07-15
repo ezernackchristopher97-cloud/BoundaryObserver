@@ -1,0 +1,46 @@
+model,observation,reachable,fiber_size,latent_states_in_fiber
+injective_base,0,True,1,0
+injective_base,1,True,1,1
+injective_base,2,True,1,2
+injective_base,3,True,1,3
+injective_base,4,True,1,4
+injective_base,5,True,1,5
+noninjective_base,0,True,2,0; 3
+noninjective_base,1,True,2,1; 4
+noninjective_base,2,True,2,2; 5
+boolean_hidden_extension,0,True,2,"(0, False); (0, True)"
+boolean_hidden_extension,1,True,2,"(1, False); (1, True)"
+boolean_hidden_extension,2,True,2,"(2, False); (2, True)"
+boolean_hidden_extension,3,True,2,"(3, False); (3, True)"
+boolean_hidden_extension,4,True,2,"(4, False); (4, True)"
+boolean_hidden_extension,5,True,2,"(5, False); (5, True)"
+injective_base_1_fold_extension,0,True,1,"(0, 0)"
+injective_base_1_fold_extension,1,True,1,"(1, 0)"
+injective_base_1_fold_extension,2,True,1,"(2, 0)"
+injective_base_1_fold_extension,3,True,1,"(3, 0)"
+injective_base_1_fold_extension,4,True,1,"(4, 0)"
+injective_base_1_fold_extension,5,True,1,"(5, 0)"
+injective_base_2_fold_extension,0,True,2,"(0, 0); (0, 1)"
+injective_base_2_fold_extension,1,True,2,"(1, 0); (1, 1)"
+injective_base_2_fold_extension,2,True,2,"(2, 0); (2, 1)"
+injective_base_2_fold_extension,3,True,2,"(3, 0); (3, 1)"
+injective_base_2_fold_extension,4,True,2,"(4, 0); (4, 1)"
+injective_base_2_fold_extension,5,True,2,"(5, 0); (5, 1)"
+injective_base_3_fold_extension,0,True,3,"(0, 0); (0, 1); (0, 2)"
+injective_base_3_fold_extension,1,True,3,"(1, 0); (1, 1); (1, 2)"
+injective_base_3_fold_extension,2,True,3,"(2, 0); (2, 1); (2, 2)"
+injective_base_3_fold_extension,3,True,3,"(3, 0); (3, 1); (3, 2)"
+injective_base_3_fold_extension,4,True,3,"(4, 0); (4, 1); (4, 2)"
+injective_base_3_fold_extension,5,True,3,"(5, 0); (5, 1); (5, 2)"
+injective_base_5_fold_extension,0,True,5,"(0, 0); (0, 1); (0, 2); (0, 3); (0, 4)"
+injective_base_5_fold_extension,1,True,5,"(1, 0); (1, 1); (1, 2); (1, 3); (1, 4)"
+injective_base_5_fold_extension,2,True,5,"(2, 0); (2, 1); (2, 2); (2, 3); (2, 4)"
+injective_base_5_fold_extension,3,True,5,"(3, 0); (3, 1); (3, 2); (3, 3); (3, 4)"
+injective_base_5_fold_extension,4,True,5,"(4, 0); (4, 1); (4, 2); (4, 3); (4, 4)"
+injective_base_5_fold_extension,5,True,5,"(5, 0); (5, 1); (5, 2); (5, 3); (5, 4)"
+injective_base_8_fold_extension,0,True,8,"(0, 0); (0, 1); (0, 2); (0, 3); (0, 4); (0, 5); (0, 6); (0, 7)"
+injective_base_8_fold_extension,1,True,8,"(1, 0); (1, 1); (1, 2); (1, 3); (1, 4); (1, 5); (1, 6); (1, 7)"
+injective_base_8_fold_extension,2,True,8,"(2, 0); (2, 1); (2, 2); (2, 3); (2, 4); (2, 5); (2, 6); (2, 7)"
+injective_base_8_fold_extension,3,True,8,"(3, 0); (3, 1); (3, 2); (3, 3); (3, 4); (3, 5); (3, 6); (3, 7)"
+injective_base_8_fold_extension,4,True,8,"(4, 0); (4, 1); (4, 2); (4, 3); (4, 4); (4, 5); (4, 6); (4, 7)"
+injective_base_8_fold_extension,5,True,8,"(5, 0); (5, 1); (5, 2); (5, 3); (5, 4); (5, 5); (5, 6); (5, 7)"

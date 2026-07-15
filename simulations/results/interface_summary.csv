@@ -1,0 +1,5 @@
+interface,world_state_count,observation_space_count,reachable_observation_count,reachable_observations,observable_quotient_size,observation_function_injective
+identity_interface,8,8,8,"{0, 1, 2, 3, 4, 5, 6, 7}",8,True
+paired_bucket_interface,8,4,4,"{0, 1, 2, 3}",4,False
+binary_region_interface,8,2,2,"{'lower', 'upper'}",2,False
+relabeled_identity_interface,8,8,8,"{'state_0', 'state_1', 'state_2', 'state_3', 'state_4', 'state_5', 'state_6', 'state_7'}",8,True

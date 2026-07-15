@@ -1,0 +1,6 @@
+refinement,fine_interface,coarse_interface,observation_preserved,fine_obs_equivalence_implies_coarse,strict_refinement,collapsed_world_pair_count,reverse_refinement_exists,same_observational_resolution,fine_quotient_size,coarse_quotient_size,quotient_map_surjective,quotient_map_injective,quotient_map_bijective
+identity_to_paired,identity_interface,paired_bucket_interface,True,True,True,4,False,False,8,4,True,False,False
+paired_to_region,paired_bucket_interface,binary_region_interface,True,True,True,8,False,False,4,2,True,False,False
+identity_to_region,identity_interface,binary_region_interface,True,True,True,12,False,False,8,2,True,False,False
+identity_to_relabeled,identity_interface,relabeled_identity_interface,True,True,False,0,True,True,8,8,True,True,True
+relabeled_to_identity,relabeled_identity_interface,identity_interface,True,True,False,0,True,True,8,8,True,True,True
