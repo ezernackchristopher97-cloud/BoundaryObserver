@@ -1,119 +1,231 @@
 # BoundaryObserver
 
-**BoundaryObserver** is a Lean 4 formalization of observer limited inference, latent nonidentifiability, and empirical equivalence.
+BoundaryObserver is a Lean 4 formalization of observer-limited inference. It
+studies the distinction between an underlying state, the information exposed by
+an observation interface, and the results obtainable by experiments restricted
+to that exposed information.
 
-The central idea is that an observer may have complete access to everything available through an observation interface while still being unable to reconstruct the full latent structure that produced those observations.
+The development formalizes latent nonidentifiability, empirical equivalence,
+limits on exact decoding, hidden latent extensions, interface refinement,
+observable quotients, empirical model quotients, and observation-only
+experiments.
 
-The project separates three levels:
+## Three levels of description
 
-1. Latent states and generative structure
-2. Observer accessible outputs
-3. Experiments and properties defined only from those outputs
+BoundaryObserver keeps three levels separate:
 
-The main results show that observational completeness does not generally imply latent completeness.
+1. **Latent or world state** — the underlying `World` state or a model's
+   `Latent` state.
+2. **Observer-accessible observation** — the value in `Obs` returned by
+   `observe`. Distinct latent states may produce the same observation.
+3. **Observation-only experimental result** — the value returned by an
+   admissible experiment `Obs → Result`. Such an experiment receives the
+   accessible observation, not the latent state itself.
 
-## Core framework
+```text
+latent state  --observe-->  accessible observation  --experiment-->  result
+```
 
-The formalization introduces:
+This separation makes it possible to state precisely when accessible
+information is complete at the observation level while remaining incomplete
+at the latent level.
 
-* Observer interfaces and observational equivalence
-* Quantities that factor through an observation interface
-* Exact decoders and conditions preventing exact reconstruction
-* Generative models with latent states and accessible observations
-* Admissible experiments and possible experimental outcomes
-* Reachable observation sets
-* Latent covers and strict latent covers
-* Hidden factor and Boolean latent extensions
-* Observation invariant properties and maps
-* Complete predicate profiles
-* Empirical equivalence classes and their quotient
-* Realizable reachable observation sets
+## Claim boundary
 
-## Main results
+The Lean results are conditional mathematical theorems about the models,
+interfaces, maps, and experiments declared in the formalization. They establish
+structural limits on inference under those definitions.
 
-The development proves that:
+They do not prove that a particular metaphysical ontology is true, that any
+specific real system has a hidden coordinate, or that inaccessible structure
+must exist in nature. The Python simulations are finite computational
+illustrations of selected definitions and theorems. They do not replace,
+strengthen, or empirically validate the Lean proofs.
 
-* States producing the same observation cannot be distinguished by an internal observer test.
-* A noninjective observation map cannot possess a globally exact latent decoder.
-* Observationally equivalent models produce the same possible outcomes under every admissible experiment.
-* An inhabited generative model always admits a strict hidden extension with the same accessible observations.
-* A strict hidden extension cannot possess an exact latent decoder.
-* There is no maximal inhabited latent representation under strict hidden extension.
-* Exact latent reconstructability is not invariant under observational equivalence.
-* No admissible experiment can determine exact latent reconstructability for every model.
-* Complete observer accessible predicate profiles characterize observational equivalence.
-* Empirically identifiable properties are exactly the properties invariant under observational equivalence.
-* Observation invariant properties and measurements factor uniquely through the empirical model quotient.
-* The empirical model quotient is represented by realizable reachable observation sets.
+## Major formal definitions
+
+The complete formal development is in
+[`BoundaryObserver.lean`](BoundaryObserver.lean).
+
+| Definition | Purpose |
+| --- | --- |
+| `ObserverInterface` | Specifies an accessible observation type and a map from world states to observations. |
+| `ObsEq` | States that two world states produce the same accessible observation. |
+| `FactorsThrough` | Expresses that a quantity can be computed entirely from the accessible observation. |
+| `HasExactDecoder` | Requires a decoder that is a left inverse of the observation map. |
+| `InternalTest` | A Boolean test whose input is only an accessible observation. |
+| `GenerativeModel` | Specifies a latent state type and a latent-to-observation map. |
+| `Produces` | States that a model can produce a particular observation. |
+| `ModelObsEq` | Identifies models with exactly the same reachable observations. |
+| `AdmissibleExperiment` | An observation-only function `Obs → Result`. |
+| `ExperimentOutcomeSet` | The set of all results an admissible experiment can produce under a model. |
+| `ObservableQuotient` | Quotients world states by equality of their accessible observations. |
+| `InterfaceRefines` | States that coarse observations can be computed from fine observations while preserving every world's observation. |
+| `StrictlyRefines` | A refinement that preserves strictly more distinctions than the coarse interface. |
+| `LatentCover` | A surjective, observation-preserving projection from an extended latent model to a base model. |
+| `StrictLatentCover` | A latent cover whose projection is noninjective, so the extension contains a genuine additional latent distinction. |
+| `hiddenExtensionModel` | Adds a hidden factor to every latent state while ignoring that factor during observation. |
+| `booleanExtensionModel` | The Boolean strict hidden extension used in the final synthesis theorem. |
+| `finiteMultiplicityModel` | Adds a finite family of hidden copies to every latent state. |
+| `EmpiricalModelQuotient` | Quotients generative models by `ModelObsEq`. |
+
+The formalization also defines reachable-observation sets, complete
+observation-predicate profiles, observation-invariant model properties and
+measurements, realizable observation sets, and canonical maps to and from the
+empirical model quotient.
+
+## Main theorem family
+
+The principal results include:
+
+- **Factorized quantities respect observational equivalence.** If a quantity
+  factors through an interface, it takes equal values on states with equal
+  observations (`factorized_quantity_respects_obsEq`).
+- **Noninjectivity prevents globally exact decoding.** A globally exact
+  decoder implies injectivity, so a noninjective observation map has no such
+  decoder (`no_exact_decoder_of_not_injective`).
+- **Internal tests cannot distinguish observationally equivalent states.** Any
+  observation-only Boolean test returns the same value on equal observations
+  (`internal_test_cannot_distinguish_obsEq`).
+- **Empirically equivalent models have identical admissible outcomes.** Models
+  related by `ModelObsEq` have equal `ExperimentOutcomeSet`s for every
+  admissible experiment (`modelObsEq_preserves_experimentOutcomeSet`).
+- **Insufficient finite observation capacity forces collisions.** If a finite
+  world has more states than its observation space, distinct world states
+  produce the same observation (`finite_interface_has_collision`), and exact
+  decoding is impossible (`finite_interface_has_no_exact_decoder`).
+- **Compatible quantities descend through the observable quotient.** Every
+  quantity respecting observational equivalence has a unique representation on
+  `ObservableQuotient` (`observableQuotient_universal_property`).
+- **Refinement induces a surjective quotient map.** A refinement maps the fine
+  observable quotient onto the coarse quotient
+  (`quotientMapOfRefinement_surjective`).
+- **Strict refinement is irreversible and loses quotient injectivity.** Strict
+  refinement prevents a reverse refinement and makes the induced quotient map
+  noninjective (`strictlyRefines_prevents_reverse_refinement` and
+  `strictlyRefines_quotientMap_not_injective`).
+- **Mutual refinement induces a quotient equivalence.** Mutually refining
+  interfaces have the same observational resolution and bijective quotient
+  maps (`quotientMapOfMutualRefinement_bijective`).
+- **Hidden extensions preserve accessible information while increasing latent
+  multiplicity.** Boolean, finite, countable, and general hidden-factor
+  constructions preserve reachable observations and admissible outcome sets
+  while adding latent distinctions.
+- **Exact latent reconstructability is not observationally invariant.** An
+  exactly decodable model can have an observationally equivalent strict hidden
+  extension that is not exactly decodable
+  (`exactLatentDecoder_not_observationInvariant`).
+- **Observation-invariant properties factor through the empirical quotient.**
+  Model properties are observation-invariant exactly when they factor through
+  `EmpiricalModelQuotient`
+  (`observationInvariant_iff_factorsThroughEmpiricalModelQuotient`).
+- **Observation-invariant measurements factor through the empirical quotient.**
+  Arbitrary-valued invariant maps descend uniquely to the empirical quotient
+  (`empiricalModelQuotient_map_universal_property` and
+  `observationInvariantMap_iff_factorsThroughEmpiricalModelQuotient`).
+
+The empirical model quotient is additionally shown to be equivalent to the
+type of realizable reachable-observation sets.
 
 ## Synthesis theorem
 
-The principal synthesis result is:
+The development culminates in the theorem:
 
 ```lean
 theorem boundaryLimitedObserver_synthesis
 ```
 
-For every inhabited generative model and every admissible experiment, there exists a strict hidden extension that:
+For every inhabited generative model `M`—supplied by a latent state
+`x : M.Latent`—and every admissible experiment, the theorem constructs a model
+`Extended` such that:
 
-* belongs to the same empirical equivalence class,
-* has the same reachable observation set,
-* produces the same possible experimental outcomes,
-* and does not admit exact reconstruction of its latent state.
+- `Extended` is a strict latent cover of `M`;
+- `Extended` belongs to the same empirical equivalence class as `M`;
+- `Extended` has the same reachable observation set as `M`;
+- the experiment has the same possible outcome set under both models; and
+- `Extended` does not admit exact reconstruction of its latent state.
 
-This establishes a precise distinction between empirical equivalence and latent identity.
+The construction uses `booleanExtensionModel`. It establishes a formal
+distinction between complete agreement at the empirical boundary and identity
+of latent representation.
 
 ## Mathematical interpretation
 
-The formal result is not that a particular hidden structure must exist.
+An observation map induces an equivalence relation on latent states: states are
+identified when they generate the same accessible output. The observable
+quotient retains exactly the distinctions available through that interface.
+Likewise, `ModelObsEq` identifies generative models with the same reachable
+observations, and `EmpiricalModelQuotient` retains models only up to that
+empirical equivalence.
 
-It shows that, under the definitions used here, observer accessible information does not uniquely determine latent structure. Multiple models may remain empirically indistinguishable even when their internal state spaces differ.
-
-The theorem therefore establishes a limit on identification, not a positive metaphysical conclusion about what lies beyond the observation interface.
+The hidden-extension results show that accessible observations and
+observation-only outcomes need not determine latent cardinality, fiber size,
+or exact latent reconstructability. This is a limit on identification within
+the formal framework, not a positive claim about which latent ontology is
+physically realized.
 
 ## Project structure
 
-The primary formal development is contained in:
-
 ```text
-BoundaryObserver.lean
+BoundaryObserver.lean                 Complete Lean formalization
+BoundaryObserver/Basic.lean           Lake library module
+lakefile.toml                         Lean project and mathlib configuration
+lean-toolchain                        Pinned Lean 4 toolchain
+simulations/
+  boundary_observer/                  Finite Python models and analyses
+  tests/                              Pytest suite
+  results/                            Generated CSV, Markdown, and PNG outputs
+  run_simulations.py                  Reproducible command-line runner
+  requirements.txt                    Python dependencies
+  README.md                           Detailed simulation documentation
 ```
 
-The file is organized progressively, beginning with observer interfaces and ending with empirical quotients, universal factorization results, and the boundary limited observer synthesis theorem.
+## Lean validation
 
-## Building the project
-
-The repository uses the Lean version specified in `lean-toolchain`.
-
-From the repository directory, run:
+From the repository root:
 
 ```bash
-lake update
+lake env lean BoundaryObserver.lean
 lake build
 ```
 
-To check the primary file directly in Visual Studio Code, open:
+The complete Lean file compiles under the pinned toolchain and contains no
+unfinished `sorry` or `admit` proof commands.
 
-```text
-BoundaryObserver.lean
+## Executable simulations
+
+The executable suite illustrates finite generative models, Boolean and finite
+hidden extensions, observation fibers, admissible experiments, predicate
+success and truth profiles, empirical classes, interface refinement, strict
+coarsening, and induced finite quotient maps.
+
+The current suite contains **18 passing tests**.
+
+To reproduce all generated outputs and run the tests:
+
+```bash
+python3 -m venv simulations/.venv
+source simulations/.venv/bin/activate
+python -m pip install -r simulations/requirements.txt
+python simulations/run_simulations.py
+python -m pytest simulations/tests
 ```
 
-with the Lean 4 extension installed.
+Documentation and generated reports:
 
-## GitHub Actions
+- [Simulation guide](simulations/README.md)
+- [Generative-model simulation report](simulations/results/report.md)
+- [Interface-refinement simulation report](simulations/results/refinement_report.md)
 
-The repository includes GitHub Actions workflows for automated checking and release management.
+The runner writes reproducible CSV summaries and six PNG plots to
+`simulations/results/`.
 
-A successful build verifies that the declarations and proofs compile under the configured Lean toolchain and project dependencies.
+The Lean theorems provide the general formal results. The Python suite
+exhaustively calculates particular finite examples and verifies the executable
+implementation; it does not replace or extend the logical scope of the proofs.
 
-## Status
+## Current status
 
-The main formal argument is substantially complete.
-
-Current work includes:
-
-* final proof cleanup,
-* documentation refinement,
-* removal of remaining style warnings,
-* checking for accidental duplicated sections,
-* and preparing the repository for a stable release.
+The Lean formalization, executable finite simulations, 18-test validation
+suite, generated reports, CSV summaries, plots, and repository validation are
+complete.
