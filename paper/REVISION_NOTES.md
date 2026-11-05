@@ -1,6 +1,8 @@
 # Observer boundary manuscript revision
 
-Prepared 5 November 2026 from the draft 0.9.1 source package. No GitHub commit or push has been made.
+Initially prepared 5 November 2026 UTC from the draft 0.9.1 source package,
+before any repository commit or push. Publication and subsequent checks are
+recorded at the end of this document.
 
 ## Main corrections
 
@@ -39,4 +41,23 @@ The companion supplement retains implementation excerpts, the declaration concor
 
 `EXACT_CHANGES.diff` is a unified diff against the original package for all changed textual source files and the new regression checks. Unchanged reference-code snapshots are omitted from the diff and identified by commit. Updated vector figures are identified by hashes in `verification/revision_manifest.json`.
 
-The manuscript, supplement, and source package are prepared for review. Repository publication requires approval.
+The initial manuscript, supplement, and source package were subsequently
+approved and published in commit `ae573f0e6f66e48721bf1c0aded5860f2767b048`.
+
+## Continued source review
+
+The GitHub Lean Action CI for that commit completed successfully:
+https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/41968768664
+
+The first author of the cited grid-cell oscillation study is Giovanni di Sarra,
+not Giordano Di Sarra. The bibliography now uses the publisher's name and
+includes the published correction, DOI `10.1371/journal.pcbi.1013623`.
+Appendix N identifies that notice as a replacement of duplicated panels in the
+synthetic calibration figure. No biological conclusion is inferred from the
+present paper's finite mathematical calculations.
+
+The article remains 64 pages, with the main narrative ending on page 5. The
+updated PDF compiled without unresolved references or overfull boxes, and all
+changed pages were rendered and inspected. Formal source and Python tests are
+unchanged. `SOURCE_FOLLOWUP.diff` records the source changes after the approved
+commit; `verification/source_followup.json` records the new file hashes.

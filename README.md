@@ -21,8 +21,11 @@ conclusion in the first five pages. Detailed proofs and workings begin on page 6
 - [Correction record](paper/REVISION_NOTES.md)
 - [Exact changes against the original draft package](paper/EXACT_CHANGES.diff)
 
-The paper directory preserves the approved review package. Its revision notes
-and manifest record the checks performed before this repository publication.
+The paper directory contains the reviewed manuscript and its source package.
+Its revision notes record the mathematical review and subsequent source checks.
+The original diff and manifest describe the first reviewed version; the
+[source follow-up record](paper/verification/source_followup.json) identifies
+later citation corrections and their file hashes.
 
 The corrected interpretation distinguishes reachable observation sets from
 probability laws and temporal records. A Boolean hidden extension has no exact

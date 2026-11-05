@@ -1,6 +1,10 @@
 # Boundary Limited Observer Systems
 
-Revised 5 November 2026 from draft 0.9.1. Prepared for review; not committed to GitHub.
+Revised from draft 0.9.1 and published in this repository after author approval.
+The initial review record is dated 5 November 2026 UTC, corresponding to
+4 November in America/Chicago. A subsequent source check corrects the name
+Giovanni di Sarra and includes the published correction to the cited oscillation
+study. See `verification/source_followup.json` for the updated file hashes.
 
 ## Documents
 

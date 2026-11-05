@@ -1,0 +1,107 @@
+--- a/README.md
++++ b/README.md
+@@ -21,8 +21,11 @@
+ - [Correction record](paper/REVISION_NOTES.md)
+ - [Exact changes against the original draft package](paper/EXACT_CHANGES.diff)
+ 
+-The paper directory preserves the approved review package. Its revision notes
+-and manifest record the checks performed before this repository publication.
++The paper directory contains the reviewed manuscript and its source package.
++Its revision notes record the mathematical review and subsequent source checks.
++The original diff and manifest describe the first reviewed version; the
++[source follow-up record](paper/verification/source_followup.json) identifies
++later citation corrections and their file hashes.
+ 
+ The corrected interpretation distinguishes reachable observation sets from
+ probability laws and temporal records. A Boolean hidden extension has no exact
+--- a/paper/README.md
++++ b/paper/README.md
+@@ -1,6 +1,10 @@
+ # Boundary Limited Observer Systems
+ 
+-Revised 5 November 2026 from draft 0.9.1. Prepared for review; not committed to GitHub.
++Revised from draft 0.9.1 and published in this repository after author approval.
++The initial review record is dated 5 November 2026 UTC, corresponding to
++4 November in America/Chicago. A subsequent source check corrects the name
++Giovanni di Sarra and includes the published correction to the cited oscillation
++study. See `verification/source_followup.json` for the updated file hashes.
+ 
+ ## Documents
+ 
+--- a/paper/REVISION_NOTES.md
++++ b/paper/REVISION_NOTES.md
+@@ -1,6 +1,8 @@
+ # Observer boundary manuscript revision
+ 
+-Prepared 5 November 2026 from the draft 0.9.1 source package. No GitHub commit or push has been made.
++Initially prepared 5 November 2026 UTC from the draft 0.9.1 source package,
++before any repository commit or push. Publication and subsequent checks are
++recorded at the end of this document.
+ 
+ ## Main corrections
+ 
+@@ -39,4 +41,23 @@
+ 
+ `EXACT_CHANGES.diff` is a unified diff against the original package for all changed textual source files and the new regression checks. Unchanged reference-code snapshots are omitted from the diff and identified by commit. Updated vector figures are identified by hashes in `verification/revision_manifest.json`.
+ 
+-The manuscript, supplement, and source package are prepared for review. Repository publication requires approval.
++The initial manuscript, supplement, and source package were subsequently
++approved and published in commit `ae573f0e6f66e48721bf1c0aded5860f2767b048`.
++
++## Continued source review
++
++The GitHub Lean Action CI for that commit completed successfully:
++https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/41968768664
++
++The first author of the cited grid-cell oscillation study is Giovanni di Sarra,
++not Giordano Di Sarra. The bibliography now uses the publisher's name and
++includes the published correction, DOI `10.1371/journal.pcbi.1013623`.
++Appendix N identifies that notice as a replacement of duplicated panels in the
++synthetic calibration figure. No biological conclusion is inferred from the
++present paper's finite mathematical calculations.
++
++The article remains 64 pages, with the main narrative ending on page 5. The
++updated PDF compiled without unresolved references or overfull boxes, and all
++changed pages were rendered and inspected. Formal source and Python tests are
++unchanged. `SOURCE_FOLLOWUP.diff` records the source changes after the approved
++commit; `verification/source_followup.json` records the new file hashes.
+--- a/paper/references.bib
++++ b/paper/references.bib
+@@ -806,7 +806,7 @@
+ }
+ 
+ @article{DiSarra2025,
+-  author = {Di Sarra, Giordano and Jha, Siddharth and Roudi, Yasser},
++  author = {di Sarra, Giovanni and Jha, Siddharth and Roudi, Yasser},
+   title = {The Role of Oscillations in Grid Cells' Toroidal Topology},
+   journal = {PLOS Computational Biology},
+   volume = {21},
+@@ -814,6 +814,17 @@
+   pages = {e1012776},
+   year = {2025},
+   doi = {10.1371/journal.pcbi.1012776}
++}
++
++@article{DiSarra2025Correction,
++  author = {di Sarra, Giovanni and Jha, Siddharth and Roudi, Yasser},
++  title = {Correction: The role of oscillations in grid cells' toroidal topology},
++  journal = {PLOS Computational Biology},
++  volume = {21},
++  number = {10},
++  pages = {e1013623},
++  year = {2025},
++  doi = {10.1371/journal.pcbi.1013623}
+ }
+ 
+ @book{Shapiro1997,
+--- a/paper/sections/15_related_work.tex
++++ b/paper/sections/15_related_work.tex
+@@ -90,6 +90,8 @@
+ 
+ Toroidal organization in grid-cell population activity supplies a concrete example of structure recovered through a long measurement and reconstruction chain rather than observed without mediation \parencite{Gardner2022}. Related work has recovered toroidal organization in one-dimensional behavior and investigated how oscillatory dynamics contribute to the observed topology \parencite{Hermansen2024,DiSarra2025}. In each case, electrodes, sampling, spike sorting, behavioral variables, preprocessing, dimensionality reduction, and topological analysis participate in the accessible representation.
+ 
++The oscillation study has a published correction replacing duplicated panels in its synthetic torus calibration figure \parencite{DiSarra2025Correction}. This calibration is distinct from both its neural recordings and the finite set calculations presented here.
++
+ The relevance is methodological. A neural manifold can be a stable and informative empirical structure without being identical to the complete neural or experiential state that produced it. Future analysis should declare each map in the data-to-representation chain, test whether the recovered topology survives justified changes in preprocessing and sampling, and determine which latent alternatives remain observationally equivalent.
+ 
+ \subsection{Ultraweak photon emission and the light hypothesis}

@@ -1,0 +1,49 @@
+{
+  "review_date": "2026-11-04",
+  "timezone": "America/Chicago",
+  "base_commit": "ae573f0e6f66e48721bf1c0aded5860f2767b048",
+  "changes": [
+    "Correct first author to Giovanni di Sarra",
+    "Cite correction DOI 10.1371/journal.pcbi.1013623 in Appendix N",
+    "Record successful Lean CI for the published mathematical revision"
+  ],
+  "primary_source": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013623",
+  "lean_ci": {
+    "status": "completed",
+    "conclusion": "success",
+    "run_id": 41968768664,
+    "commit": "ae573f0e6f66e48721bf1c0aded5860f2767b048"
+  },
+  "formal_source_changed": false,
+  "python_tests_changed": false,
+  "pdf": {
+    "pages": 64,
+    "body_pages": 5,
+    "changed_pages_visually_checked": [
+      44,
+      45,
+      46,
+      47,
+      49,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "build_warnings": []
+  },
+  "files_sha256": {
+    "README.md": "83f5b578bc45bbee3508f2c5202299e0272ecb112935c778c1638d785afaa916",
+    "paper/README.md": "207d3cde5fa2c6868f480da20ab047a48ead8f35064a34b77daea06b7f27c2db",
+    "paper/REVISION_NOTES.md": "072d3d81c6eb47dc4b856b1f2f194383dc0972318fb6b28a62b3d5848595437c",
+    "paper/references.bib": "124a550b6e6c46990ceffba3330d0369ba4ec660d68b57b7ce8fab9fed80f2dd",
+    "paper/sections/15_related_work.tex": "cef61ce32069f3aefef1c2f362802d6172f2e6a2845a38d8cfba42648e7ae5f2",
+    "paper/SOURCE_FOLLOWUP.diff": "dc72b0065a63f806dedd76a3041b851fc1c981d1ee2641271b42e4c05d6cb424",
+    "paper/Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf": "8c0790778d568a2853232d7bac01cea647343ae4898d51f0857d2c4443f8c2de"
+  }
+}
