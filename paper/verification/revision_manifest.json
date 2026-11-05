@@ -1,0 +1,308 @@
+{
+  "revision_date": "2026-11-05",
+  "reference_repository": "https://github.com/ezernackchristopher97-cloud/BoundaryObserver",
+  "reference_commit": "eb96b984ae999ee6cbc0aae33c2d501c46d9540f",
+  "original_package_sha256": "59aaec6c36d42d75532a9eb6dd0c06098d28ebecb547a659df2cb2671e83135f",
+  "verification": {
+    "python_tests": {
+      "reference": 18,
+      "added": 6,
+      "passed": 24,
+      "command": "python -m pytest verification/reference_code/simulations/tests verification/test_scope_cases.py -q"
+    },
+    "csv_outputs": {
+      "count": 12,
+      "all_byte_identical": true,
+      "report": "verification/output_verification.json"
+    },
+    "lean": {
+      "source_unchanged": true,
+      "local_build_rerun": false,
+      "ci_result_observed": "success",
+      "ci_url": "https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/29449488270"
+    },
+    "diff": {
+      "file": "EXACT_CHANGES.diff",
+      "sha256": "07a3570371b40e2455bfbc1cc4b1cc6b4a028936c5356f8d2fff3d0aba07b143",
+      "changed_text_files": 33,
+      "applied_without_fuzz": true,
+      "roundtrip_bytes_match": true,
+      "scope": "Changed .tex, .bib, .py, .md and .dot source files; unchanged pinned reference code and generated binary artifacts are not represented as textual patches."
+    },
+    "pdf_build": {
+      "boundary_article_final": {
+        "pages": 64,
+        "unresolved_references_or_citations": false,
+        "overfull_boxes": false,
+        "warnings": [],
+        "underfull_spacing_diagnostics": 0
+      },
+      "boundary_supplement_final": {
+        "pages": 13,
+        "unresolved_references_or_citations": false,
+        "overfull_boxes": false,
+        "warnings": [],
+        "underfull_spacing_diagnostics": 8
+      }
+    },
+    "visual_review": "All 64 article pages and 13 supplement pages rendered and inspected. Two compact vector diagrams improve label readability."
+  },
+  "environment": {
+    "python": "3.12.14",
+    "pytest": "8.4.2",
+    "matplotlib": "3.10.8",
+    "pandas": "2.2.3",
+    "tex": "pdfTeX 1.40.25 (TeX Live 2023/Debian)",
+    "bibliography": "BibTeX/plainnat"
+  },
+  "sources_checked": [
+    {
+      "work": "Rothenberg (1971)",
+      "url": "https://doi.org/10.2307/1913267"
+    },
+    {
+      "work": "Hermann and Krener (1977)",
+      "url": "https://www.math.ucdavis.edu/~krener/1-25/10.IEEETAC77.pdf"
+    },
+    {
+      "work": "Locatello et al. (2019)",
+      "url": "https://proceedings.mlr.press/v97/locatello19a.html"
+    },
+    {
+      "work": "Gardner et al. (2022)",
+      "url": "https://www.nature.com/articles/s41586-021-04268-7"
+    },
+    {
+      "work": "Elshatlawy et al. (2025), four-author version 1",
+      "url": "https://arxiv.org/abs/2504.16225v1"
+    },
+    {
+      "work": "Abramsky et al. (2025), version 2",
+      "url": "https://arxiv.org/abs/2508.11423v2"
+    }
+  ],
+  "limitations": [
+    "No fresh local Lean build.",
+    "Additional examples are not new Lean declarations.",
+    "The remaining background bibliography is retained, not claimed as a new full-text audit.",
+    "Finite calculations and counterexamples are mathematical, not biological measurements.",
+    "No GitHub commit or push has been made."
+  ],
+  "changed_text_files": [
+    {
+      "path": "README.md",
+      "change": "modified",
+      "before_sha256": "e3718c4bd395a1d785d689a78300194d5351a670053effc9c9c39912f8b5b5dd",
+      "after_sha256": "4fb66c7ef381c07f18c66ef1d8efa9df5085c18406cfada8ecf4b58b507902f8"
+    },
+    {
+      "path": "REVISION_NOTES.md",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "60083e4c3fa2df9dc4a079644f4bbdc9a6f523771a68578121322e2bd466dc03"
+    },
+    {
+      "path": "draw_compact_diagrams.py",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "7bcb7bdca90abfed1b4ee943488c9e5a55ea4967dcb1706e78a4af284e830fe1"
+    },
+    {
+      "path": "generate_appendices.py",
+      "change": "modified",
+      "before_sha256": "d1ced0d8cc45eb974ef0fafecfd1264c8905953f9a659e2d9cb69c263dd15cbf",
+      "after_sha256": "5e76f97b24a6415e25ab96ceaaf2472d49c0061ceff5f90df32ef51777ba6f6f"
+    },
+    {
+      "path": "generate_figures.py",
+      "change": "modified",
+      "before_sha256": "c87e4baa03e613cff5a692520f1b4a43109e1ee3eba2fed002e1642cb93af34c",
+      "after_sha256": "6847b7f3fccdab8b00a2fd7788c5f4416e002352d12be2b4dc008bf72a035c50"
+    },
+    {
+      "path": "main.tex",
+      "change": "modified",
+      "before_sha256": "db524273ede54b9b18ac5318a40f9bdef851afce1c2acaf77f1eda9bb5b70bcc",
+      "after_sha256": "85c167d607cd5f0b84dc85ddeb2d7d406effc55414802721a87e4e828fa47a2b"
+    },
+    {
+      "path": "references.bib",
+      "change": "modified",
+      "before_sha256": "9e18f2c610ef58e4965287da9e54df03c4da914cf8b7e209e1c281968feb5bf3",
+      "after_sha256": "9c8ec988e20c79f29717acf25c289fe7a6de5eaffb9db7071c10efed0705bcf8"
+    },
+    {
+      "path": "sections/00_abstract.tex",
+      "change": "modified",
+      "before_sha256": "96816399374983bd8713adb6693844b1fab216c98efe2e8253f8d007ee5e78a6",
+      "after_sha256": "7e40afb0779218da0c7d4df366bd2b6e1590a870b5fa3a90014cdd485456eeb5"
+    },
+    {
+      "path": "sections/01_introduction.tex",
+      "change": "deleted",
+      "before_sha256": "2f14718643f5ca334187774afd0f94acd08e3b97eae254ef09c4746530d86b8e",
+      "after_sha256": null
+    },
+    {
+      "path": "sections/02_architecture.tex",
+      "change": "modified",
+      "before_sha256": "3005e97d9242be42889d6e745d4071578d5f37640b7513974b845f218a7ac172",
+      "after_sha256": "b537c8e7fe548999ddf0e8a1d1808768ccd2fda87614bd4cf6318431741bd103"
+    },
+    {
+      "path": "sections/04_interfaces.tex",
+      "change": "modified",
+      "before_sha256": "2faf213fb4fcc6a753d78eb445cc59fea945621f73bda57d0fad6e3ec5ec2718",
+      "after_sha256": "cef8397769d24e9d8d566df1c9bdeee6aeac7bc7993b66f2c2bb5379a47174e9"
+    },
+    {
+      "path": "sections/05_observable_quotient.tex",
+      "change": "modified",
+      "before_sha256": "c0ac2c0fc872d4df91a6a36e2e5f2dd84bb9ef17f57ff0e381042552087bb5d9",
+      "after_sha256": "ebfe68dc62090a673190272b4485ee894eea81a8aef6f3fd95fbfc431eed7db3"
+    },
+    {
+      "path": "sections/06_refinement.tex",
+      "change": "modified",
+      "before_sha256": "8008345eff691760b001aac243121141951bbf4f791312f278981ab05719e2c4",
+      "after_sha256": "af5eb42d1ba1b27ba158b8c217493ab87420155c673a395a46a111e3a6cef22a"
+    },
+    {
+      "path": "sections/07_models_experiments.tex",
+      "change": "modified",
+      "before_sha256": "9eb4c57fb96004449b702d954306692ab1f75a292098fceb0a87d0240d06b24b",
+      "after_sha256": "0421cc2b49289bfe7927fdb4bf9f56fd0b61d0165d6d8777b9ebc14833fa4cad"
+    },
+    {
+      "path": "sections/08_predicates_identifiability.tex",
+      "change": "modified",
+      "before_sha256": "7f8e233c44f8c719a3ad7cf8dc0cbfd42919de810258cf29e0f4bfe47112b3f9",
+      "after_sha256": "649315792706ada76527f45882ae304299f38482cfe2bb1ee364655d63641866"
+    },
+    {
+      "path": "sections/09_hidden_extensions.tex",
+      "change": "modified",
+      "before_sha256": "21ad51679f80fd6481765385dc852a6054970f86effbb0ccd541b763584fa054",
+      "after_sha256": "27632e38e6bddc36596984d65e3ecd78158cc2a28e17f8b300b40a8e305626ef"
+    },
+    {
+      "path": "sections/10_empirical_quotient.tex",
+      "change": "modified",
+      "before_sha256": "e4c1636484a3668f9c2f4afc674234708bdca77cf70356fdd38b016a48cad939",
+      "after_sha256": "20b7aecd36f665c39e247dbc215f36b23fa73ff5d2311baeb4c486a4d3fd2d55"
+    },
+    {
+      "path": "sections/11_synthesis.tex",
+      "change": "modified",
+      "before_sha256": "d2b4fde0d1f7251a9676c88999d9b549b1538f270d08bc3618a4586404c07b8c",
+      "after_sha256": "72f1f266f734dd9581a60331c388b259923631a48c203a7e92d8833d6deca923"
+    },
+    {
+      "path": "sections/12_computational_methods.tex",
+      "change": "modified",
+      "before_sha256": "cf2a4d9ed7e187acef2cea44a07697785e3ade6e2aea5078e793e08a315625dc",
+      "after_sha256": "bfff552a6a8cc6d4fb302acb1b9188ae2f7cb4fbc84c93ecf6724cb9d08dd97a"
+    },
+    {
+      "path": "sections/13_results.tex",
+      "change": "modified",
+      "before_sha256": "50b7a0e5c69cdde1717e0a7743162a6e423b8eb82205a5f4903686be6c7ff82f",
+      "after_sha256": "e67d08e8885f03e3ed9acd673388337e36fcf91e3ebdad147189c322af1b37f2"
+    },
+    {
+      "path": "sections/14_significance.tex",
+      "change": "deleted",
+      "before_sha256": "4b2f1b701d5af870f14aa89abbbd3a8d10756c55dd04a667ae05fe802f548aed",
+      "after_sha256": null
+    },
+    {
+      "path": "sections/17_limitations.tex",
+      "change": "modified",
+      "before_sha256": "8565623bc5ccc63b052334724e81e1a8900a171f19ea4eb5168cbfb3800b5eb1",
+      "after_sha256": "696d471f287018a37df04f5aef83066dcb17f06bcf1f1e203820d6d799014bc6"
+    },
+    {
+      "path": "sections/18_conclusion.tex",
+      "change": "deleted",
+      "before_sha256": "d799ea2bdbfdf6b06404a007cbe5bad62c4af482dfcbef0e7f4bcaa6e3758bc6",
+      "after_sha256": null
+    },
+    {
+      "path": "sections/app_a_declarations.tex",
+      "change": "modified",
+      "before_sha256": "e5351618c11364e30daba226a66e1ea09d23a996390299a89abd612affe45cc8",
+      "after_sha256": "3b25f7a88f85759d8c398ea0ad6cba301ca7cfd1f73652c482bc0ca7b5d53159"
+    },
+    {
+      "path": "sections/app_b_full_data.tex",
+      "change": "modified",
+      "before_sha256": "8d6e644a11dc2c70ab6164014ddd88463df4058af773f0ec4604681f178fe6d5",
+      "after_sha256": "5497c9504c47782c70479d3facad06f1297a786190f7b2c89d0909c843158be4"
+    },
+    {
+      "path": "sections/app_c_original_figures.tex",
+      "change": "modified",
+      "before_sha256": "4da946bfa52e00d5cc2e056c1f26d5d567fbe0c09770060d4b310b991d259169",
+      "after_sha256": "517dd725bc4441d0b8ecdb4365afba3d03b832b689d374d4101e7da38938734e"
+    },
+    {
+      "path": "sections/app_d_provenance.tex",
+      "change": "modified",
+      "before_sha256": "10c1da9e87a7c996c7e1e057cb7c81a8446a6da519795006d25c451de48f7c6f",
+      "after_sha256": "71cb05ec30f33f165b717fe2b8dd9193ef063f9289128f19647d6bd55a1948c0"
+    },
+    {
+      "path": "sections/app_motivation.tex",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "f56a2d79d17a53ac1856ec777d01534eeae724c4586e6d526b254b7b6d571cfb"
+    },
+    {
+      "path": "sections/app_scope_checks.tex",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "2accad4c5f3af84de3a1346a36f4b5178db2db833f65c4210174a56b91bdb6e1"
+    },
+    {
+      "path": "sections/main_body.tex",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "8cd62d76137572e23d42e956a5635754877177fe255f6233358d52bc9badc369"
+    },
+    {
+      "path": "supplement.tex",
+      "change": "modified",
+      "before_sha256": "e2ebacefeee1e548edcf30f2e134311636bdbae8ad6657630b40bbc005d2ad64",
+      "after_sha256": "07459df64602c4e368224b752a66330f98bb508c3747c040703cb2116fc136bd"
+    },
+    {
+      "path": "verification/test_scope_cases.py",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "b6ef23bffd687b06771db1c0cacfc87fab2e38e5b8500223436e1e20a9adee57"
+    },
+    {
+      "path": "verification/verify_outputs.py",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "35a150497c01b441a7bae5a9c12a5c0bd09ae923b1c4c1da75b22fa51970d2f1"
+    }
+  ],
+  "reviewed_pdfs": {
+    "Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf": {
+      "sha256": "13310598e62b43e7a53749c62d41f2453cbfa182512834f723858b27f3235db8",
+      "pages": 64
+    },
+    "Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf": {
+      "sha256": "f78240236340294d738e445d59903fa351ebec052d0b074fef44dd31faba5f02",
+      "pages": 13
+    }
+  },
+  "updated_figures": {
+    "concept_interface_refinement.pdf": "a87ac4c43b59a0e2291d397ed5e696f6b9437946f565b19e74bc4d979a68a966",
+    "concept_interface_refinement.svg": "27abc7a430737752bcf2e193df58a7f4867cb18bf40bd1e4b94ee02e75e702a1",
+    "concept_hidden_extension.pdf": "da32e1d65e021466d6f943d8847135a5fe90000c9fc0480926e5eb2bdacaa485",
+    "concept_hidden_extension.svg": "dd97b1b050b4c5c9a4d0902339800f68bb3c3585202dd784463b25e2ec6895a8"
+  },
+  "pinned_formal_source_sha256": "43560499c36ba6ca045b8250a86c89aba98467d5c2e21fd307fb31f1e200e59e"
+}

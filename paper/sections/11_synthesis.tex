@@ -1,0 +1,82 @@
+\section{Synthesis theorem}
+\label{sec:synthesis}
+
+The preceding results combine into one constructive theorem. The theorem begins with an arbitrary inhabited model and an arbitrary admissible experiment. It returns a strict hidden extension that preserves the complete accessible boundary while preventing exact latent reconstruction.
+
+\begin{theorem}[Boundary limited observer synthesis]
+Let \(\Model=(X_\Model,\pi_\Model)\) be a generative model, let \(x_0\in X_\Model\) be an inhabited witness, and let \(e:O\to R\) be an admissible experiment. Then there exists a model \(\Extended\) such that:
+\begin{enumerate}[label=(\roman*)]
+\item \(\Extended\) is a strict latent cover of \(\Model\);
+\item the empirical classes are equal, \(q_{\Emp}(\Extended)=q_{\Emp}(\Model)\), equivalently \(\Extended\approx\Model\);
+\item \(\Obs(\Extended)=\Obs(\Model)\);
+\item \(\Out_e(\Extended)=\Out_e(\Model)\); and
+\item \(\Extended\) has no exact latent decoder.
+\end{enumerate}
+\label{thm:synthesis}
+\end{theorem}
+
+\begin{proof}
+Choose the Boolean extension
+\[
+X_{\Extended}=X_\Model\times\bool
+\]
+and define
+\[
+\pi_{\Extended}(x,b)=\pi_\Model(x).
+\]
+Define the projection
+\[
+p:X_{\Extended}\to X_\Model,
+\qquad
+p(x,b)=x.
+\]
+The projection is surjective. For each \(x\in X_\Model\), the state \((x,0)\) maps to \(x\). It also preserves observation because
+\[
+\pi_{\Extended}(x,b)=\pi_\Model(p(x,b)).
+\]
+Thus \(\Extended\) is a latent cover of \(\Model\).
+
+The cover is strict. Use the supplied witness \(x_0\in X_\Model\). Then
+\[
+(x_0,0)\neq(x_0,1)
+\]
+but
+\[
+p(x_0,0)=x_0=p(x_0,1).
+\]
+Hence the projection is noninjective.
+
+Every latent cover is empirically equivalent to its base. Therefore
+\[
+\Extended\approx\Model
+\]
+and
+\[
+\Obs(\Extended)=\Obs(\Model).
+\]
+By empirical outcome invariance,
+\[
+\Out_e(\Extended)=\Out_e(\Model).
+\]
+Finally, the two distinct extended states \((x_0,0)\) and \((x_0,1)\) have equal observations:
+\[
+\pi_{\Extended}(x_0,0)=\pi_\Model(x_0)=\pi_{\Extended}(x_0,1).
+\]
+The extended observation map is noninjective. An exact latent decoder would imply injectivity. Therefore no exact latent decoder exists for \(\Extended\).
+\end{proof}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/concept_synthesis_dependency.pdf}
+\caption{Dependency structure of the synthesis theorem. The result combines fiber based reconstruction limits, model outcome invariance, strict hidden extensions, and empirical quotient structure.}
+\label{fig:dependency}
+\end{figure}
+
+\subsection{What the theorem establishes}
+
+The theorem establishes a logical separation between empirical completeness and latent completeness. The extension agrees with the base on the entire reachable observation set. It therefore agrees under every fixed observation only experiment, including the identity experiment. The extension has distinct hidden labels and no exact decoder. If the original model is exactly decodable, their decoder statuses differ. If the original already has no decoder, both statuses are false.
+
+The theorem also identifies the additional burden carried by a uniqueness claim. To conclude that one latent representation is uniquely determined, the argument must use assumptions not contained in reachable observation equality alone. Such assumptions may include dynamical constraints, causal interventions, regularity conditions, minimality, priors, known cardinality, or a refined observation interface. The theorem does not decide which additional assumptions are scientifically justified. It shows why some additional condition is required.
+
+\subsection{What the theorem does not establish}
+
+The theorem does not establish that the Boolean extension is the physically realized model. It does not establish that every inaccessible distinction exists in nature. It does not establish that improved measurement can never refine the empirical class. It does not establish that approximate or probabilistic reconstruction is impossible. It establishes nonuniqueness relative to the specified observation boundary and model class.

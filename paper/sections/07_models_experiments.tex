@@ -1,0 +1,115 @@
+\section{Generative models and admissible experiments}
+\label{sec:models}
+
+The state level framework extends to models with different latent spaces. The common comparison object is the accessible observation space. Comparing models by the outputs they can generate is adjacent to structural identifiability and statistical experiment theory, although the present definition uses equality of reachable sets rather than equality of distributions or parameterized trajectories \parencite{Rothenberg1971,WalterPronzato1997,Blackwell1951,Torgersen1991}.
+
+\begin{definition}[Generative model]
+A generative model over an observation space \(O\) is a pair
+\[
+\Model=(X_\Model,\pi_\Model),
+\]
+where \(X_\Model\) is the latent state space and \(\pi_\Model:X_\Model\to O\) is the observation map.
+\end{definition}
+\begin{definition}[Reachable observation set]
+The reachable observation set of \(\Model\) is
+\[
+\Obs(\Model)
+=
+\{\pi_\Model(x):x\in X_\Model\}
+=
+im(\pi_\Model).
+\]
+\end{definition}
+\begin{definition}[Empirical equivalence]
+Two models \(\Model\) and \(\Model'\) are empirically equivalent when
+\[
+\Model\approx\Model'
+\quad\Longleftrightarrow\quad
+\Obs(\Model)=\Obs(\Model').
+\]
+\end{definition}
+Empirical equivalence is reflexive, symmetric, and transitive because set equality has those properties. The relation compares what the models can produce at the specified observation boundary. It does not compare latent identity directly.
+
+\subsection{Observation only experiments}
+
+An admissible experiment is intentionally restricted to the accessible observation. This follows the general methodological separation between an unobserved model state and the experiment or decision rule applied to its observable output \parencite{Blackwell1953,LeCam1986,LeCamYang2000}.
+
+\begin{definition}[Admissible experiment]
+An admissible experiment is a function
+\[
+e:O\to R.
+\]
+Its input is an accessible observation. It does not receive a latent state.
+\end{definition}
+\begin{definition}[Possible outcome set]
+The possible outcome set of \(e\) under \(\Model\) is
+\[
+\Out_e(\Model)
+=
+\{e(\pi_\Model(x)):x\in X_\Model\}
+=
+e[\Obs(\Model)].
+\]
+\end{definition}
+\begin{theorem}[Empirical equivalence preserves all admissible outcomes]
+If \(\Model\approx\Model'\), then
+\[
+\Out_e(\Model)=\Out_e(\Model')
+\]
+for every admissible experiment \(e:O\to R\).
+\label{thm:outcomeinvariance}
+\end{theorem}
+
+\begin{proof}
+Empirical equivalence gives \(\Obs(\Model)=\Obs(\Model')\). Applying the same function \(e\) to equal sets gives
+\[
+e[\Obs(\Model)]=e[\Obs(\Model')].
+\]
+These images are the two possible outcome sets.
+\end{proof}
+The theorem applies to arbitrary result types. A Boolean test, categorical classifier, numerical compression, and identity map are all admissible experiments when their domain is \(O\).
+
+\begin{definition}[Experimental separation]
+An experiment separates \(\Model\) and \(\Model'\) when
+\[
+\Out_e(\Model)\neq\Out_e(\Model').
+\]
+\end{definition}
+\begin{corollary}[No admissible separation inside one empirical class]
+If \(\Model\approx\Model'\), no admissible experiment separates the models.
+\end{corollary}
+\subsection{The identity experiment}
+
+The identity experiment retains the complete accessible observation value.
+
+\begin{definition}[Identity experiment]
+Define
+\[
+e_{\id}:O\to O,
+\qquad
+e_{\id}(o)=o.
+\]
+\end{definition}
+\begin{proposition}
+For every model \(\Model\),
+\[
+\Out_{e_{\id}}(\Model)=\Obs(\Model).
+\]
+\end{proposition}
+
+\begin{proof}
+The image of \(\Obs(\Model)\) under the identity function is \(\Obs(\Model)\) itself.
+\end{proof}
+The identity experiment is useful because it rules out an explanation based only on downstream compression. Even when the experiment returns every reachable accessible observation unchanged, the observation set may still fail to determine latent cardinality, fiber structure, or exact reconstructability.
+
+\subsection{Properties determined by experiments}
+
+Let \(P\) be a property of generative models. The property is determined by a fixed experiment \(e\) when there exists a criterion \(C\) on possible outcome sets such that
+\[
+P(\Model)
+\quad\Longleftrightarrow\quad
+C(\Out_e(\Model))
+\]
+for every model \(\Model\). Any property determined in this way is invariant under empirical equivalence, because empirically equivalent models have equal outcome sets.
+
+This observation becomes decisive after strict hidden extensions are introduced. For \(O\neq\varnothing\), the identity model and its Boolean extension have different decoder statuses inside one empirical class. Therefore it cannot be determined by any admissible experiment, including the identity experiment.

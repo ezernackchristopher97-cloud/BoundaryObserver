@@ -1,0 +1,12 @@
+
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.14", nodesep="0.60", ranksep="0.55", splines=polyline];
+  node [shape=box, style="rounded,filled", fillcolor="white", color="#334155", fontname="Helvetica", fontsize=10.5, margin="0.18,0.11"];
+  edge [color="#475569", penwidth=1.25, arrowsize=0.75, fontname="Helvetica", fontsize=9];
+  XH [label="Extended latent space\nX_M x H"];
+  X [label="Base latent space\nX_M"];
+  O [label="Accessible observation space\nO"];
+  XH -> X [label="surjective projection\np(x,h)=x"];
+  X -> O [label="pi_M"];
+  XH -> O [label="pi_MH(x,h)=pi_M(x)", style=dashed, constraint=false];
+}

@@ -1,0 +1,108 @@
+{
+  "repository": "ezernackchristopher97-cloud/BoundaryObserver",
+  "commit": "eb96b984ae999ee6cbc0aae33c2d501c46d9540f",
+  "csv_files": {
+    "collapsed_pairs.csv": {
+      "sha256": "fb93cae43a10af761f925acebbb687b9b06389075aaa6eaf5e4105940dab1425",
+      "git_blob_sha": "fa8eff2619173f49421cdb22f20b4e27708924ff",
+      "rows_excluding_header": 24
+    },
+    "empirical_quotient.csv": {
+      "sha256": "37a9cdcb8847198aee05727742cc4dc8d3f4e215d9d6d297cc68d4547f711a0d",
+      "git_blob_sha": "f3b32c8e14b121230b596f9ad859147da10f835b",
+      "rows_excluding_header": 2
+    },
+    "experiment_outcomes.csv": {
+      "sha256": "10eec139e293a33a58424740312d8b6b1702e25bec9b633d8599b4646f6a585f",
+      "git_blob_sha": "7aab2b56cd54b370f85568091e8ee870d7e9572b",
+      "rows_excluding_header": 28
+    },
+    "interface_summary.csv": {
+      "sha256": "a994ab6d3aff01f1f0a3b594834c6cbbc40270a467688d4231f878ec02713e8a",
+      "git_blob_sha": "421487d5c9cef7cc33eeade66d3ca795bcdc6121",
+      "rows_excluding_header": 4
+    },
+    "model_summary.csv": {
+      "sha256": "101ecbd8c7897a8416d228f2e00c993fe199fb91f3b8811445438b3a7d831d66",
+      "git_blob_sha": "754a77f53d49d795b6012c2e4acc8a82c24066a7",
+      "rows_excluding_header": 8
+    },
+    "multiplicity_summary.csv": {
+      "sha256": "47b840fda440b714594a3739eb20d47765ce57b0cb468d0596ad34125e58bbcb",
+      "git_blob_sha": "50b3754b844c2dc0e623a848b5451a26b804f7df",
+      "rows_excluding_header": 5
+    },
+    "nonidentifiable_properties.csv": {
+      "sha256": "965c25f65c1d47a59ef121a5b6a8515f48c6300ef2f51426a0b27fb022da2c06",
+      "git_blob_sha": "fb0af96c7411e8de91b5a9e6c39034cea8093538",
+      "rows_excluding_header": 4
+    },
+    "observation_fibers.csv": {
+      "sha256": "1add4d9a8d1a7c7441ef9afa9df1a11d00a2e1487f55fc875ccb365204f622c1",
+      "git_blob_sha": "e7708885ecc8c87e8bccaa84ccdfe1a3b8bfc668",
+      "rows_excluding_header": 45
+    },
+    "predicate_success_profiles.csv": {
+      "sha256": "b426139bedb06cce96066eafc92a113ce4b36165d237c9f9d7b33284d64b24ab",
+      "git_blob_sha": "b01193699afbc3252bf3b5072740c0378ac13908",
+      "rows_excluding_header": 21
+    },
+    "predicate_truth_profiles.csv": {
+      "sha256": "6f0ec0d22fd1c984fdd54ba02dbcc25cbb7dec53b257e1fcf1a7b74521df74c6",
+      "git_blob_sha": "bf36618ee0153095658d6012c5fa6b21bd464790",
+      "rows_excluding_header": 21
+    },
+    "quotient_maps.csv": {
+      "sha256": "c7e7cd00645d2fae4f2f76a2c60135ca73251f705898ba0132422fc387d5e1a6",
+      "git_blob_sha": "498dacd13751007a28513279eebc482b5d617ae8",
+      "rows_excluding_header": 36
+    },
+    "refinement_summary.csv": {
+      "sha256": "696a0f4fad4c683b603b7a73cc5e3210a1eb95492e5d0a16d9eb13fce1e9d85f",
+      "git_blob_sha": "b9cfae935abf67841781c24467610359f2b7df39",
+      "rows_excluding_header": 5
+    }
+  },
+  "original_png_files": {
+    "collapsed_pairs_by_refinement.png": {
+      "sha256": "91a894d1c8634ca7c9f73ad3e63446d4b1a2488492f20b1fb163b1f727628e43",
+      "git_blob_sha": "1a157b4e0882c1dc9e7fed695fea258fed222b09"
+    },
+    "experiment_outcome_count_vs_hidden_multiplicity.png": {
+      "sha256": "df0f812c2b8f998cc9d788b125661bf90cac38d06116aa0846a271d61ac57020",
+      "git_blob_sha": "bcd6abd0a880688512bffff3ac925ff1ea418a91"
+    },
+    "latent_state_count_vs_hidden_multiplicity.png": {
+      "sha256": "dbafae8d09c89318ca8c9c3d8835b259b7890f5d15a34a8f6262da394173e05b",
+      "git_blob_sha": "5b664fbf1b20cfc8e718ff6b1f67ae8a9c424c99"
+    },
+    "maximum_fiber_size_vs_hidden_multiplicity.png": {
+      "sha256": "f8e6cdf1719772d3026494a68143d7de701821721add327c72dac1f1ee912b7f",
+      "git_blob_sha": "718ae19a5c4333d5f3293833157eb3678711c8d4"
+    },
+    "observable_quotient_size_by_interface.png": {
+      "sha256": "0cdd893264dabb2fe8292e985b327e0d06eb2e1849729623f46d68a65eeb48b0",
+      "git_blob_sha": "abbbd4d2be80f21d1e8d4689ce3983da0465117d"
+    },
+    "reachable_observation_count_vs_hidden_multiplicity.png": {
+      "sha256": "1f808bdeb89a56126193e9e2a9626aa3af10fb2fb0f6f9b840718d12f3167360",
+      "git_blob_sha": "132c4d2fe9989143876be796e7bfa87f76d064a3"
+    }
+  },
+  "vector_figures": [
+    "concept_empirical_quotient.pdf",
+    "concept_hidden_extension.pdf",
+    "concept_interface_refinement.pdf",
+    "concept_observable_quotient.pdf",
+    "concept_observation_fibers.pdf",
+    "concept_recursive_architecture.pdf",
+    "concept_synthesis_dependency.pdf",
+    "repo_collapsed_pairs_by_refinement.pdf",
+    "repo_experiment_outcome_count_vs_hidden_multiplicity.pdf",
+    "repo_latent_state_count_vs_hidden_multiplicity.pdf",
+    "repo_maximum_fiber_size_vs_hidden_multiplicity.pdf",
+    "repo_observable_quotient_size_by_interface.pdf",
+    "repo_reachable_observation_count_vs_hidden_multiplicity.pdf",
+    "supplemental_collision_count_from_repository_csv.pdf"
+  ]
+}

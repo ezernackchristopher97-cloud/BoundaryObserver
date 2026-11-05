@@ -1,0 +1,56 @@
+\section{Executable implementation excerpts}
+
+The following excerpts are copied from the repository implementation at commit \nolinkurl{eb96b984ae999ee6cbc0aae33c2d501c46d9540f}. They are included to show the executable operations underlying the finite summaries. The complete source remains in the repository.
+
+\subsection{Collision count}
+\begin{lstlisting}[language=Python]
+@property
+def latent_collision_count(self) -> int:
+    return sum(
+        comb(len(fiber), 2)
+        for fiber in self.observation_fibers().values()
+    )
+\end{lstlisting}
+
+\subsection{Finite hidden extension}
+\begin{lstlisting}[language=Python]
+latent_states = tuple(
+    (state, hidden)
+    for state in base.latent_states
+    for hidden in range(multiplicity)
+)
+observation_by_state = {
+    state: base.observe(state[0])
+    for state in latent_states
+}
+\end{lstlisting}
+
+\subsection{Observation only outcomes}
+\begin{lstlisting}[language=Python]
+def possible_outcomes(self, model):
+    return frozenset(
+        self.transform(observation)
+        for observation in model.reachable_observations
+    )
+\end{lstlisting}
+
+\subsection{Finite empirical quotient grouping}
+\begin{lstlisting}[language=Python]
+grouped = {}
+for model in models:
+    grouped.setdefault(
+        model.reachable_observations, []
+    ).append(model)
+\end{lstlisting}
+
+\subsection{Collapsed pairs under coarsening}
+\begin{lstlisting}[language=Python]
+return tuple(
+    (left, right)
+    for left, right in combinations(
+        self.fine.world_states, 2
+    )
+    if not self.fine.observationally_equivalent(left, right)
+    and self.coarse.observationally_equivalent(left, right)
+)
+\end{lstlisting}

@@ -1,0 +1,18 @@
+
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.12", nodesep="0.24", ranksep="0.72", splines=spline];
+  node [fontname="Helvetica", fontsize=10];
+  edge [color="#475569", penwidth=1.2, arrowsize=0.72];
+  subgraph clusterX {
+    label="Source or latent states X"; color="#94a3b8"; style="rounded";
+    x1 [shape=circle, label="x1"]; x2 [shape=circle, label="x2"]; x3 [shape=circle, label="x3"];
+    x4 [shape=circle, label="x4"]; x5 [shape=circle, label="x5"]; x6 [shape=circle, label="x6"];
+  }
+  subgraph clusterO {
+    label="Accessible observations O"; color="#94a3b8"; style="rounded";
+    o1 [shape=box, style="rounded,filled", fillcolor="white", label="o1\nfiber {x1,x2}"];
+    o2 [shape=box, style="rounded,filled", fillcolor="white", label="o2\nfiber {x3}"];
+    o3 [shape=box, style="rounded,filled", fillcolor="white", label="o3\nfiber {x4,x5,x6}"];
+  }
+  x1 -> o1; x2 -> o1; x3 -> o2; x4 -> o3; x5 -> o3; x6 -> o3;
+}

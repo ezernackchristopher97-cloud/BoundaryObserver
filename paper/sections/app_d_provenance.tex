@@ -1,0 +1,50 @@
+\section{Data provenance and file integrity}
+\label{app:provenance}
+
+The manifest was generated from the files included with this paper. Git blob hashes were calculated with \texttt{git hash-object}. SHA256 hashes were calculated from the file bytes. The full hashes are stored in \texttt{data\_manifest.json}; abbreviated Git blob hashes are printed below.
+
+\begin{longtable}{@{}lrrl@{}}
+\caption{Committed CSV provenance}\label{tab:manifest}\\
+\toprule
+File & Data rows & Git blob SHA prefix & Role \\
+\midrule
+\endfirsthead
+\toprule
+File & Data rows & Git blob SHA prefix & Role \\
+\midrule
+\endhead
+collapsed\_pairs.csv & 24 & \texttt{fa8eff261917} & Unaggregated strict collapse records \\
+empirical\_quotient.csv & 2 & \texttt{f3b32c8e14b1} & Finite empirical classes \\
+experiment\_outcomes.csv & 28 & \texttt{7aab2b56cd54} & Possible outcome sets \\
+interface\_summary.csv & 4 & \texttt{421487d5c9ce} & Finite interface summaries \\
+model\_summary.csv & 8 & \texttt{754a77f53d49} & All finite model summaries \\
+multiplicity\_summary.csv & 5 & \texttt{50b3754b844c} & Hidden multiplicity family \\
+nonidentifiable\_properties.csv & 4 & \texttt{fb0af96c7411} & Latent property variation \\
+observation\_fibers.csv & 45 & \texttt{e7708885ecc8} & Unaggregated observation fibers \\
+predicate\_success\_profiles.csv & 21 & \texttt{b01193699afb} & Existential predicate profiles \\
+predicate\_truth\_profiles.csv & 21 & \texttt{bf36618ee015} & Complete finite truth profiles \\
+quotient\_maps.csv & 36 & \texttt{498dacd13751} & Unaggregated quotient map entries \\
+refinement\_summary.csv & 5 & \texttt{b9cfae935abf} & Refinement and quotient map summary \\
+\bottomrule
+\end{longtable}
+
+The original repository PNG files are also hash recorded. The vector paper figures are generated products and are not represented as committed repository PNGs. The collision plot is explicitly marked supplemental because no collision PNG is produced by the current repository runner.
+
+\subsection{Validation record}
+\begin{table}[H]
+\centering
+\caption{Repository validation record used by the paper}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Check & Recorded result \\
+\midrule
+Local Lean compilation in this revision & Not rerun \\
+Repository Lean CI & Successful for the pinned commit; \url{https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/29449488270} \\
+Unfinished proof commands & None in project source \\
+Simulation runner & Completed all Boolean, multiplicity, experiment, predicate, quotient, and refinement assertions \\
+Automated tests & 18 repository tests and 6 revision regression tests passed \\
+CSV reproduction & All 12 files byte identical to the archived outputs \\
+Repository state & Commit \RepoCommit \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -1,0 +1,161 @@
+\begin{landscape}
+\section{Repository data tables}
+\label{app:fulldata}
+
+This appendix prints the principal committed finite records. The complete machine readable files are included under \texttt{data/original\_csv/}. No values in these tables were inferred from figure positions.
+
+\subsection{Complete model summary}
+
+\scriptsize
+\begin{longtable}{@{}lrrrrrrccc@{}}
+\caption{Complete \texttt{model\_summary.csv}}\label{tab:fullmodelsummary}\\
+\toprule
+Model & Latent & Reachable & Avg fiber & Max fiber & Collisions & Multiplicity & Injective & Decoder & Hidden kind \\
+\midrule
+\endfirsthead
+\toprule
+Model & Latent & Reachable & Avg fiber & Max fiber & Collisions & Multiplicity & Injective & Decoder & Hidden kind \\
+\midrule
+\endhead
+injective\_base & 6 & 6 & 1.00 & 1 & 0 & 1 & True & True & none \\
+noninjective\_base & 6 & 3 & 2.00 & 2 & 3 & 1 & False & False & none \\
+boolean\_hidden\_extension & 12 & 6 & 2.00 & 2 & 6 & 2 & False & False & boolean \\
+injective\_base\_1\_fold\_extension & 6 & 6 & 1.00 & 1 & 0 & 1 & True & True & finite \\
+injective\_base\_2\_fold\_extension & 12 & 6 & 2.00 & 2 & 6 & 2 & False & False & finite \\
+injective\_base\_3\_fold\_extension & 18 & 6 & 3.00 & 3 & 18 & 3 & False & False & finite \\
+injective\_base\_5\_fold\_extension & 30 & 6 & 5.00 & 5 & 60 & 5 & False & False & finite \\
+injective\_base\_8\_fold\_extension & 48 & 6 & 8.00 & 8 & 168 & 8 & False & False & finite \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+
+\begin{landscape}
+\subsection{Complete experiment outcome records}
+\scriptsize
+\begin{longtable}{@{}p{0.13\linewidth}p{0.27\linewidth}rp{0.25\linewidth}rc@{}}
+\caption{Complete \texttt{experiment\_outcomes.csv}}\label{tab:fullexperiments}\\
+\toprule
+Experiment & Model & Multiplicity & Possible outcomes & Count & Matches base \\
+\midrule
+\endfirsthead
+\toprule
+Experiment & Model & Multiplicity & Possible outcomes & Count & Matches base \\
+\midrule
+\endhead
+identity & injective\_base & 1 & \{0, 1, 2, 3, 4, 5\} & 6 & True \\
+identity & boolean\_hidden\_extension & 2 & \{0, 1, 2, 3, 4, 5\} & 6 & True \\
+identity & injective\_base\_1\_fold\_extension & 1 & \{0, 1, 2, 3, 4, 5\} & 6 & True \\
+identity & injective\_base\_2\_fold\_extension & 2 & \{0, 1, 2, 3, 4, 5\} & 6 & True \\
+identity & injective\_base\_3\_fold\_extension & 3 & \{0, 1, 2, 3, 4, 5\} & 6 & True \\
+identity & injective\_base\_5\_fold\_extension & 5 & \{0, 1, 2, 3, 4, 5\} & 6 & True \\
+identity & injective\_base\_8\_fold\_extension & 8 & \{0, 1, 2, 3, 4, 5\} & 6 & True \\
+threshold\_at\_3 & injective\_base & 1 & \{False, True\} & 2 & True \\
+threshold\_at\_3 & boolean\_hidden\_extension & 2 & \{False, True\} & 2 & True \\
+threshold\_at\_3 & injective\_base\_1\_fold\_extension & 1 & \{False, True\} & 2 & True \\
+threshold\_at\_3 & injective\_base\_2\_fold\_extension & 2 & \{False, True\} & 2 & True \\
+threshold\_at\_3 & injective\_base\_3\_fold\_extension & 3 & \{False, True\} & 2 & True \\
+threshold\_at\_3 & injective\_base\_5\_fold\_extension & 5 & \{False, True\} & 2 & True \\
+threshold\_at\_3 & injective\_base\_8\_fold\_extension & 8 & \{False, True\} & 2 & True \\
+categorical\_partition & injective\_base & 1 & \{'high', 'low', 'middle'\} & 3 & True \\
+categorical\_partition & boolean\_hidden\_extension & 2 & \{'high', 'low', 'middle'\} & 3 & True \\
+categorical\_partition & injective\_base\_1\_fold\_extension & 1 & \{'high', 'low', 'middle'\} & 3 & True \\
+categorical\_partition & injective\_base\_2\_fold\_extension & 2 & \{'high', 'low', 'middle'\} & 3 & True \\
+categorical\_partition & injective\_base\_3\_fold\_extension & 3 & \{'high', 'low', 'middle'\} & 3 & True \\
+categorical\_partition & injective\_base\_5\_fold\_extension & 5 & \{'high', 'low', 'middle'\} & 3 & True \\
+categorical\_partition & injective\_base\_8\_fold\_extension & 8 & \{'high', 'low', 'middle'\} & 3 & True \\
+compressed\_width\_2 & injective\_base & 1 & \{0, 1, 2\} & 3 & True \\
+compressed\_width\_2 & boolean\_hidden\_extension & 2 & \{0, 1, 2\} & 3 & True \\
+compressed\_width\_2 & injective\_base\_1\_fold\_extension & 1 & \{0, 1, 2\} & 3 & True \\
+compressed\_width\_2 & injective\_base\_2\_fold\_extension & 2 & \{0, 1, 2\} & 3 & True \\
+compressed\_width\_2 & injective\_base\_3\_fold\_extension & 3 & \{0, 1, 2\} & 3 & True \\
+compressed\_width\_2 & injective\_base\_5\_fold\_extension & 5 & \{0, 1, 2\} & 3 & True \\
+compressed\_width\_2 & injective\_base\_8\_fold\_extension & 8 & \{0, 1, 2\} & 3 & True \\
+\bottomrule
+\end{longtable}
+
+\end{landscape}
+
+\subsection{Predicate records}
+The existential profile file contains 21 model and predicate rows. The truth profile file contains the corresponding 21 complete truth table rows. Every comparison column is true. The three unique base truth tables are printed below.
+\begin{table}[H]
+\centering
+\caption{Unique predicate truth tables from \texttt{predicate\_truth\_profiles.csv}}
+\begin{tabularx}{\textwidth}{@{}lXcc@{}}
+\toprule
+Predicate & Truth table & Success in base & All seven models match \\
+\midrule
+is\_even & 0:True; 1:False; 2:True; 3:False; 4:True; 5:False & True & True \\
+at\_least\_three & 0:False; 1:False; 2:False; 3:True; 4:True; 5:True & True & True \\
+is\_endpoint & 0:True; 1:False; 2:False; 3:False; 4:False; 5:True & True & True \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Empirical quotient and varying properties}
+\begin{table}[H]
+\centering
+\caption{Complete \texttt{empirical\_quotient.csv}}
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}cXlXc@{}}
+\toprule
+Class & Reachable set & Latent cardinalities & Models & Multiple cardinalities \\
+\midrule
+1 & \{0, 1, 2, 3, 4, 5\} & 6; 12; 18; 30; 48 & injective\_base; boolean\_hidden\_extension; injective\_base\_1\_fold\_extension; injective\_base\_2\_fold\_extension; injective\_base\_3\_fold\_extension; injective\_base\_5\_fold\_extension; injective\_base\_8\_fold\_extension & True \\
+2 & \{0, 1, 2\} & 6 & noninjective\_base & False \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Complete \texttt{nonidentifiable\_properties.csv}}
+\begin{tabularx}{\textwidth}{@{}Xccccc@{}}
+\toprule
+Property & Base & Extension & Varies & Reach equal & Outcomes equal \\
+\midrule
+latent cardinality & 6 & 12 & True & True & True \\
+maximum observation fiber size & 1 & 2 & True & True & True \\
+existence of an exact latent decoder & True & False & True & True & True \\
+presence of a Boolean hidden factor & False & True & True & True & True \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Complete interface and refinement summaries}
+\begin{table}[H]
+\centering
+\caption{Complete \texttt{interface\_summary.csv}}
+\begin{tabularx}{\textwidth}{@{}lrrrXrc@{}}
+\toprule
+Interface & World & Codomain & Reachable & Reachable values & Quotient & Injective \\
+\midrule
+identity\_interface & 8 & 8 & 8 & \{0, 1, 2, 3, 4, 5, 6, 7\} & 8 & True \\
+paired\_bucket\_interface & 8 & 4 & 4 & \{0, 1, 2, 3\} & 4 & False \\
+binary\_region\_interface & 8 & 2 & 2 & \{'lower', 'upper'\} & 2 & False \\
+relabeled\_identity\_interface & 8 & 8 & 8 & \{'state\_0', 'state\_1', 'state\_2', 'state\_3', 'state\_4', 'state\_5', 'state\_6', 'state\_7'\} & 8 & True \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{landscape}
+\scriptsize
+\begin{longtable}{@{}lllrrrrcccc@{}}
+\caption{Selected complete fields from \texttt{refinement\_summary.csv}}\label{tab:fullrefinement}\\
+\toprule
+Refinement & Fine & Coarse & Fine Q & Coarse Q & Collapsed & Strict & Reverse & Surjective & Injective & Bijective \\
+\midrule
+\endfirsthead
+\toprule
+Refinement & Fine & Coarse & Fine Q & Coarse Q & Collapsed & Strict & Reverse & Surjective & Injective & Bijective \\
+\midrule
+\endhead
+identity\_to\_paired & identity\_interface & paired\_bucket\_interface & 8 & 4 & 4 & True & False & True & False & False \\
+paired\_to\_region & paired\_bucket\_interface & binary\_region\_interface & 4 & 2 & 8 & True & False & True & False & False \\
+identity\_to\_region & identity\_interface & binary\_region\_interface & 8 & 2 & 12 & True & False & True & False & False \\
+identity\_to\_relabeled & identity\_interface & relabeled\_identity\_interface & 8 & 8 & 0 & False & True & True & True & True \\
+relabeled\_to\_identity & relabeled\_identity\_interface & identity\_interface & 8 & 8 & 0 & False & True & True & True & True \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+
+The files \texttt{observation\_fibers.csv}, \texttt{quotient\_maps.csv}, and \texttt{collapsed\_pairs.csv} contain the unaggregated fiber, class map, and pair records. They are included in the package because printing every latent state tuple would add length without adding a distinct result.

@@ -1,0 +1,208 @@
+\documentclass[12pt]{article}
+\pdfminorversion=7
+
+\usepackage[letterpaper,top=0.8in,bottom=0.85in,left=1in,right=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,aliascnt}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{booktabs,longtable,array,tabularx,multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{pdflscape}
+\usepackage{xurl}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit}
+\usepackage{titlesec}
+\usepackage[section]{placeins}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+\usepackage[authoryear,round]{natbib}
+\let\parencite\citep
+\let\textcite\citet
+
+\hypersetup{
+  pdftitle={Boundary Limited Observer Systems: Empirical Equivalence, Interface Refinement, and the Limits of Latent Reconstruction},
+  pdfauthor={Christopher Ezernack},
+  pdfsubject={Observer interfaces, empirical equivalence, latent nonidentifiability, and reconstruction limits}
+}
+
+\pagestyle{plain}
+\urlstyle{same}
+\setstretch{1.06}
+\setlength{\parindent}{0.25in}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.82}
+\renewcommand{\arraystretch}{1.12}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection.}{0.55em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection}{0.55em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape}
+  {\thesubsubsection}{0.55em}{}
+\titlespacing*{\section}{0pt}{2.0ex plus .4ex minus .2ex}{0.8ex}
+\titlespacing*{\subsection}{0pt}{1.6ex plus .3ex minus .2ex}{0.5ex}
+\titlespacing*{\subsubsection}{0pt}{1.3ex plus .2ex minus .2ex}{0.4ex}
+
+\captionsetup{
+  font=small,
+  labelfont=bf,
+  labelsep=period,
+  justification=raggedright,
+  singlelinecheck=false,
+  skip=6pt
+}
+\captionsetup[subfigure]{font=footnotesize,labelfont=bf,justification=centering}
+\setlist{nosep,leftmargin=2em}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{plain}
+\newaliascnt{proposition}{definition}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\newaliascnt{theorem}{definition}
+\newtheorem{theorem}[theorem]{Theorem}
+\aliascntresetthe{theorem}
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\newaliascnt{corollary}{definition}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\newaliascnt{lemma}{definition}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\theoremstyle{remark}
+\newaliascnt{remark}{definition}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\crefname{remark}{remark}{remarks}
+\Crefname{remark}{Remark}{Remarks}
+\theoremstyle{definition}
+\newaliascnt{hypothesis}{definition}
+\newtheorem{hypothesis}[hypothesis]{Hypothesis}
+\aliascntresetthe{hypothesis}
+\crefname{hypothesis}{hypothesis}{hypothesiss}
+\Crefname{hypothesis}{Hypothesis}{Hypothesiss}
+\newaliascnt{researchquestion}{definition}
+\newtheorem{researchquestion}[researchquestion]{Research Question}
+\aliascntresetthe{researchquestion}
+\crefname{researchquestion}{research question}{research questions}
+\Crefname{researchquestion}{Research Question}{Research Questions}
+
+\newcommand{\Obs}{\mathcal O}
+\newcommand{\Out}{\mathcal R}
+\newcommand{\Emp}{\mathcal E}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\card}{\operatorname{card}}
+\newcommand{\Reach}{\operatorname{Reach}}
+\newcommand{\Model}{\mathsf M}
+\newcommand{\Extended}{\mathsf M^{\ast}}
+\newcommand{\bool}{\{0,1\}}
+
+
+\newenvironment{proofstatement}
+{\begin{quote}\small\noindent\textbf{Proof statement.}\ }
+{\end{quote}}
+
+\lstdefinelanguage{Python}{
+  morekeywords={def,return,for,in,if,not,and,True,False,class,property},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+  morestring=[b]'
+}
+\lstdefinelanguage{Lean}{
+  morekeywords={theorem,def,structure,abbrev,where,by,let,have,exact,refine,constructor,fun,forall,exists,Type,Prop,Nonempty},
+  sensitive=true,
+  morecomment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  morestring=[b]"
+}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  framerule=0.35pt,
+  rulecolor=\color{black!45},
+  backgroundcolor=\color{black!2},
+  breaklines=true,
+  showstringspaces=false,
+  aboveskip=8pt,
+  belowskip=8pt
+}
+
+\begin{document}
+
+\begin{flushleft}
+{\large Christopher Ezernack}\par
+\small Department of Physics and Cognitive Science, The University of Texas at Dallas\par
+\small \texttt{christopher.ezernack@utdallas.edu}\par
+\vspace{1.25em}
+{\LARGE\bfseries Boundary Limited Observer Systems\par}
+\vspace{0.3em}
+{\large Empirical Equivalence, Interface Refinement, and the Limits of Latent Reconstruction\par}
+\vspace{0.55em}
+\end{flushleft}
+\vspace{0.5em}
+\hrule
+\vspace{0.8em}
+
+\input{sections/00_abstract}
+
+\input{sections/main_body}
+
+\clearpage
+\appendix
+\input{sections/03_preliminaries}
+\input{sections/04_interfaces}
+\input{sections/05_observable_quotient}
+\input{sections/06_refinement}
+\input{sections/07_models_experiments}
+\input{sections/08_predicates_identifiability}
+\input{sections/09_hidden_extensions}
+\input{sections/10_empirical_quotient}
+\input{sections/11_synthesis}
+\input{sections/app_scope_checks}
+\input{sections/12_computational_methods}
+\input{sections/13_results}
+\input{sections/02_architecture}
+\input{sections/15_related_work}
+\input{sections/17_limitations}
+\input{sections/app_motivation}
+
+\FloatBarrier
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

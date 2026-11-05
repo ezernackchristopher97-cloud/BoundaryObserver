@@ -1,0 +1,84 @@
+\section{Predicate profiles and empirical identifiability}
+\label{sec:predicates}
+
+A single experiment may omit accessible information. The complete family of accessible predicates removes that objection. The use of complete external tests to characterize an observational equivalence has analogues in automata and process semantics \parencite{Moore1956,Park1981,Milner1989,Rutten2000}; here the predicates range over the accessible observation space rather than over transition traces. This section shows that complete predicate agreement characterizes empirical equivalence, yet still does not determine exact latent reconstructability.
+
+\begin{definition}[Predicate success]
+Let \(p:O\to\{\mathrm{false},\mathrm{true}\}\). The predicate \(p\) can succeed under \(\Model\) when
+\[
+\exists x\in X_\Model
+\quad
+p(\pi_\Model(x))=\mathrm{true}.
+\]
+Equivalently, at least one reachable observation satisfies \(p\).
+\end{definition}
+\begin{definition}[Predicate profile]
+The predicate profile of \(\Model\) is the function
+\[
+\mathsf{PredProf}(\Model):p\longmapsto
+\bigl[p\text{ can succeed under }\Model\bigr].
+\]
+\end{definition}
+\begin{theorem}[Empirical equivalence implies predicate equivalence]
+If \(\Model\approx\Model'\), then every accessible predicate succeeds under \(\Model\) exactly when it succeeds under \(\Model'\).
+\end{theorem}
+
+\begin{proof}
+Let \(p\) succeed under \(\Model\). Then some \(o\in\Obs(\Model)\) satisfies \(p(o)\). Empirical equivalence gives \(o\in\Obs(\Model')\), so \(p\) succeeds under \(\Model'\). The reverse direction is symmetric.
+\end{proof}
+The converse uses predicates that test equality to one observation.
+
+\begin{theorem}[Complete predicate agreement implies empirical equivalence]
+Suppose every predicate \(p:O\to\{\mathrm{false},\mathrm{true}\}\) succeeds under \(\Model\) exactly when it succeeds under \(\Model'\). Then
+\[
+\Obs(\Model)=\Obs(\Model').
+\]
+\end{theorem}
+
+\begin{proof}
+Let \(o\in\Obs(\Model)\). Define the equality predicate
+\[
+p_o(a)=
+\begin{cases}
+\mathrm{true}, & a=o,\\
+\mathrm{false}, & a\neq o.
+\end{cases}
+\]
+The predicate succeeds under \(\Model\), because \(o\) is reachable. By the assumed predicate agreement, it also succeeds under \(\Model'\). Thus \(o\in\Obs(\Model')\). This proves \(\Obs(\Model)\subseteq\Obs(\Model')\). The reverse inclusion follows by symmetry.
+\end{proof}
+\begin{corollary}[Predicate profile characterization]
+Two models are empirically equivalent if and only if their complete predicate profiles are equal.
+\end{corollary}
+The complete profile therefore contains exactly the information in the reachable observation set. It is complete at the empirical boundary. It does not contain the multiplicities or identities of latent preimages.
+
+\subsection{Observation invariant and identifiable properties}
+
+Identifiability is always relative to a declared observation model and model class \parencite{Rothenberg1971,WalterPronzato1997,Raue2009,Villaverde2016}. The definitions below isolate the corresponding invariance condition for the present reachable-set equivalence.
+
+\begin{definition}[Observation invariant property]
+A model property \(P\) is observation invariant when
+\[
+\Model\approx\Model'
+\quad\Longrightarrow\quad
+\bigl(P(\Model)\Longleftrightarrow P(\Model')\bigr).
+\]
+\end{definition}
+\begin{definition}[Empirically identifiable property]
+A property is empirically identifiable in the present set based framework when its truth value is constant on every empirical equivalence class.
+\end{definition}
+The two definitions are equivalent. The terminology emphasizes two views of the same condition. Observation invariance is a relation between representatives. Empirical identifiability is a property of the quotient class.
+
+Any property determined by reachable observations, a fixed admissible experiment, or the complete predicate profile is observation invariant. The proof is the same in each case: empirically equivalent models supply equal criterion inputs.
+
+\begin{theorem}[Exact latent reconstructability is not determined by any admissible experiment]
+Assume \(O\neq\varnothing\) and a model class containing the identity model \((O,\id_O)\) and its Boolean hidden extension. For any fixed admissible experiment \(e:O\to R\), no criterion on \(\Out_e(\Model)\) determines exact decoder existence for each model in that class.
+\label{thm:noexperimentdecoder}
+\end{theorem}
+
+\begin{proof}
+A property determined by an admissible experiment must be observation invariant. Choose \(o_0\in O\) and use the identity model, which has the identity decoder. In \Cref{sec:hidden}, an exactly decodable model is paired with an empirically equivalent strict hidden extension that is not exactly decodable. Exact latent reconstructability is therefore not observation invariant. Hence no admissible experiment determines it.
+\end{proof}
+\begin{corollary}
+Under the same assumptions, exact latent reconstructability is not determined by any accessible binary test, by the identity experiment, by the full reachable observation set, or by the complete predicate profile.
+\end{corollary}
+This is stronger than a failure of one selected diagnostic. The complete collection of accessible predicates determines the empirical class, and the property still varies inside that class.

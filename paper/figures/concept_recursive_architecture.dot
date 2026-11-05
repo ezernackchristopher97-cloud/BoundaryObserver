@@ -1,0 +1,15 @@
+
+digraph G {
+  graph [rankdir=TB, bgcolor="transparent", pad="0.12", nodesep="0.30", ranksep="0.38", splines=polyline];
+  node [shape=box, style="rounded,filled", fillcolor="white", color="#334155", fontname="Helvetica", fontsize=10.5, margin="0.18,0.09", width=3.2];
+  edge [color="#475569", penwidth=1.25, arrowsize=0.75, fontname="Helvetica", fontsize=9];
+  S0 [label="Physical or model state  S(t)"];
+  A [label="Apparatus, intervention, and sampling  A_i"];
+  E [label="Finite encoding or reconstruction  E_i"];
+  O [label="Observer accessible representation  O_i"];
+  L [label="Reportable model, estimate, or claim  L_i"];
+  P [label="Prediction, intervention, or next experiment  P_i"];
+  S1 [label="Subsequent state or observation  S(t + Delta t)"];
+  S0 -> A -> E -> O -> L -> P -> S1;
+  S1 -> A [constraint=false, label="next cycle", style=dashed, minlen=2];
+}

@@ -1,0 +1,37 @@
+refinement,fine_observation,fine_class_members,coarse_observation,coarse_class_members
+identity_to_paired,0,{0},0,"{0, 1}"
+identity_to_paired,1,{1},0,"{0, 1}"
+identity_to_paired,2,{2},1,"{2, 3}"
+identity_to_paired,3,{3},1,"{2, 3}"
+identity_to_paired,4,{4},2,"{4, 5}"
+identity_to_paired,5,{5},2,"{4, 5}"
+identity_to_paired,6,{6},3,"{6, 7}"
+identity_to_paired,7,{7},3,"{6, 7}"
+paired_to_region,0,"{0, 1}",'lower',"{0, 1, 2, 3}"
+paired_to_region,1,"{2, 3}",'lower',"{0, 1, 2, 3}"
+paired_to_region,2,"{4, 5}",'upper',"{4, 5, 6, 7}"
+paired_to_region,3,"{6, 7}",'upper',"{4, 5, 6, 7}"
+identity_to_region,0,{0},'lower',"{0, 1, 2, 3}"
+identity_to_region,1,{1},'lower',"{0, 1, 2, 3}"
+identity_to_region,2,{2},'lower',"{0, 1, 2, 3}"
+identity_to_region,3,{3},'lower',"{0, 1, 2, 3}"
+identity_to_region,4,{4},'upper',"{4, 5, 6, 7}"
+identity_to_region,5,{5},'upper',"{4, 5, 6, 7}"
+identity_to_region,6,{6},'upper',"{4, 5, 6, 7}"
+identity_to_region,7,{7},'upper',"{4, 5, 6, 7}"
+identity_to_relabeled,0,{0},'state_0',{0}
+identity_to_relabeled,1,{1},'state_1',{1}
+identity_to_relabeled,2,{2},'state_2',{2}
+identity_to_relabeled,3,{3},'state_3',{3}
+identity_to_relabeled,4,{4},'state_4',{4}
+identity_to_relabeled,5,{5},'state_5',{5}
+identity_to_relabeled,6,{6},'state_6',{6}
+identity_to_relabeled,7,{7},'state_7',{7}
+relabeled_to_identity,'state_0',{0},0,{0}
+relabeled_to_identity,'state_1',{1},1,{1}
+relabeled_to_identity,'state_2',{2},2,{2}
+relabeled_to_identity,'state_3',{3},3,{3}
+relabeled_to_identity,'state_4',{4},4,{4}
+relabeled_to_identity,'state_5',{5},5,{5}
+relabeled_to_identity,'state_6',{6},6,{6}
+relabeled_to_identity,'state_7',{7},7,{7}

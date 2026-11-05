@@ -1,0 +1,29 @@
+experiment,model,hidden_multiplicity,possible_outcomes,outcome_count,matches_base_outcomes
+identity,injective_base,1,"{0, 1, 2, 3, 4, 5}",6,True
+identity,boolean_hidden_extension,2,"{0, 1, 2, 3, 4, 5}",6,True
+identity,injective_base_1_fold_extension,1,"{0, 1, 2, 3, 4, 5}",6,True
+identity,injective_base_2_fold_extension,2,"{0, 1, 2, 3, 4, 5}",6,True
+identity,injective_base_3_fold_extension,3,"{0, 1, 2, 3, 4, 5}",6,True
+identity,injective_base_5_fold_extension,5,"{0, 1, 2, 3, 4, 5}",6,True
+identity,injective_base_8_fold_extension,8,"{0, 1, 2, 3, 4, 5}",6,True
+threshold_at_3,injective_base,1,"{False, True}",2,True
+threshold_at_3,boolean_hidden_extension,2,"{False, True}",2,True
+threshold_at_3,injective_base_1_fold_extension,1,"{False, True}",2,True
+threshold_at_3,injective_base_2_fold_extension,2,"{False, True}",2,True
+threshold_at_3,injective_base_3_fold_extension,3,"{False, True}",2,True
+threshold_at_3,injective_base_5_fold_extension,5,"{False, True}",2,True
+threshold_at_3,injective_base_8_fold_extension,8,"{False, True}",2,True
+categorical_partition,injective_base,1,"{'high', 'low', 'middle'}",3,True
+categorical_partition,boolean_hidden_extension,2,"{'high', 'low', 'middle'}",3,True
+categorical_partition,injective_base_1_fold_extension,1,"{'high', 'low', 'middle'}",3,True
+categorical_partition,injective_base_2_fold_extension,2,"{'high', 'low', 'middle'}",3,True
+categorical_partition,injective_base_3_fold_extension,3,"{'high', 'low', 'middle'}",3,True
+categorical_partition,injective_base_5_fold_extension,5,"{'high', 'low', 'middle'}",3,True
+categorical_partition,injective_base_8_fold_extension,8,"{'high', 'low', 'middle'}",3,True
+compressed_width_2,injective_base,1,"{0, 1, 2}",3,True
+compressed_width_2,boolean_hidden_extension,2,"{0, 1, 2}",3,True
+compressed_width_2,injective_base_1_fold_extension,1,"{0, 1, 2}",3,True
+compressed_width_2,injective_base_2_fold_extension,2,"{0, 1, 2}",3,True
+compressed_width_2,injective_base_3_fold_extension,3,"{0, 1, 2}",3,True
+compressed_width_2,injective_base_5_fold_extension,5,"{0, 1, 2}",3,True
+compressed_width_2,injective_base_8_fold_extension,8,"{0, 1, 2}",3,True

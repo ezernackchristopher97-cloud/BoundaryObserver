@@ -1,0 +1,19 @@
+
+digraph G {
+  graph [rankdir=TB, bgcolor="transparent", pad="0.14", nodesep="0.52", ranksep="0.48", splines=polyline];
+  node [shape=box, style="rounded,filled", fillcolor="white", color="#334155", fontname="Helvetica", fontsize=10, margin="0.15,0.10"];
+  edge [color="#475569", penwidth=1.25, arrowsize=0.75, fontname="Helvetica", fontsize=9];
+  X [label="Common world X"];
+  OF [label="Fine observations O_F"];
+  OC [label="Coarse observations O_C"];
+  QF [label="Fine quotient X / ~F"];
+  QC [label="Coarse quotient X / ~C"];
+  {rank=same; OF; OC;}
+  {rank=same; QF; QC;}
+  X -> OF [label="pi_F"];
+  X -> OC [label="pi_C"];
+  OF -> OC [label="coarsen c\npi_C = c o pi_F"];
+  X -> QF [label="class_F"];
+  X -> QC [label="class_C"];
+  QF -> QC [label="induced surjection"];
+}

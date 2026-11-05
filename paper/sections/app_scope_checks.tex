@@ -1,0 +1,32 @@
+\section{Assumption checks and counterexamples}
+\label{app:scopechecks}
+These examples establish the qualifications used in the main text. They are elementary derivations and executable regression cases, not additions to the pinned Lean formalization.
+
+\subsection{Reachable collisions in a composite map}
+Let \(f:\{0,1\}\to\{0,1,2\}\) satisfy \(f(0)=0\), \(f(1)=1\). Let \(g(0)=0\), \(g(1)=g(2)=1\). The map \(g\) is noninjective, but \(g\circ f=\id_{\{0,1\}}\). Its collision lies outside the restriction of \(g\) to the reachable set \(f[X]\). Conversely, if distinct original states satisfy \(f(x)=f(y)\), then \(g(f(x))=g(f(y))\) for every downstream function \(g\). This proves the corrected composition statement.
+
+\subsection{Decoder status of an already noninjective base}
+Take \(X=\{0,1\}\), \(O=\{0\}\), and \(\pi(x)=0\). No exact decoder exists. Its Boolean extension also has a constant observation map and no decoder. Thus the extension theorem guarantees failure of decoding for the extension, while a change of decoder status additionally requires a decodable base.
+
+\subsection{Empty spaces and total decoders}
+If \(O=\varnothing\), existence of \(\pi:X\to O\) forces \(X=\varnothing\). The empty decoder is a left inverse. If \(X=\varnothing\) but \(O\neq\varnothing\), no total map \(d:O\to X\) exists, although \(\pi\) is injective. If \(X\neq\varnothing\) and \(\pi\) is injective, fix \(x_0\in X\). Define \(d(o)\) as the unique preimage for reachable \(o\), and as \(x_0\) otherwise. Then \(d\circ\pi=\id_X\). These cases justify the exact-decoder condition and the nonempty assumption in the global nonidentifiability theorems.
+
+\subsection{Equal possible outputs and different probability laws}
+For \(0<p<1\), the Bernoulli law has reachable outcomes \(\{0,1\}\). In particular, \(p=1/10\) and \(p=9/10\) share this set but differ in \(\Pr(Y=1)\). Any extension of empirical equivalence to statistical experiments must include the probability law. Equality of reachable sets alone supplies no statement about equal frequencies or likelihoods.
+
+\subsection{Temporal reconstruction and conditioning}
+For \(\dot x_1=x_2\), \(\dot x_2=0\), and \(y=x_1\), the exact solution is
+\[
+y(t)=x_1(0)+t x_2(0).
+\]
+At time zero, all values of \(x_2(0)\) share one output for a fixed \(x_1(0)\). The two-sample map is
+\[
+\begin{pmatrix}y(0)\\y(T)\end{pmatrix}
+=\begin{pmatrix}1&0\\1&T\end{pmatrix}
+\begin{pmatrix}x_1(0)\\x_2(0)\end{pmatrix}.
+\]
+Its determinant is \(T\), so it is invertible when \(T\neq0\), with
+\[
+x_1(0)=y(0),\qquad x_2(0)=\frac{y(T)-y(0)}{T}.
+\]
+If the two output errors are bounded by \(\eta\), the recovered \(x_2\) error is at most \(2\eta/|T|\). Opposite signed endpoint errors attain the bound. Invertibility alone therefore gives no uniform stability as \(T\to0\). The regression test uses rational arithmetic, so it checks the exact formulas without integration or floating point tolerances.

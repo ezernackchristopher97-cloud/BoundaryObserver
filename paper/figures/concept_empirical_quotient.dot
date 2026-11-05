@@ -1,0 +1,14 @@
+
+digraph G {
+  graph [rankdir=TB, bgcolor="transparent", pad="0.14", nodesep="0.55", ranksep="0.48", splines=polyline];
+  node [shape=box, style="rounded,filled", fillcolor="white", color="#334155", fontname="Helvetica", fontsize=10, margin="0.16,0.10"];
+  edge [color="#475569", penwidth=1.25, arrowsize=0.75, fontname="Helvetica", fontsize=9];
+  M [label="Generative models M"];
+  E [label="Empirical model quotient\nModels / empirical equivalence"];
+  R [label="Realizable reachable observation sets"];
+  P [label="Observation invariant\nproperty or measurement"];
+  M -> E [label="empirical class"];
+  E -> R [label="canonical equivalence"];
+  E -> P [label="unique descended map"];
+  M -> P [label="invariant map F", style=dashed, constraint=false];
+}

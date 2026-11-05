@@ -1,0 +1,94 @@
+{
+  "repository": "https://github.com/ezernackchristopher97-cloud/BoundaryObserver.git",
+  "commit": "eb96b984ae999ee6cbc0aae33c2d501c46d9540f",
+  "csv_files": {
+    "model_summary.csv": {
+      "sha256": "101ecbd8c7897a8416d228f2e00c993fe199fb91f3b8811445438b3a7d831d66",
+      "bytes": 880
+    },
+    "multiplicity_summary.csv": {
+      "sha256": "47b840fda440b714594a3739eb20d47765ce57b0cb468d0596ad34125e58bbcb",
+      "bytes": 729
+    },
+    "experiment_outcomes.csv": {
+      "sha256": "10eec139e293a33a58424740312d8b6b1702e25bec9b633d8599b4646f6a585f",
+      "bytes": 2137
+    },
+    "predicate_success_profiles.csv": {
+      "sha256": "b426139bedb06cce96066eafc92a113ce4b36165d237c9f9d7b33284d64b24ab",
+      "bytes": 1112
+    },
+    "predicate_truth_profiles.csv": {
+      "sha256": "6f0ec0d22fd1c984fdd54ba02dbcc25cbb7dec53b257e1fcf1a7b74521df74c6",
+      "bytes": 2062
+    },
+    "empirical_quotient.csv": {
+      "sha256": "37a9cdcb8847198aee05727742cc4dc8d3f4e215d9d6d297cc68d4547f711a0d",
+      "bytes": 413
+    },
+    "nonidentifiable_properties.csv": {
+      "sha256": "965c25f65c1d47a59ef121a5b6a8515f48c6300ef2f51426a0b27fb022da2c06",
+      "bytes": 346
+    },
+    "observation_fibers.csv": {
+      "sha256": "1add4d9a8d1a7c7441ef9afa9df1a11d00a2e1487f55fc875ccb365204f622c1",
+      "bytes": 2834
+    },
+    "interface_summary.csv": {
+      "sha256": "a994ab6d3aff01f1f0a3b594834c6cbbc40270a467688d4231f878ec02713e8a",
+      "bytes": 463
+    },
+    "refinement_summary.csv": {
+      "sha256": "696a0f4fad4c683b603b7a73cc5e3210a1eb95492e5d0a16d9eb13fce1e9d85f",
+      "bytes": 886
+    },
+    "quotient_maps.csv": {
+      "sha256": "c7e7cd00645d2fae4f2f76a2c60135ca73251f705898ba0132422fc387d5e1a6",
+      "bytes": 1635
+    },
+    "collapsed_pairs.csv": {
+      "sha256": "fb93cae43a10af761f925acebbb687b9b06389075aaa6eaf5e4105940dab1425",
+      "bytes": 917
+    }
+  },
+  "original_png_files": {
+    "latent_state_count_vs_hidden_multiplicity.png": {
+      "sha256": "dbafae8d09c89318ca8c9c3d8835b259b7890f5d15a34a8f6262da394173e05b",
+      "bytes": 43639
+    },
+    "reachable_observation_count_vs_hidden_multiplicity.png": {
+      "sha256": "1f808bdeb89a56126193e9e2a9626aa3af10fb2fb0f6f9b840718d12f3167360",
+      "bytes": 32859
+    },
+    "maximum_fiber_size_vs_hidden_multiplicity.png": {
+      "sha256": "f8e6cdf1719772d3026494a68143d7de701821721add327c72dac1f1ee912b7f",
+      "bytes": 44842
+    },
+    "experiment_outcome_count_vs_hidden_multiplicity.png": {
+      "sha256": "df0f812c2b8f998cc9d788b125661bf90cac38d06116aa0846a271d61ac57020",
+      "bytes": 50067
+    },
+    "observable_quotient_size_by_interface.png": {
+      "sha256": "0cdd893264dabb2fe8292e985b327e0d06eb2e1849729623f46d68a65eeb48b0",
+      "bytes": 41376
+    },
+    "collapsed_pairs_by_refinement.png": {
+      "sha256": "91a894d1c8634ca7c9f73ad3e63446d4b1a2488492f20b1fb163b1f727628e43",
+      "bytes": 37966
+    }
+  },
+  "vector_outputs": [
+    "collapsed_pairs_by_refinement.pdf",
+    "collapsed_pairs_by_refinement.svg",
+    "experiment_outcome_count_vs_hidden_multiplicity.pdf",
+    "experiment_outcome_count_vs_hidden_multiplicity.svg",
+    "latent_state_count_vs_hidden_multiplicity.pdf",
+    "latent_state_count_vs_hidden_multiplicity.svg",
+    "maximum_fiber_size_vs_hidden_multiplicity.pdf",
+    "maximum_fiber_size_vs_hidden_multiplicity.svg",
+    "observable_quotient_size_by_interface.pdf",
+    "observable_quotient_size_by_interface.svg",
+    "reachable_observation_count_vs_hidden_multiplicity.pdf",
+    "reachable_observation_count_vs_hidden_multiplicity.svg"
+  ]
+}

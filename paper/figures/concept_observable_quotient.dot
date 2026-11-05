@@ -1,0 +1,14 @@
+
+digraph G {
+  graph [rankdir=TB, bgcolor="transparent", pad="0.14", nodesep="0.55", ranksep="0.50", splines=polyline];
+  node [shape=box, style="rounded,filled", fillcolor="white", color="#334155", fontname="Helvetica", fontsize=10, margin="0.16,0.10"];
+  edge [color="#475569", penwidth=1.25, arrowsize=0.75, fontname="Helvetica", fontsize=9];
+  X [label="World states X"];
+  Q [label="Observable quotient\nX / observational equivalence"];
+  R [label="Reachable observation range\nim(pi) subset O"];
+  V [label="Values of an accessible quantity\nV"];
+  X -> Q [label="class map"];
+  Q -> R [label="canonical bijection"];
+  Q -> V [label="unique descended map"];
+  X -> V [label="fiber constant map f", style=dashed, constraint=false];
+}

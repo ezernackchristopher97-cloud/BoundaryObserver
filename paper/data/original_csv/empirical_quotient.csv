@@ -1,0 +1,3 @@
+empirical_class,canonical_reachable_observations,model_names,latent_cardinalities,contains_multiple_latent_cardinalities
+1,"{0, 1, 2, 3, 4, 5}",injective_base; boolean_hidden_extension; injective_base_1_fold_extension; injective_base_2_fold_extension; injective_base_3_fold_extension; injective_base_5_fold_extension; injective_base_8_fold_extension,6; 12; 18; 30; 48,True
+2,"{0, 1, 2}",noninjective_base,6,False

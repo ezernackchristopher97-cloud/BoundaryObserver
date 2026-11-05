@@ -1,0 +1,62 @@
+\begin{landscape}
+\section{Verified declaration map}
+\label{app:declarations}
+
+This appendix maps the principal human readable claims to exact declaration names in \nolinkurl{BoundaryObserver.lean}. The declaration names provide traceability. They are not substitutes for the proofs presented in the article appendices.
+
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.41\linewidth}@{}}
+\caption{Principal declarations and paper roles}\label{tab:declarations}\\
+\toprule
+Declaration & Paper section & Verified role \\
+\midrule
+\endfirsthead
+\toprule
+Declaration & Paper section & Verified role \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\nolinkurl{ObserverInterface} & Article, Appendix B & Declares an observation type and a map from world states to observations. \\
+\nolinkurl{ObsEq} & Article, Appendix B & Defines state equivalence by equality of accessible observations. \\
+\nolinkurl{factorized_quantity_respects_obsEq} & Article, Appendix B & Proves that interface factorized quantities are constant on observation fibers. \\
+\nolinkurl{exact_decoder_implies_injective} & Article, Appendix B & Proves that a globally exact decoder implies observation injectivity. \\
+\nolinkurl{no_exact_decoder_of_not_injective} & Article, Appendix B & Gives the reconstruction obstruction for a noninjective map. \\
+\nolinkurl{internal_test_cannot_distinguish_obsEq} & Article, Appendix B & Proves that an observation only binary test cannot separate one fiber. \\
+\nolinkurl{finite_interface_has_collision} & Article, Appendix B & Uses finite cardinality to produce distinct states with one observation. \\
+\nolinkurl{finite_interface_has_no_exact_decoder} & Article, Appendix B & Connects finite capacity deficit to exact decoder failure. \\
+\nolinkurl{ObservableQuotient} & Article, Appendix C & Quotients world states by observational equivalence. \\
+\nolinkurl{observableQuotient_universal_property} & Article, Appendix C & Characterizes unique factorization of fiber constant quantities. \\
+\nolinkurl{observable_variation_prevents_factorization} & Article, Appendix C & Shows that variation within one fiber prevents interface factorization. \\
+\nolinkurl{InterfaceRefines} & Article, Appendix D & Defines coarsening by a commuting observation equation. \\
+\nolinkurl{refinement_preserves_obsEq} & Article, Appendix D & Proves that fine equivalence implies coarse equivalence. \\
+\nolinkurl{factorization_monotone_under_refinement} & Article, Appendix D & Lifts every coarse accessible quantity to the fine interface. \\
+\nolinkurl{quotientMapOfRefinement_surjective} & Article, Appendix D & Proves that the induced fine to coarse quotient map is surjective. \\
+\nolinkurl{strictlyRefines_prevents_reverse_refinement} & Article, Appendix D & Proves that strict refinement cannot be reversed. \\
+\nolinkurl{strictlyRefines_quotientMap_not_injective} & Article, Appendix D & Proves that strict coarsening collapses quotient classes. \\
+\nolinkurl{quotientMapOfMutualRefinement_bijective} & Article, Appendix D & Establishes quotient bijection under mutual refinement. \\
+\nolinkurl{GenerativeModel} & Article, Appendix E & Declares a latent state type and a latent to observation map. \\
+\nolinkurl{Produces} & Article, Appendix E & Defines reachability of one observation. \\
+\nolinkurl{ModelObsEq} & Article, Appendix E & Defines model equivalence by equality of produced observations. \\
+\nolinkurl{ExperimentOutcomeSet} & Article, Appendix E & Collects the possible results of one admissible experiment. \\
+\nolinkurl{modelObsEq_preserves_experimentOutcomeSet} & Article, Appendix E & Proves outcome set equality for empirically equivalent models. \\
+\nolinkurl{identityExperiment} & Article, Appendix E & Returns the accessible observation unchanged. \\
+\nolinkurl{exactLatentDecoder_not_determinedBy_identityExperiment} & Article, Appendix F & Proves that even complete accessible observations do not determine decoder existence. \\
+\nolinkurl{PredicateProfile} & Article, Appendix F & Records which accessible predicates can succeed. \\
+\nolinkurl{modelObsEq_iff_predicateProfile_eq} & Article, Appendix F & Characterizes empirical equivalence by complete predicate profiles. \\
+\nolinkurl{exactLatentDecoder_not_determinedByPredicateProfile} & Article, Appendix F & Shows that complete predicate profiles do not determine exact reconstruction. \\
+\nolinkurl{LatentCover} & Article, Appendix G & Declares a surjective observation preserving projection to a base model. \\
+\nolinkurl{StrictLatentCover} & Article, Appendix G & Adds noninjectivity of the latent projection. \\
+\nolinkurl{hiddenExtensionModel} & Article, Appendix G & Adjoins a hidden factor and ignores it during observation. \\
+\nolinkurl{finiteMultiplicityModel} & Article, Appendix G & Creates arbitrary finite hidden multiplicity. \\
+\nolinkurl{countableMultiplicityModel} & Article, Appendix G & Creates a natural number hidden coordinate. \\
+\nolinkurl{countableMultiplicityFiber_contains_nat} & Article, Appendix G & Embeds the natural numbers into one observation fiber. \\
+\nolinkurl{no_inhabited_model_is_latentlyMaximal} & Article, Appendix G & Constructs a strict empirically equivalent extension of every inhabited model. \\
+\nolinkurl{EmpiricalModelQuotient} & Article, Appendix H & Quotients generative models by empirical equivalence. \\
+\nolinkurl{observationInvariant_iff_factorsThroughEmpiricalModelQuotient} & Article, Appendix H & Characterizes observation invariant properties by quotient factorization. \\
+\nolinkurl{empiricalModelQuotient_map_universal_property} & Article, Appendix H & Gives unique descent of arbitrary observation invariant measurements. \\
+\nolinkurl{exactLatentDecoder_not_factorsThroughEmpiricalModelQuotient} & Article, Appendix H & Proves that decoder existence is not a property of the empirical class. \\
+\nolinkurl{empiricalModelQuotientEquivRealizableObservationSet} & Article, Appendix H & Identifies empirical classes with realizable reachable observation sets. \\
+\nolinkurl{boundaryLimitedObserver_synthesis} & Article, Appendix I & Constructs the strict Boolean extension with the five conclusions of the synthesis theorem. \\
+\end{longtable}
+\end{landscape}

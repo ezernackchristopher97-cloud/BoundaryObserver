@@ -1,0 +1,134 @@
+\section{Introduction}
+\label{sec:mainintro}
+Scientific measurements represent selected features of a system. A measurement can be accurate for its intended purpose while leaving several source states compatible with the same output. The resulting inverse problem depends on the observation map, the allowed model class, and the quantity to be reconstructed.
+
+Identifiability theory asks which model properties observations determine. Statistical formulations compare probability laws, while dynamical observability uses outputs together with specified evolution and inputs \parencite{Rothenberg1971,HermannKrener1977}. The present analysis isolates a simpler question: what follows from a deterministic observation map and the set of outputs it can produce? This restriction permits exact statements about fibers, reconstruction, and comparison of interfaces.
+
+The main construction appends a coordinate that the observation map ignores. The extended model produces the same reachable observations, but distinct hidden labels prevent exact reconstruction. The construction proves nonuniqueness within a model class that permits such extensions. Additional dynamics, interventions, or physical constraints may exclude them. Related limits in learned latent representations likewise depend on the assumptions imposed on the model class \parencite{Locatello2019}.
+
+The contribution is a unified formalization of these set theoretic facts, their refinement relations, and their finite computational witnesses. It does not establish a general impossibility of self-observation or a theory of consciousness. Section~\ref{sec:mainframework} defines the model and principal equations. Section~\ref{sec:mainresult} states the main result. Sections~\ref{sec:mainmethods} and~\ref{sec:mainfindings} give the methods and findings, followed by their implications and conclusion. Detailed proofs, counterexamples, and the broader research program follow in the appendices.
+
+\section{Observation model and principal equations}
+\label{sec:mainframework}
+An interface is a map \(\pi:X\to O\) from a source state space to an observation space. Two states are observationally equivalent when their outputs agree:
+\begin{equation}
+x\sim_\pi y\ \Longleftrightarrow\ \pi(x)=\pi(y),
+\qquad Q_\pi=X/{\sim_\pi}.
+\label{eq:stateequivalence}
+\end{equation}
+Each class is a fiber of \(\pi\). The quotient \(Q_\pi\) is bijective with the reachable range \(\pi[X]\). A quantity \(f:X\to V\) is determined on that range precisely when it is constant on every fiber, equivalently when it factors uniquely through the quotient. This is a statement about set functions; it supplies no algorithm or error bound.
+
+A globally exact decoder is a total map \(d:O\to X\) satisfying
+\begin{equation}
+d\circ\pi=\id_X\quad\Longrightarrow\quad\pi\text{ is injective}.
+\label{eq:decoder}
+\end{equation}
+When \(X\neq\varnothing\), injectivity is also sufficient: invert \(\pi\) on its range and use one fixed state on unreachable observations. When \(X=\varnothing\), a total decoder exists exactly when \(O=\varnothing\). The definitions distinguish a decoder on all of \(O\) from one defined only on reachable observations.
+
+A model \(\Model=(X_\Model,\pi_\Model)\) has reachable set \(\Obs(\Model)=\pi_\Model[X_\Model]\). Models with the same observation codomain are compared by
+\begin{equation}
+\Model\approx\Model'\ \Longleftrightarrow\
+\Obs(\Model)=\Obs(\Model').
+\label{eq:modelequivalence}
+\end{equation}
+Throughout this paper, \emph{empirical equivalence} means this equality of reachable sets. No probability law is part of the definition. An admissible experiment is a fixed function \(e:O\to R\) that processes an observation. Its possible outcomes are
+\begin{equation}
+\Out_e(\Model)=e[\Obs(\Model)],\qquad
+\Model\approx\Model'\ \Longrightarrow\
+\Out_e(\Model)=\Out_e(\Model').
+\label{eq:outcomes}
+\end{equation}
+Such an experiment neither changes the source dynamics nor acquires another measurement. Interventions and temporal records require an enlarged model.
+
+Interfaces on the same source space can retain different distinctions. A fine interface \(\pi_F:X\to O_F\) refines \(\pi_C:X\to O_C\) when a coarsening map \(c\) satisfies
+\begin{equation}
+\pi_C=c\circ\pi_F.
+\label{eq:refinement}
+\end{equation}
+This relation is reflexive and transitive. It induces a surjection \([x]_F\mapsto[x]_C\) between observable quotients. If a pair is separated by \(F\) and merged by \(C\), that quotient map is noninjective and reverse refinement is impossible. The proofs are in \Cref{sec:interfaces,sec:observablequotient,sec:refinement}.
+
+\section{Main result: equivalent outputs and nonunique latent models}
+\label{sec:mainresult}
+The hidden extension makes the reconstruction limit explicit. For a model with \(X_\Model\neq\varnothing\), define
+\begin{equation}
+X_{\Extended}=X_\Model\times\{0,1\},\qquad
+\pi_{\Extended}(x,b)=\pi_\Model(x),\qquad p(x,b)=x.
+\label{eq:extension}
+\end{equation}
+The map \(p\) is surjective and preserves observations. Distinct Boolean labels over the same base state produce a collision.
+
+\begin{theorem}[Hidden extension and reconstruction]
+For every model with a nonempty latent space, the extension in \eqref{eq:extension} has the same reachable set and the same possible outcomes under every fixed observation processing map \(e\). It has no globally exact decoder. If the base has an exact decoder, the two models have different decoder statuses.
+\label{thm:mainhidden}
+\end{theorem}
+
+The proof follows from two identities. Each base output is produced by \((x,0)\), and every extended output is a base output. Meanwhile, \((x,0)\) and \((x,1)\) are distinct states with the same observation. Equation~\eqref{eq:decoder} excludes a decoder. The complete construction and supporting results appear in \Cref{sec:hidden,sec:synthesis}.
+
+For \(O\neq\varnothing\), compare the identity model \((O,\id_O)\) with its Boolean extension. Both reach all of \(O\), but only the identity model has an exact decoder. Thus no function of the reachable set can determine decoder existence for every model in a class containing both. This does not mean that every equivalence class contains both statuses, nor that adjoining a hidden coordinate changes the status of an already nondecodable base.
+
+The same limitation holds for a complete family of Boolean predicates on observations. A predicate records whether it succeeds at any reachable output. Agreement for all predicates is equivalent to reachable-set equality, because predicates testing equality to individual observations determine membership. Model properties descend to the empirical quotient exactly when they are constant on its classes. These statements are proved in \Cref{sec:predicates,sec:empiricalquotient}.
+
+\section{Methods}
+\label{sec:mainmethods}
+The study combines deductive proofs with exhaustive finite calculations. The calculations enumerate declared mathematical models; no biological measurements or physical parameter estimates enter the analysis. The reference code is \texttt{BoundaryObserver} at commit \nolinkurl{eb96b984ae999ee6cbc0aae33c2d501c46d9540f}. The formal source remains unchanged in this revision.
+
+The finite base has \(X=O=\{0,1,2,3,4,5\}\) and \(\pi(x)=x\). A comparison model observes \(x\bmod3\). Hidden extensions use \(m\in\{1,2,3,5,8\}\) labels for each base state, with \(\pi_m(x,h)=x\). For each reachable output, the program enumerates its fiber and calculates
+\begin{equation}
+C(\Model)=\sum_{o\in\Obs(\Model)}\binom{|\pi_\Model^{-1}(o)|}{2},
+\qquad C(\Model_m)=3m(m-1).
+\label{eq:collisions}
+\end{equation}
+The collision count measures unordered pairs with equal outputs. It is not a probability or an entropy.
+
+Four processing maps test identity, a threshold at three, a three category partition, and width two compression. Three predicates test evenness, values at least three, and membership in \(\{0,5\}\). A separate eight state example compares identity, paired buckets, binary regions, and a relabeled identity. Every claimed finite relation is evaluated over its full declared domain.
+
+The revision reruns the eighteen repository tests and six additional tests of the assumptions and counterexamples. It also regenerates all twelve CSV outputs and compares their bytes with the archived files. The repository records successful Lean CI for the pinned commit; a new Lean build is not claimed here. The added examples have explicit proofs in \Cref{app:scopechecks} and are not represented as newly checked Lean declarations. Commands, exact outputs, and declaration correspondence are supplied in the package and companion supplement.
+
+\section{Findings}
+\label{sec:mainfindings}
+The finite calculations reproduce the predicted separation between latent multiplicity and reachable outputs. The injective base has six singleton fibers and a decoder. Its Boolean extension has twelve states, six two-state fibers, and no decoder. The modulo three comparison has three reachable outputs, three collisions, and no decoder.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Exhaustive hidden extension calculations. Each row reaches the same six observations.}
+\label{tab:mainmultiplicity}
+\begin{tabular}{@{}rrrrrl@{}}
+\toprule
+\(m\)&Latent states&Reachable outputs&Fiber size&Collisions&Exact decoder\\
+\midrule
+1&6&6&1&0&Yes\\
+2&12&6&2&6&No\\
+3&18&6&3&18&No\\
+5&30&6&5&60&No\\
+8&48&6&8&168&No\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All twenty eight model and experiment comparisons preserve the corresponding outcome set. All twenty one existential predicate comparisons and all twenty one complete truth-table comparisons agree with the base. These three selected predicates illustrate invariance; the theorem concerning every predicate is established separately by proof.
+
+Refinement retains eight, four, and two observable classes for identity, paired buckets, and binary regions. Identity to paired, paired to region, and identity to region respectively collapse four, eight, and twelve previously distinguished pairs. Each induced quotient map is surjective and noninjective. Relabeling preserves all eight classes and gives a bijection. Complete tables and figures appear in \Cref{sec:results} and the supplement.
+
+All twenty four tests pass. The twelve regenerated CSV files are byte identical to the archived outputs. The finite counts use exact enumeration and integer arithmetic. They have no integration step, sampling uncertainty, or asymptotic numerical convergence claim. Exhaustive agreement for these examples does not establish a result for every model; the general conclusions depend on the proofs.
+
+\section{Discussion}
+\label{sec:maindiscussion}
+The result identifies a restriction on inference from a specified interface. If a quantity varies within an observation fiber, that observation alone cannot determine it exactly. A stronger reconstruction claim must state the assumptions that eliminate the ambiguity. Such assumptions may include known dynamics, additional sensors, interventions, regularity, or a justified restriction of the latent model class.
+
+Equality of reachable sets is weaker than statistical equivalence. Bernoulli laws with parameters \(1/10\) and \(9/10\) both permit the outputs zero and one, but assign different probabilities to them. The present definition omits that distinction. A statistical extension must compare induced probability laws or likelihoods rather than only possible outputs \parencite{Rothenberg1971}.
+
+An instantaneous collision also need not prevent reconstruction from time dependent observations. For the known system
+\begin{equation}
+\dot x_1=x_2,\qquad\dot x_2=0,\qquad y=x_1,
+\end{equation}
+one output leaves \(x_2\) undetermined, while \(y(0)\) and \(y(T)\), for \(T\neq0\), determine both initial coordinates. Measurement error in the reconstructed second coordinate is amplified as \(|T|\) becomes small. The derivation and error bound are in \Cref{app:scopechecks}. This distinction is consistent with dynamical observability theory \parencite{HermannKrener1977}.
+
+Neural applications require the same separation between source state, measurement, and reconstruction. Published grid-cell studies motivate analysis of how population geometry depends on the measurement interface \parencite{Gardner2022}. A spatial tuning map, a temporal population trajectory, a topological reconstruction, and evidence of attraction are different objects. The present set theoretic result supplies no inference from toroidal geometry to an attracting invariant torus. That inference requires specified dynamics and evidence concerning invariance and stability.
+
+The hidden coordinate is a mathematical witness permitted by the model class. Its construction does not demonstrate an unmeasured physical variable. Questions about embedded self-modeling, consciousness, or continuity across scales require additional definitions and observations. They are retained as a research program in \Cref{sec:limitations,app:motivation}, with their status separated from the theorem.
+
+\section{Conclusion}
+\label{sec:mainconclusion}
+A declared observation map determines a partition of source states. Exact reconstruction requires that the map preserve every source distinction, and reachable-set equality does not determine decoder existence across an unrestricted class of latent models. The Boolean extension supplies a constructive witness, while interface refinement describes how a richer measurement can preserve distinctions lost by a coarser one.
+
+The finite calculations reproduce the stated counts and invariance relations. The scope of the result remains deterministic and set based. Probability laws, temporal measurements, physical constraints, and reconstruction error must be specified before applying it to a scientific system. The resulting practical question is which additional measurement or model assumption would separate the states relevant to the proposed inference.

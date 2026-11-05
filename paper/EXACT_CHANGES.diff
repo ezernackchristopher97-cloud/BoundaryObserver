@@ -1,0 +1,1622 @@
+--- a/README.md
++++ b/README.md
+@@ -1,21 +1,43 @@
+ # Boundary Limited Observer Systems
+ 
+-## Main article
++Revised 5 November 2026 from draft 0.9.1. Prepared for review; not committed to GitHub.
+ 
+-`Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf`
++## Documents
+ 
+-## Computational and formal supplement
++- `Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf`: revised article. The main narrative ends on page 5; appendices begin on page 6.
++- `Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf`: updated computational and formal supplement.
++- `REVISION_NOTES.md`: corrections, scope, and verification record.
++- `EXACT_CHANGES.diff`: exact textual changes against the original source package.
+ 
+-`Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf`
++## Build
+ 
+-## Sources
++A TeX Live installation with pdfLaTeX, BibTeX, latexmk, Times fonts, natbib, TikZ, and the packages listed in the document preambles is sufficient. No Biber or newtx installation is required.
+ 
+-- `main.tex`
+-- `supplement.tex`
+-- `references.bib`
+-- `sections/`
+-- `figures/`
+-- `data/`
+-- `colab/`
++```sh
++latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
++latexmk -pdf -interaction=nonstopmode -halt-on-error supplement.tex
++```
+ 
+-The article contains the mathematical argument, simulations, interpretation, applications, hypotheses, future work, and scholarly references. Detailed declaration concordance, code excerpts, complete generated tables, original simulation figures, and file-level provenance are confined to the supplement.
++The build produces `main.pdf` and `supplement.pdf`. The named PDFs above are the reviewed copies. The existing vector figures are included. Optional regeneration uses `generate_figures.py` with Matplotlib, pandas, and Graphviz; it ends by applying `draw_compact_diagrams.py`. `generate_appendices.py` regenerates the data and provenance tables with pandas.
++
++## Reproduce the checks
++
++Use Python 3.12 or another compatible Python 3 installation. Install the reference requirements into a virtual environment:
++
++```sh
++python -m venv .venv
++. .venv/bin/activate
++python -m pip install -r verification/reference_code/simulations/requirements.txt
++python -m pytest verification/reference_code/simulations/tests verification/test_scope_cases.py -q
++python verification/verify_outputs.py
++```
++
++The expected results are 24 passing tests and 12 byte-identical CSV files. The output comparison writes `verification/output_verification.json`.
++
++`verification/reference_code/simulations` is an unchanged snapshot of the reference implementation at commit `eb96b984ae999ee6cbc0aae33c2d501c46d9540f`. `verification/BoundaryObserver.lean` is the corresponding unchanged formal source. The added tests cover reachable collisions, already nondecodable bases, empty spaces, probability laws, temporal reconstruction and error amplification, and exhaustive decoder search over small finite maps.
++
++The reference repository records successful Lean CI at https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/29449488270. No fresh local Lean build is claimed. Additional manuscript examples have written proofs and Python checks; they are not new Lean declarations.
++
++## Scope
++
++These are mathematical constructions and exhaustive finite calculations. They are not biological measurements. Equality of reachable observation sets does not imply equality of probability laws, temporal unobservability, physical hidden variables, or a universal limit on self-observation.
+--- /dev/null
++++ b/REVISION_NOTES.md
+@@ -0,0 +1,42 @@
++# Observer boundary manuscript revision
++
++Prepared 5 November 2026 from the draft 0.9.1 source package. No GitHub commit or push has been made.
++
++## Main corrections
++
++| Original location | Correction in the revised article |
++| --- | --- |
++| Section 2.3, page 7 | A collision must involve distinct original states that actually reach the same intermediate value. A later map can be noninjective outside the reachable intermediate range without making the composite noninjective. Appendix J gives an explicit counterexample. |
++| Theorem 8.8, page 25 | Added a nonempty observation space and a model class containing the identity model and its Boolean extension. Stated the quantifiers as failure of a criterion to decide decoder existence for each model, rather than deciding whether every model has a decoder. |
++| Theorem 10.6, page 30 | Added the same assumptions. Distinguished global nonidentifiability from the stronger, false claim that every empirical class contains both decoder outcomes. Explained the empty reachable-set case. |
++| Section 11.1, page 32 | The extension always has no decoder when the latent base is nonempty. Decoder status differs only when the base has a decoder. The nondecodable-base counterexample is proved and tested. |
++| Section 9.5, page 28 | Replaced ordinary order-theoretic maximality language by the actual strict-cover existence result. Explained the Lean predicate and the strict self-cover on the natural numbers. No change to the valid Lean theorem. |
++| Section 9.3 | Added the nonempty latent-space condition for failure of decoding in the countable extension. |
++| Quotient factorization | Distinguished functions on reachable observations from total extensions to the observation codomain. Included the empty target-set exception and avoided implying algorithmic computability or numerical stability. |
++| Empirical equivalence | Defined reachable-set equality near the front. Added a Bernoulli counterexample to equality of probability laws. |
++| Temporal measurements | Added exact recovery from two samples in a simple known flow, with the error bound 2 eta / abs(T). This is a mathematical example, not biological evidence. |
++| Neural interpretation | Explicitly separated spatial tuning, temporal trajectories, topology, and evidence of attraction. No attractor conclusion follows from this set theoretic theorem. |
++| Theorem references | Fixed shared theorem counters so references identify Theorems and Corollaries correctly. |
++| Differential geometry outlook | Clarified that nonzero connection coefficients can occur in flat space. Variable metric components alone do not establish curvature. |
++
++## Organization
++
++The main narrative contains the abstract, introduction, observation model and principal equations, main result, methods, findings, discussion, and conclusion. Detailed proofs, counterexamples, computational tables, operational architecture, related literature, and the broader hypotheses follow in appendices. The original introductory roadmap and repetitive interpretation/conclusion sections have been replaced; their substantive broader questions remain in the appendices.
++
++The companion supplement retains implementation excerpts, the declaration concordance, complete principal tables, original simulation figures, and provenance. Wide-table headings now remain on the same pages as their tables. Two mathematical diagrams have more readable vector layouts.
++
++## Verification and sources
++
++- All 18 reference Python tests and 6 new regression tests pass.
++- All 12 regenerated CSV files match the archived outputs byte for byte.
++- The exact finite calculations involve no numerical integration or convergence claim. The temporal example uses rational arithmetic in the regression test and has an independent algebraic derivation.
++- The pinned Lean source is unchanged. The repository CI records a successful build for commit `eb96b984ae999ee6cbc0aae33c2d501c46d9540f`. Lean was not rebuilt locally for this revision. New explanatory examples are not claimed as new Lean proofs.
++- Checked the primary records used in the revised main argument: Rothenberg (1971), Hermann and Krener (1977), Locatello et al. (2019), and Gardner et al. (2022).
++- Checked the arXiv records for Elshatlawy et al. and Abramsky et al. The four-author Elshatlawy citation is explicitly pinned to version 1; the Abramsky record links to version 2. The remaining background bibliography is retained, not represented as a newly completed full-text audit.
++- Portable pdfLaTeX/BibTeX author-year typesetting replaces the unavailable original font and bibliography dependencies. Book editor metadata is retained in displayed notes. The bibliography content remains in `references.bib`.
++
++## Exact changes
++
++`EXACT_CHANGES.diff` is a unified diff against the original package for all changed textual source files and the new regression checks. Unchanged reference-code snapshots are omitted from the diff and identified by commit. Updated vector figures are identified by hashes in `verification/revision_manifest.json`.
++
++The manuscript, supplement, and source package are prepared for review. Repository publication requires approval.
+--- /dev/null
++++ b/draw_compact_diagrams.py
+@@ -0,0 +1,47 @@
++"""Readable vector layouts for two commuting-map illustrations."""
++from pathlib import Path
++import matplotlib
++matplotlib.use('Agg')
++import matplotlib.pyplot as plt
++from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
++
++ROOT = Path(__file__).resolve().parent
++
++def box(ax, xy, title, width=.27):
++    x,y=xy
++    ax.add_patch(FancyBboxPatch((x-width/2,y-.065),width,.13,
++                 boxstyle='round,pad=.012',facecolor='white',edgecolor='#334155'))
++    ax.text(x,y,title,ha='center',va='center',fontsize=11)
++
++def arrow(ax, a, b, label, text_xy):
++    ax.add_patch(FancyArrowPatch(a,b,arrowstyle='-|>',mutation_scale=12,
++                                color='#475569',linewidth=1.1))
++    ax.text(*text_xy,label,ha='center',va='center',fontsize=10,
++            bbox={'facecolor':'white','edgecolor':'none','pad':1.2})
++
++fig,ax=plt.subplots(figsize=(6.6,3.5))
++ax.set(xlim=(0,1),ylim=(0,1));ax.axis('off')
++box(ax,(.5,.87),r'World $X$')
++box(ax,(.2,.52),r'Fine output $O_F$')
++box(ax,(.8,.52),r'Coarse output $O_C$')
++arrow(ax,(.43,.80),(.23,.60),r'$\pi_F$',(.28,.75))
++arrow(ax,(.57,.80),(.77,.60),r'$\pi_C$',(.72,.75))
++arrow(ax,(.35,.52),(.65,.52),r'$c$',(.5,.59))
++ax.text(.5,.36,r'$\pi_C=c\circ\pi_F$',ha='center',fontsize=11)
++box(ax,(.2,.13),r'$X/{\sim_F}$')
++box(ax,(.8,.13),r'$X/{\sim_C}$')
++arrow(ax,(.35,.13),(.65,.13),'Induced surjection',(.5,.23))
++for ext in ['pdf','svg']:fig.savefig(ROOT/'figures'/f'concept_interface_refinement.{ext}',bbox_inches='tight')
++plt.close(fig)
++
++fig,ax=plt.subplots(figsize=(6.6,3.3))
++ax.set(xlim=(0,1),ylim=(0,1));ax.axis('off')
++box(ax,(.22,.8),r'Extended $X_M\times H$',.36)
++box(ax,(.22,.2),r'Base $X_M$',.36)
++box(ax,(.8,.5),r'Observations $O$',.34)
++arrow(ax,(.22,.72),(.22,.28),r'$p(x,h)=x$',(.32,.49))
++arrow(ax,(.41,.23),(.66,.43),r'$\pi_M$',(.58,.25))
++arrow(ax,(.41,.77),(.66,.57),r'$\pi_{M^H}$',(.58,.76))
++ax.text(.58,.07,r'$\pi_{M^H}=\pi_M\circ p$',ha='center',fontsize=11)
++for ext in ['pdf','svg']:fig.savefig(ROOT/'figures'/f'concept_hidden_extension.{ext}',bbox_inches='tight')
++plt.close(fig)
+--- a/generate_appendices.py
++++ b/generate_appendices.py
+@@ -236,14 +236,29 @@
+     r"\toprule",
+     r"Check & Recorded result \\",
+     r"\midrule",
+-    r"Direct formal compilation & Passed with no diagnostics \\",
+-    r"Full project build & Passed, 8,581 jobs \\",
++    r"Local Lean compilation in this revision & Not rerun \\",
++    r"Repository Lean CI & Successful for the pinned commit; \url{https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/29449488270} \\",
+     r"Unfinished proof commands & None in project source \\",
+     r"Simulation runner & Completed all Boolean, multiplicity, experiment, predicate, quotient, and refinement assertions \\",
+-    r"Automated tests & 18 passed \\",
++    r"Automated tests & 18 repository tests and 6 revision regression tests passed \\",
++    r"CSV reproduction & All 12 files byte identical to the archived outputs \\",
+     r"Repository state & Commit \RepoCommit \\",
+     r"\bottomrule",
+     r"\end{tabularx}",
+     r"\end{table}",
+ ]
+ (SECTIONS / "app_d_provenance.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
++
++
++# Keep headings with the wide tables they introduce.
++p = SECTIONS / 'app_b_full_data.tex'
++s = p.read_text()
++first = s.index(r'\begin{landscape}')
++s = r'\begin{landscape}' + '\n' + s[:first] + s[first:].replace(r'\begin{landscape}', '', 1)
++a = s.index(r'\subsection{Complete experiment outcome records}')
++b = s.index(r'\subsection{Predicate records}', a)
++block = s[a:b].replace(r'\small', r'\scriptsize', 1)
++block = block.replace(r'\begin{longtable}{@{}llrlrc@{}}',
++    r'\begin{longtable}{@{}p{0.13\linewidth}p{0.27\linewidth}rp{0.25\linewidth}rc@{}}')
++s = s[:a] + r'\begin{landscape}' + '\n' + block + r'\end{landscape}' + '\n\n' + s[b:]
++p.write_text(s)
+--- a/generate_figures.py
++++ b/generate_figures.py
+@@ -327,3 +327,6 @@
+         indent=2,
+     )
+ )
++
++# Apply the readable layouts for the refinement and extension diagrams.
++subprocess.run([__import__("sys").executable, str(ROOT / "draw_compact_diagrams.py")], check=True)
+--- a/main.tex
++++ b/main.tex
+@@ -1,8 +1,10 @@
+ \documentclass[12pt]{article}
++\pdfminorversion=7
+ 
+ \usepackage[letterpaper,top=0.8in,bottom=0.85in,left=1in,right=1in]{geometry}
+-\usepackage{amsmath,amssymb,amsthm,mathtools}
+-\usepackage{newtxtext,newtxmath}
++\usepackage{amsmath,amssymb,amsthm,mathtools,aliascnt}
++\usepackage[T1]{fontenc}
++\usepackage{mathptmx}
+ \usepackage{microtype}
+ \usepackage{setspace}
+ \usepackage{booktabs,longtable,array,tabularx,multirow}
+@@ -12,7 +14,6 @@
+ \usepackage{subcaption}
+ \usepackage{enumitem}
+ \usepackage{pdflscape}
+-\usepackage{siunitx}
+ \usepackage{xurl}
+ \usepackage{listings}
+ \usepackage{xcolor}
+@@ -22,21 +23,9 @@
+ \usepackage[section]{placeins}
+ \usepackage[hidelinks]{hyperref}
+ \usepackage[nameinlink,capitalise]{cleveref}
+-\usepackage[
+-  backend=biber,
+-  style=authoryear,
+-  sorting=nyt,
+-  maxcitenames=2,
+-  maxbibnames=99,
+-  uniquename=false,
+-  giveninits=true,
+-  doi=true,
+-  isbn=false,
+-  url=true,
+-  eprint=true,
+-  dashed=false
+-]{biblatex}
+-\addbibresource{references.bib}
++\usepackage[authoryear,round]{natbib}
++\let\parencite\citep
++\let\textcite\citet
+ 
+ \hypersetup{
+   pdftitle={Boundary Limited Observer Systems: Empirical Equivalence, Interface Refinement, and the Limits of Latent Reconstruction},
+@@ -89,15 +78,43 @@
+ \theoremstyle{definition}
+ \newtheorem{definition}{Definition}[section]
+ \theoremstyle{plain}
+-\newtheorem{proposition}[definition]{Proposition}
+-\newtheorem{theorem}[definition]{Theorem}
+-\newtheorem{corollary}[definition]{Corollary}
+-\newtheorem{lemma}[definition]{Lemma}
++\newaliascnt{proposition}{definition}
++\newtheorem{proposition}[proposition]{Proposition}
++\aliascntresetthe{proposition}
++\crefname{proposition}{proposition}{propositions}
++\Crefname{proposition}{Proposition}{Propositions}
++\newaliascnt{theorem}{definition}
++\newtheorem{theorem}[theorem]{Theorem}
++\aliascntresetthe{theorem}
++\crefname{theorem}{theorem}{theorems}
++\Crefname{theorem}{Theorem}{Theorems}
++\newaliascnt{corollary}{definition}
++\newtheorem{corollary}[corollary]{Corollary}
++\aliascntresetthe{corollary}
++\crefname{corollary}{corollary}{corollaries}
++\Crefname{corollary}{Corollary}{Corollaries}
++\newaliascnt{lemma}{definition}
++\newtheorem{lemma}[lemma]{Lemma}
++\aliascntresetthe{lemma}
++\crefname{lemma}{lemma}{lemmas}
++\Crefname{lemma}{Lemma}{Lemmas}
+ \theoremstyle{remark}
+-\newtheorem{remark}[definition]{Remark}
++\newaliascnt{remark}{definition}
++\newtheorem{remark}[remark]{Remark}
++\aliascntresetthe{remark}
++\crefname{remark}{remark}{remarks}
++\Crefname{remark}{Remark}{Remarks}
+ \theoremstyle{definition}
+-\newtheorem{hypothesis}[definition]{Hypothesis}
+-\newtheorem{researchquestion}[definition]{Research Question}
++\newaliascnt{hypothesis}{definition}
++\newtheorem{hypothesis}[hypothesis]{Hypothesis}
++\aliascntresetthe{hypothesis}
++\crefname{hypothesis}{hypothesis}{hypothesiss}
++\Crefname{hypothesis}{Hypothesis}{Hypothesiss}
++\newaliascnt{researchquestion}{definition}
++\newtheorem{researchquestion}[researchquestion]{Research Question}
++\aliascntresetthe{researchquestion}
++\crefname{researchquestion}{research question}{research questions}
++\Crefname{researchquestion}{Research Question}{Research Questions}
+ 
+ \newcommand{\Obs}{\mathcal O}
+ \newcommand{\Out}{\mathcal R}
+@@ -164,8 +181,10 @@
+ 
+ \input{sections/00_abstract}
+ 
+-\input{sections/01_introduction}
+-\input{sections/02_architecture}
++\input{sections/main_body}
++
++\clearpage
++\appendix
+ \input{sections/03_preliminaries}
+ \input{sections/04_interfaces}
+ \input{sections/05_observable_quotient}
+@@ -175,13 +194,15 @@
+ \input{sections/09_hidden_extensions}
+ \input{sections/10_empirical_quotient}
+ \input{sections/11_synthesis}
++\input{sections/app_scope_checks}
+ \input{sections/12_computational_methods}
+ \input{sections/13_results}
+-\input{sections/14_significance}
++\input{sections/02_architecture}
+ \input{sections/15_related_work}
+ \input{sections/17_limitations}
+-\input{sections/18_conclusion}
++\input{sections/app_motivation}
+ 
+ \FloatBarrier
+-\printbibliography[title={References}]
++\bibliographystyle{plainnat}
++\bibliography{references}
+ \end{document}
+--- a/references.bib
++++ b/references.bib
+@@ -545,12 +545,11 @@
+ @book{Kant1998,
+   author = {Kant, Immanuel},
+   title = {Critique of Pure Reason},
+-  editor = {Guyer, Paul and Wood, Allen W.},
+   translator = {Guyer, Paul and Wood, Allen W.},
+   publisher = {Cambridge University Press},
+   location = {Cambridge},
+   year = {1998},
+-  note = {Original editions 1781 and 1787}
++  note = {Original editions 1781 and 1787; Edited by Paul Guyer, Allen W. Wood}
+ }
+ 
+ @article{Russell1908,
+@@ -732,21 +731,23 @@
+   doi = {10.2307/25470707}
+ }
+ 
+-@online{Elshatlawy2025,
++@misc{Elshatlawy2025,
+   author = {Elshatlawy, Hatem and Rickles, Dean and Arsiwalla, Xerxes D. and Blum, Alexander},
+   title = {Towards a Generalized Theory of Observers},
+   year = {2025},
+-  eprint = {2504.16225},
++  eprint = {2504.16225v1},
++  url = {https://arxiv.org/abs/2504.16225v1},
+   eprinttype = {arXiv},
+   doi = {10.48550/arXiv.2504.16225},
+   note = {Preprint}
+ }
+ 
+-@online{Abramsky2025,
++@misc{Abramsky2025,
+   author = {Abramsky, Samson and Banzhaf, Wolfgang and Caves, Leo S. D. and Levin, Michael and Machado, Penousal and Ofria, Charles and Stepney, Susan and White, Roger},
+   title = {Open Questions about Time and Self-Reference in Living Systems},
+   year = {2025},
+-  eprint = {2508.11423},
++  eprint = {2508.11423v2},
++  url = {https://arxiv.org/abs/2508.11423v2},
+   eprinttype = {arXiv},
+   doi = {10.48550/arXiv.2508.11423},
+   note = {Preprint}
+@@ -837,30 +838,30 @@
+ @book{Leibniz1989,
+   author = {Leibniz, Gottfried Wilhelm},
+   title = {Philosophical Essays},
+-  editor = {Ariew, Roger and Garber, Daniel},
+   translator = {Ariew, Roger and Garber, Daniel},
+   publisher = {Hackett Publishing Company},
+   location = {Indianapolis},
+-  year = {1989}
++  year = {1989},
++  note = {Edited by Roger Ariew, Daniel Garber}
+ }
+ 
+ @book{LeibnizClarke2000,
+   author = {Leibniz, Gottfried Wilhelm and Clarke, Samuel},
+   title = {G. W. Leibniz and Samuel Clarke: Correspondence},
+-  editor = {Ariew, Roger},
+   publisher = {Hackett Publishing Company},
+   location = {Indianapolis},
+-  year = {2000}
++  year = {2000},
++  note = {Edited by Roger Ariew}
+ }
+ 
+ @book{Whitehead1978,
+   author = {Whitehead, Alfred North},
+   title = {Process and Reality: An Essay in Cosmology},
+   edition = {Corrected},
+-  editor = {Griffin, David Ray and Sherburne, Donald W.},
+   publisher = {Free Press},
+   location = {New York},
+-  year = {1978}
++  year = {1978},
++  note = {Edited by David Ray Griffin, Donald W. Sherburne}
+ }
+ 
+ @book{Bohm1980,
+@@ -934,10 +935,10 @@
+ @book{VonNeumann1966,
+   author = {von Neumann, John},
+   title = {Theory of Self-Reproducing Automata},
+-  editor = {Burks, Arthur W.},
+   publisher = {University of Illinois Press},
+   location = {Urbana},
+-  year = {1966}
++  year = {1966},
++  note = {Edited by Arthur W. Burks}
+ }
+ 
+ @book{Penrose1989,
+@@ -1012,7 +1013,7 @@
+   year = {2002}
+ }
+ 
+-@online{Wolfram2023ObserverTheory,
++@misc{Wolfram2023ObserverTheory,
+   author = {Wolfram, Stephen},
+   title = {Observer Theory},
+   year = {2023},
+@@ -1191,19 +1192,19 @@
+   author = {Plato},
+   title = {Republic},
+   translator = {Grube, G. M. A.},
+-  editor = {Reeve, C. D. C.},
+   publisher = {Hackett Publishing Company},
+   location = {Indianapolis},
+-  year = {1992}
++  year = {1992},
++  note = {Edited by C. D. C. Reeve}
+ }
+ 
+ @book{Aristotle1984,
+   author = {Aristotle},
+   title = {The Complete Works of Aristotle: The Revised Oxford Translation},
+-  editor = {Barnes, Jonathan},
+   publisher = {Princeton University Press},
+   location = {Princeton, NJ},
+-  year = {1984}
++  year = {1984},
++  note = {Edited by Jonathan Barnes}
+ }
+ 
+ @book{Husserl1970,
+--- a/sections/00_abstract.tex
++++ b/sections/00_abstract.tex
+@@ -1,6 +1,5 @@
+ \noindent\textbf{Abstract.}
+-This paper begins from a broader epistemological question: can a representational system fully perceive or justify the boundary that generates its own capacity to represent? The question is not answered here in full. Instead, the paper isolates and proves a bounded mathematical result beneath it. A source space \(X\) is mapped to an observer-accessible space \(O\) by \(\pi:X\to O\), and an admissible experiment receives only the resulting observation. Equality of observations induces fibers and an observable quotient. Quantities computable from the accessible observation are constant on those fibers, and a globally exact decoder can exist only when \(\pi\) is injective. The analysis is extended to interface refinement, generative models, observation-only experiments, empirical model quotients, and strict latent covers. A hidden-coordinate construction preserves reachable observations and admissible outcomes while increasing latent multiplicity. The synthesis theorem therefore establishes that empirical completeness at a declared interface does not, by itself, establish latent uniqueness or exact reconstruction. Finite simulations evaluate hidden multiplicity, observation fibers, admissible experiments, predicate profiles, empirical classes, and interface refinement in explicitly enumerated models. The broader program is then stated explicitly but not conflated with the theorem: paradox as a possible signal of representational closure, embedded self-modeling, scale-conditioned representability, competing metaphysical models, constraint-based accounts of unified states, and proposed studies of death, electromagnetic emission, and external-source hypotheses. These are classified as interpretations, hypotheses, or future work and are subject to a strict rule: no ontological hypothesis earns support without a discriminating prediction that empirically equivalent alternatives do not share.
++An observation map can preserve every recorded output while failing to determine the latent state that produced it. We study this distinction for a deterministic interface \(\pi:X\to O\). Exact decoding requires a left inverse and therefore injectivity; quantities determined by the observation are constant on its fibers. At the model level, we define empirical equivalence as equality of reachable observation sets. For every model with a nonempty latent space, adjoining an unobserved Boolean coordinate gives an equivalent model without an exact decoder. If the original is exactly decodable, the two models have opposite decoder statuses. Interface refinement describes which additional distinctions a measurement can retain. Exhaustive finite calculations reproduce the hidden multiplicities, collision counts, and refinement maps, and agree with twelve archived output tables. The result concerns set based identifiability within the declared model class. It does not establish equality of probability laws, impossibility of reconstruction from temporal measurements, or physical existence of the added coordinate. The proofs and computational details are supplied in appendices and a companion supplement.
+ 
+-\vspace{0.5em}
+-\noindent\textbf{Keywords:} observer interface; embedded observer; empirical equivalence; latent nonidentifiability; exact reconstruction; quotient space; interface refinement; self-reference; formal methods.
+-\vspace{0.75em}
++\medskip
++\noindent\textbf{Keywords:} observer interface; reachable observations; latent reconstruction; identifiability; quotient; interface refinement.
+--- a/sections/01_introduction.tex
++++ /dev/null
+@@ -1,149 +0,0 @@
+-\section{Introduction}
+-\label{sec:introduction}
+-
+-\subsection{The original epistemological problem}
+-
+-The investigation begins before the usual inverse problem. The original question is not merely whether an unknown state can be reconstructed from data. It is whether a system can fully perceive or justify the boundary that generates its own capacity to represent anything at all. An embedded observer does not stand outside the complete system with unrestricted access. Its body, sensors, instruments, language, memory, mathematics, and inference rules are themselves parts of the representational route through which the system becomes accessible.
+-
+-
+-The question has a longer intellectual genealogy than the language of modern inverse problems suggests. Plato's cave separates experienced appearances from the conditions that produce them, while Aristotle distinguishes kinds of cause and levels of explanation \parencite{Plato1992,Aristotle1984}. Husserl later asks how scientific objects are constituted relative to the structures of experience and the lifeworld \parencite{Husserl1970}. Leibniz treated each monad as a perspective on one world and coupled that perspectivism to the principles of sufficient reason and the identity of indiscernibles \parencite{Leibniz1989,LeibnizClarke2000}. Peirce treated inquiry as a fallible process whose concepts acquire content through conceivable practical consequences \parencite{Peirce1877,Peirce1878}. Whitehead shifted emphasis from static substances to processes and relations \parencite{Whitehead1978}. These positions are not adopted as premises. They identify three questions that recur in the present framework: how perspective limits access, what could justify selection among empirically equivalent descriptions, and whether preserved relations may be more stable than a chosen representation.
+-
+-The strongest candidate invariant motivating the inquiry is therefore:
+-\begin{quote}
+-\emph{No sufficiently expressive representational system can completely justify or perceive the boundary that generates its own representational capacity.}
+-\end{quote}
+-This statement is a research conjecture, not a theorem of the present paper. It is adjacent to classical limits on formal self-reference and semantic closure associated with Russell, G\"odel, Tarski, and Lawvere \parencite{Cantor1891,Russell1908,Godel1931,Tarski1936,Lawvere1969,Hofstadter1979,Hofstadter2007}; to Kant's distinction between conditions of experience and things considered independently of those conditions \parencite{Kant1998}; and to second-order cybernetics, in which the observer is included within the system of observation \parencite{Ashby1956,VonFoerster1981,MaturanaVarela1980}. Recent work has again called for general theories of observers and formalisms for self-referential living systems \parencite{Elshatlawy2025,Abramsky2025}. None of these sources proves the candidate invariant in the form stated here. They establish the intellectual neighborhood in which it must be tested.
+-
+-\subsection{From the broad conjecture to a bounded theorem}
+-
+-The present paper does not claim to solve the complete embedded-boundary problem. It isolates a necessary mathematical layer. Once a declared source space is mapped into a more limited accessible space, what can be proved about reconstruction, observational equivalence, and model identity from that interface alone?
+-
+-Let \(X\) be a source state space, let \(O\) be an accessible observation space, and let \(\pi:X\to O\) be the observation map. When
+-\[
+-\pi(x_1)=\pi(x_2)
+-\qquad\text{for}\qquad
+-x_1\neq x_2,
+-\]
+-the two source states are different but indistinguishable through that interface. A procedure whose input is only the shared observation cannot return both states exactly. The analysis develops this local statement into a theory of fibers, quotients, refinement, empirical equivalence, experiments, hidden extensions, and exact decoding.
+-
+-The bounded theorem is deliberately weaker than the motivating conjecture. It does not prove that every sufficiently expressive system has a noninjective self-interface. It proves what follows \emph{if} the declared interface is noninjective, and it constructs model extensions showing that equality at an empirical boundary does not force uniqueness of latent representation.
+-
+-\begin{figure}[tbp]
+-\centering
+-\begin{tikzpicture}[
+-  node distance=4.5mm,
+-  box/.style={draw,rounded corners=2pt,align=center,inner sep=5.5pt,text width=0.78\textwidth},
+-  arr/.style={-{Latex[length=2.4mm]},line width=0.7pt}
+-]
+-\node[box] (a) {Original epistemological problem: can an embedded representational system justify the boundary that generates its own representational capacity?};
+-\node[box,below=of a] (b) {Candidate cross-domain invariant: complete internal self-justification may fail when the means of representation are themselves boundary-limited.};
+-\node[box,below=of b] (c) {Bounded mathematical question: what follows from a specified map \(X\xrightarrow{\pi}O\xrightarrow{e}R\)?};
+-\node[box,below=of c] (d) {Verified results: fibers, quotient factorization, exact-decoding obstruction, refinement, empirical equivalence, and strict hidden extensions.};
+-\node[box,below=of d] (e) {Finite computations: exhaustive enumerated models, experiments, predicate profiles, empirical classes, and quotient maps.};
+-\node[box,below=of e] (f) {Interpretation and model competition: what the results permit, what they do not decide, and which hypotheses require discriminating predictions.};
+-\node[box,below=of f] (g) {Future empirical and metaphysical research: embedded self-modeling, consciousness, scale transitions, death, light, and external-source hypotheses.};
+-\foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g}{\draw[arr] (\x) -- (\y);}
+-\end{tikzpicture}
+-\caption{Conceptual hierarchy. The present theorem occupies the verified middle layer. The broader epistemological conjecture and downstream applications are retained but are not presented as consequences of the theorem.}
+-\label{fig:conceptualhierarchy}
+-\end{figure}
+-
+-\subsection{Three epistemic levels}
+-
+-Every major statement is assigned to one of three levels.
+-
+-\begin{table}[tbp]
+-\centering
+-\caption{Epistemic levels used throughout the paper.}
+-\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}X X@{}}
+-\toprule
+-Level & Content & Permitted conclusion \\
+-\midrule
+-Motivating experience or observation & Isolation, self-reference, uncertainty, apparent contradiction, measured outputs, or the felt presence of a boundary. & Establishes the phenomenon or question that requires explanation; does not select an ontology. \\
+-Mathematical and computational result & Definitions, deductive theorems, countermodels, finite calculations, and verified code. & Establishes only what follows from stated assumptions and enumerated constructions. \\
+-Metaphysical or application hypothesis & A single foundational observer, intentional forgetting, external structure, scale-conditioned death, or a theory of unified consciousness. & Remains a hypothesis until it produces a discriminating prediction and survives empirical comparison. \\
+-\bottomrule
+-\end{tabularx}
+-\label{tab:epistemiclevels}
+-\end{table}
+-
+-The distinction is essential. Direct experience can motivate a formal question. A theorem can establish a structural limit. Neither step, by itself, proves a preferred metaphysical interpretation. The gap between the second and third levels is not an embarrassment to be concealed. It is the point at which competing models and new measurements are required.
+-
+-\subsection{Competing models and the stopping rule}
+-
+-The motivating problem is not investigated by assuming one total explanation. At minimum, the broader program must compare:
+-\begin{enumerate}[label=(\alph*)]
+-\item one foundational observer that generates a contained reality and relinquishes access to its own control;
+-\item many genuinely independent observers within a shared physical world;
+-\item a physical universe that produces bounded biological observers;
+-\item an information-based reality without a singular foundational observer; and
+-\item a cognitive model through which an embedded mind organizes severe uncertainty and self-reference.
+-\end{enumerate}
+-These alternatives may agree on all presently accessible observations. The mathematical theory developed below explains why such agreement matters: an empirical equivalence class does not select one latent representative without added structure.
+-
+-The research program therefore adopts a stopping rule:
+-\begin{quote}
+-\emph{Treat the single-observer model, intentional forgetting, revelation, and every external-source model as metaphysical hypotheses unless they produce a unique, testable prediction that competing models do not produce.}
+-\end{quote}
+-The rule follows Peirce's fallibilist treatment of inquiry and Popper's demand that a scientific proposal expose itself to possible failure rather than acquire protection through reinterpretation \parencite{Peirce1877,Popper1959}. It is also consistent with current efforts to make theories of consciousness explicit, preregistered, and vulnerable to divergent outcomes rather than protected by post hoc reinterpretation \parencite{Cogitate2025,Robinson2025}. It does not abandon the hypotheses. It specifies what would count as progress.
+-
+-\subsection{The interface problem}
+-
+-Scientific observation is mediated. A physical system interacts with an apparatus. The apparatus samples selected variables. A reconstruction procedure converts sampled values into an accessible representation. A scientist or biological observer then forms an estimate, report, or decision from that representation. The final statement is separated from the source state by a chain of transformations.
+-
+-This chain can be reliable without being invertible. An instrument may report every quantity that it was designed to report, and each report may still correspond to more than one source state. The issue is not necessarily measurement error. The issue is whether the map from source states to accessible states preserves every distinction required for reconstruction.
+-
+-The problem is often described as information loss. That phrase is too broad. The present theory asks: which distinctions are identified by the interface; which quantities remain constant on the resulting equivalence classes; when does a decoder exist; how are interfaces ordered by the distinctions they preserve; and which model properties survive passage to empirical equivalence classes? These questions lead to fibers, quotient spaces, refinement maps, and hidden extensions.
+-
+-\subsection{The boundary is operational, distributed, and local}
+-
+-The word \emph{boundary} does not refer only to a wall at a distant edge of the universe. It refers to any stage at which a mapping no longer preserves all distinctions in its source. Such a stage may occur at measurement, absorption, sampling, encoding, compression, scale transition, biological access, reconstruction, language, or report. A scientific chain can therefore contain many local boundaries rather than one final edge.
+-
+-This operational interpretation separates two statements that must never be confused:
+-\[
+-\text{not represented}\neq\text{nonexistent},
+-\]
+-and
+-\[
+-\text{not represented}\not\Longrightarrow\text{existent}.
+-\]
+-A missing distinction is underdetermined by the current interface. It is neither eliminated from ontology nor added to ontology by the theorem. Positive existence and nonexistence claims require evidence beyond the absence of representation.
+-
+-The same distinction separates structural limitation from intentional prohibition. A noninvertible interface creates a mathematical limit relative to that interface. It does not imply that an observer is intentionally prevented from knowing, that no refined interface can be constructed, or that every form of discovery is impossible.
+-
+-\subsection{Why the bounded problem matters}
+-
+-The same logical form appears across established technical settings. State observability and system identification ask whether internal states or dynamical descriptions can be recovered from outputs under specified dynamics and inputs \parencite{Kalman1963,HermannKrener1977,Sontag1998,Ljung1999}. Structural identifiability asks whether parameters or model structures are uniquely determined by idealized outputs \parencite{BellmanAstrom1970,Rothenberg1971,WalterPronzato1997,CobelliDiStefano1980,DiStefanoCobelli1980}. Inverse problem theory distinguishes uniquely solvable problems from nonunique or unstable ones \parencite{Hadamard1923,Tikhonov1963,Engl1996}.
+-
+-Other fields compare accessible behavior rather than internal identity. Blackwell's theory orders statistical experiments by informativeness for decision problems \parencite{Blackwell1951,Blackwell1953,Torgersen1991}. Automata and process semantics compare systems that cannot be distinguished by designated observations \parencite{Moore1956,Park1981,Milner1989,LarsenSkou1991,Rutten2000}. Causal graphical models and latent representation learning likewise require added assumptions to identify hidden structure \parencite{VermaPearl1990,Chickering1995,Andersson1997,Pearl2009,Locatello2019,Hyvarinen2019,Khemakhem2020,Gresele2020,XiBloemReddy2023}.
+-
+-These traditions are adjacent, not identical. The present framework is deterministic, set based, and static. Its purpose is to isolate the consequence of a specified observation boundary before probability, dynamics, intervention, embodiment, or optimization is added.
+-
+-\subsection{Mathematical route and contribution}
+-
+-The paper follows one sequence. An observation map induces an equivalence relation on source states. The quotient retains exactly the distinctions represented by the interface. Quantities available through the interface factor through that quotient. An exact decoder requires injectivity. Interface refinement induces maps between observable quotients. Generative models are compared by reachable observations, and observation-only experiments are invariant within the resulting empirical classes. Hidden extensions then provide explicit countermodels to latent uniqueness.
+-
+-The contribution is the integrated theorem sequence:
+-\[
+-\begin{aligned}
+-\text{observation map}
+-&\Longrightarrow \text{observation fibers and quotient},\\
+-\text{fiber constancy}
+-&\Longleftrightarrow \text{factorization through the quotient},\\
+-\text{exact decoder}
+-&\Longrightarrow \text{injective observation},\\
+-\text{interface refinement}
+-&\Longrightarrow \text{surjective quotient map},\\
+-\text{equal reachable sets}
+-&\Longrightarrow \text{equal observation-only outcomes},\\
+-\text{strict hidden extension}
+-&\Longrightarrow \text{same empirical class but no exact decoder}.
+-\end{aligned}
+-\]
+-The empirical model quotient then characterizes exactly which properties and measurements are fixed by the accessible boundary.
+-
+-\subsection{Scope and organization}
+-
+-The theorem is mathematical. The simulations are finite illustrations. The broader claims about self-reference, meaning, consciousness, death, light, a foundational observer, intentional forgetting, or external reality are not used as premises. They are retained in later sections as interpretations, application hypotheses, and future research questions with explicit failure conditions.
+-
+-The next section gives the complete recursive architecture and the taxonomy of transformations. The mathematical sections then develop interfaces, quotients, refinement, models, experiments, profiles, hidden extensions, the empirical quotient, and the synthesis theorem. Computational methods and results follow. The final sections return to interpretation, related work, limitations, hypothesis testing, and the original question.
+--- a/sections/02_architecture.tex
++++ b/sections/02_architecture.tex
+@@ -51,7 +51,7 @@
+ \[
+ \pi=\pi_{\mathrm{rep}}\circ\pi_{\mathrm{bio}}\circ\pi_{\mathrm{app}}.
+ \]
+-If one stage identifies two states and no later input restores the missing distinction, the composite is noninjective. Refining a later report cannot recover a distinction that was already collapsed upstream unless new information enters through another route.
++If two distinct original source states reach the same intermediate value, every subsequent deterministic map preserves that equality. The composite is then noninjective. Noninjectivity of a stage outside the range reached by preceding stages is insufficient; a counterexample is given in \Cref{app:scopechecks}. Refining a later report cannot recover a distinction that was already collapsed upstream unless new information enters through another route.
+ 
+ The stages should eventually be modeled separately rather than compressed into one aggregate map. Apparatus response, sampling, biological transduction, internal representation, report, and action may each preserve different relations and collapse different distinctions. Stage-specific models would show where a loss first occurs and whether later measurements introduce genuinely new information or only re-encode what has already passed through an earlier boundary.
+ 
+--- a/sections/04_interfaces.tex
++++ b/sections/04_interfaces.tex
+@@ -33,7 +33,7 @@
+ 
+ \subsection{Quantities that factor through the interface}
+ 
+-A quantity is available through an interface only when its value can be computed from the accessible observation.
++Here accessibility means determination by a set function of the observation. Existence of that function does not establish an effective algorithm, finite computational cost, or stability under measurement error.
+ 
+ \begin{definition}[Interface accessible quantity]
+ Let \(q:X\to V\). The quantity \(q\) factors through \(I\) when there exists a map \(\bar q:O\to V\) such that
+@@ -99,8 +99,6 @@
+ d\circ\pi=\id_X.
+ \]
+ \end{definition}
+-\begin{proofstatement}Given an observation map and a decoder that is a left inverse. To show that the observation map is injective. Route: assume two observations are equal, apply the decoder, and use the left inverse equation.\end{proofstatement}
+-
+ \begin{theorem}[Exact decoding implies injectivity]
+ If a globally exact decoder exists, then \(\pi\) is injective.
+ \label{thm:decoderinjective}
+@@ -126,8 +124,6 @@
+ 
+ Finite interfaces make the obstruction quantitative. The proof uses only the finite cardinality obstruction for an injective map; no stochastic or numerical assumption is introduced.
+ 
+-\begin{proofstatement}Given finite sets with fewer accessible states than source states. To show that every observation map has a collision and no exact decoder. Route: an injective finite map would force the opposite cardinality inequality.\end{proofstatement}
+-
+ \begin{theorem}[Finite pigeonhole obstruction]
+ Let \(X\) and \(O\) be finite. If
+ \[
+--- a/sections/05_observable_quotient.tex
++++ b/sections/05_observable_quotient.tex
+@@ -57,8 +57,6 @@
+ 
+ The quotient is characterized by a universal property. Universal properties identify an object by the unique maps that factor through it rather than by a choice of representatives \parencite{Leinster2014}.
+ 
+-\begin{proofstatement}Given a function on source states. To show that fiber constancy is equivalent to unique factorization through the observable quotient. Route: define the quotient value from a representative, prove well definedness, and then prove uniqueness from surjectivity of the class map.\end{proofstatement}
+-
+ \begin{theorem}[Observable quotient universal property]
+ Let \(f:X\to V\). The following statements are equivalent.
+ \begin{enumerate}[label=(\roman*)]
+@@ -88,8 +86,8 @@
+ \]
+ Hence \(f\) is constant on each fiber.
+ \end{proof}
+-The theorem provides a precise meaning for ``observer accessible.'' A quantity is accessible through the interface exactly when it is a function of the observable equivalence class. Any quantity that varies inside a class requires information not present in that quotient.
++The theorem provides a precise meaning for ``observer accessible.'' A quantity is determined on reachable observations exactly when it is a function of the observable equivalence class. Any quantity that varies inside a class requires information not present in that quotient.
+ 
+ \subsection{Composition with the observation range}
+ 
+-The original definition of interface factorization used a map \(\hat f:O\to V\). The quotient theorem uses a map \(\bar f:Q_I\to V\). These formulations agree on reachable observations. A function on the full codomain \(O\) may assign arbitrary values to unreachable observations, while a function on \(Q_I\) contains only empirically realized classes. The distinction becomes useful at the model level, where the empirical quotient is represented exactly by realizable reachable sets.
++The original definition of interface factorization used a map \(\hat f:O\to V\). The quotient theorem uses a map \(\bar f:Q_I\to V\). These formulations agree on reachable observations. Extension to all of \(O\) is automatic when \(V\neq\varnothing\), by choosing a value on unreachable observations. If \(V=\varnothing\), a map \(X\to V\) requires \(X=\varnothing\); a map \(O\to V\) then exists only if \(O=\varnothing\). A function on the full codomain \(O\) may assign arbitrary values to unreachable observations, while a function on \(Q_I\) contains only empirically realized classes. The distinction becomes useful at the model level, where the empirical quotient is represented exactly by realizable reachable sets.
+--- a/sections/06_refinement.tex
++++ b/sections/06_refinement.tex
+@@ -1,7 +1,7 @@
+ \section{Interface refinement and information ordering}
+ \label{sec:refinement}
+ 
+-Different instruments or representational procedures may observe the same world at different resolutions. Interface refinement provides an order relation among those resolutions. This resembles comparison of statistical experiments by informativeness, but the present relation is deterministic and is defined by an explicit commuting coarsening map rather than by a Markov kernel or decision-risk criterion \parencite{Blackwell1951,Blackwell1953,Torgersen1991}.
++Different instruments or representational procedures may observe the same world at different resolutions. Interface refinement is a preorder on interfaces. Identifying mutually refining interfaces gives an order on the corresponding classes. This resembles comparison of statistical experiments by informativeness, but the present relation is deterministic and is defined by an explicit commuting coarsening map rather than by a Markov kernel or decision-risk criterion \parencite{Blackwell1951,Blackwell1953,Torgersen1991}.
+ 
+ Let
+ \[
+@@ -21,7 +21,7 @@
+ \pi_C=c\circ\pi_F.
+ \]
+ \end{definition}
+-The commuting equation states that every coarse observation can be computed from the fine observation. It does not state that the fine observation can be recovered from the coarse observation.
++The commuting equation states that every coarse observation is determined by a set function of the fine observation. It does not state that the fine observation can be recovered from the coarse observation.
+ 
+ \begin{proposition}[Refinement is reflexive and transitive]
+ Every interface refines itself. If \(F\succeq M\) and \(M\succeq C\), then \(F\succeq C\).
+@@ -103,8 +103,6 @@
+ \end{definition}
+ The map is well defined because fine equivalence implies coarse equivalence.
+ 
+-\begin{proofstatement}Given a refinement and one coarse equivalence class. To show that the induced fine to coarse quotient map is surjective. Route: use the fine class of the same world state as a preimage.\end{proofstatement}
+-
+ \begin{theorem}[Surjectivity of the quotient map]
+ For every refinement \(F\succeq C\), the map \(Q_{F\to C}\) is surjective.
+ \end{theorem}
+@@ -125,8 +123,6 @@
+ \]
+ \end{definition}
+ A strict refinement preserves at least one distinction that the coarse interface removes.
+-
+-\begin{proofstatement}Given a pair separated by the fine interface and identified by the coarse interface. To show that the quotient map is noninjective. Route: their fine classes are different and their coarse classes are equal.\end{proofstatement}
+ 
+ \begin{theorem}[Strict refinement makes the quotient map noninjective]
+ If \(F\) strictly refines \(C\), then \(Q_{F\to C}\) is not injective.
+--- a/sections/07_models_experiments.tex
++++ b/sections/07_models_experiments.tex
+@@ -51,8 +51,6 @@
+ e[\Obs(\Model)].
+ \]
+ \end{definition}
+-\begin{proofstatement}Given two models with equal reachable observation sets and an experiment defined only on observations. To show equality of possible outcome sets. Route: apply the same function to the same set.\end{proofstatement}
+-
+ \begin{theorem}[Empirical equivalence preserves all admissible outcomes]
+ If \(\Model\approx\Model'\), then
+ \[
+@@ -114,4 +112,4 @@
+ \]
+ for every model \(\Model\). Any property determined in this way is invariant under empirical equivalence, because empirically equivalent models have equal outcome sets.
+ 
+-This observation becomes decisive after strict hidden extensions are introduced. Exact latent reconstructability changes inside one empirical class. Therefore it cannot be determined by any admissible experiment, including the identity experiment.
++This observation becomes decisive after strict hidden extensions are introduced. For \(O\neq\varnothing\), the identity model and its Boolean extension have different decoder statuses inside one empirical class. Therefore it cannot be determined by any admissible experiment, including the identity experiment.
+--- a/sections/08_predicates_identifiability.tex
++++ b/sections/08_predicates_identifiability.tex
+@@ -71,14 +71,14 @@
+ Any property determined by reachable observations, a fixed admissible experiment, or the complete predicate profile is observation invariant. The proof is the same in each case: empirically equivalent models supply equal criterion inputs.
+ 
+ \begin{theorem}[Exact latent reconstructability is not determined by any admissible experiment]
+-There is no fixed admissible experiment and no criterion on its possible outcome set that determines whether every generative model has an exact latent decoder.
++Assume \(O\neq\varnothing\) and a model class containing the identity model \((O,\id_O)\) and its Boolean hidden extension. For any fixed admissible experiment \(e:O\to R\), no criterion on \(\Out_e(\Model)\) determines exact decoder existence for each model in that class.
+ \label{thm:noexperimentdecoder}
+ \end{theorem}
+ 
+ \begin{proof}
+-A property determined by an admissible experiment must be observation invariant. In \Cref{sec:hidden}, an exactly decodable model is paired with an empirically equivalent strict hidden extension that is not exactly decodable. Exact latent reconstructability is therefore not observation invariant. Hence no admissible experiment determines it.
++A property determined by an admissible experiment must be observation invariant. Choose \(o_0\in O\) and use the identity model, which has the identity decoder. In \Cref{sec:hidden}, an exactly decodable model is paired with an empirically equivalent strict hidden extension that is not exactly decodable. Exact latent reconstructability is therefore not observation invariant. Hence no admissible experiment determines it.
+ \end{proof}
+ \begin{corollary}
+-Exact latent reconstructability is not determined by any accessible binary test, by the identity experiment, by the full reachable observation set, or by the complete predicate profile.
++Under the same assumptions, exact latent reconstructability is not determined by any accessible binary test, by the identity experiment, by the full reachable observation set, or by the complete predicate profile.
+ \end{corollary}
+ This is stronger than a failure of one selected diagnostic. The complete collection of accessible predicates determines the empirical class, and the property still varies inside that class.
+--- a/sections/09_hidden_extensions.tex
++++ b/sections/09_hidden_extensions.tex
+@@ -1,4 +1,4 @@
+-\section{Hidden extensions, latent covers, and the absence of maximal latent representations}
++\section{Hidden extensions and latent covers}
+ \label{sec:hidden}
+ 
+ The preceding sections identify what empirical equivalence preserves. Related identifiability results show that latent representations require additional assumptions to become unique \parencite{Teicher1963,Allman2009,Locatello2019,Hyvarinen2019,Khemakhem2020}; the construction below gives a deterministic set-level witness tailored to the present observer interface. This section constructs models that share all empirically preserved information while differing in latent structure.
+@@ -98,7 +98,7 @@
+ \[
+ \pi_{\Model^{(\mathbb N)}}(x,n)=\pi_\Model(x).
+ \]
+-For each \(x\), the map \(n\mapsto(x,n)\) embeds \(\mathbb N\) into the observation fiber over \(\pi_\Model(x)\). The model remains empirically equivalent to \(\Model\), every admissible outcome set remains equal, and exact latent decoding remains impossible.
++For each \(x\), the map \(n\mapsto(x,n)\) embeds \(\mathbb N\) into the observation fiber over \(\pi_\Model(x)\). The model remains empirically equivalent to \(\Model\), and every admissible outcome set remains equal. If \(X_\Model\neq\varnothing\), distinct natural number coordinates give a collision, so exact latent decoding is impossible.
+ 
+ This result separates empirical class size from latent fiber size. An empirical class can contain representatives with one, finitely many, or countably many latent states above the same accessible observation.
+ 
+@@ -135,8 +135,6 @@
+ \end{definition}
+ A strict cover contains distinct extended states that project to one base state. Observation preservation then forces those extended states to share one observation.
+ 
+-\begin{proofstatement}Given a strict latent cover with a noninjective projection. To show that the extended observation map is noninjective and has no exact decoder. Route: choose two extended states with one projection and use observation preservation.\end{proofstatement}
+-
+ \begin{theorem}[Strict covers prevent exact latent reconstruction]
+ If \(\Extended\) is a strict latent cover of \(\Model\), then \(\pi_{\Extended}\) is noninjective and \(\Extended\) has no exact latent decoder.
+ \end{theorem}
+@@ -151,15 +149,15 @@
+ \]
+ Thus the extended observation map is noninjective. Exact decoding is therefore impossible.
+ \end{proof}
+-\subsection{No maximal inhabited latent representation}
++\subsection{Existence of strict covers for inhabited models}
+ 
+ Every inhabited model has a Boolean strict hidden extension. The construction can then be repeated.
+ 
+-\begin{theorem}[No inhabited model is maximal under strict latent extension]
++\begin{theorem}[Every inhabited model admits a strict latent cover]
+ For every generative model with at least one latent state, there exists an empirically equivalent strict latent cover with additional latent distinctions.
+ \end{theorem}
+ 
+ \begin{proof}
+ Use the Boolean hidden extension. Projection onto the base state is surjective and observation preserving. The two Boolean values make the projection noninjective.
+ \end{proof}
+-The theorem defines an order theoretic limit. Within the class of allowed latent extensions, there is no maximal inhabited representative selected by reachable observations alone. This does not imply that physical reality contains an infinite hierarchy of hidden coordinates. It implies that empirical equivalence, by itself, does not impose a maximal latent representation.
++The Lean predicate \texttt{LatentlyMaximal} means that no strict latent cover exists. The theorem negates that predicate for every inhabited model. This definition is not ordinary maximality in a partial order. A strict cover means a noninjective surjective projection; for infinite models such a projection may be a self-map. For example, \(X=\mathbb N\), \(O=\{0\}\), and \(\pi(n)=0\) admit the strict self-cover \(p(n)=\lfloor n/2\rfloor\). Surjectivity follows from \(p(2n)=n\), and \(p(0)=p(1)\) proves noninjectivity. Additional hidden labels also need not increase an infinite set's cardinality. The proved conclusion is the existence of strict covers within the specified model class. It does not assert a physically realized hierarchy of hidden variables.
+--- a/sections/10_empirical_quotient.tex
++++ b/sections/10_empirical_quotient.tex
+@@ -4,7 +4,7 @@
+ Empirical equivalence partitions generative models into classes with equal reachable observation sets. The empirical model quotient records only this accessible information. The descent results use the same representative-independence principle as ordinary quotient constructions and universal properties \parencite{MacLaneBirkhoff1999,Leinster2014}, now applied to a space of models.
+ 
+ \begin{definition}[Empirical model quotient]
+-Let \(\mathfrak M_O\) denote the collection of generative models over \(O\). The empirical model quotient is
++Let \(\mathfrak M_O\) denote the collection of generative models over \(O\), with a fixed set theoretic universe for latent spaces. The Lean development makes the corresponding universe parameters explicit. The empirical model quotient is
+ \[
+ \mathfrak M_O/{\approx},
+ \]
+@@ -73,14 +73,12 @@
+ 
+ \subsection{Exact reconstruction does not descend}
+ 
+-\begin{proofstatement}Given one exactly decodable model and its empirically equivalent Boolean extension. To show that decoder existence is not a property of the empirical class. Route: the base and extension occupy one class and have opposite decoder truth values.\end{proofstatement}
+-
+ \begin{theorem}[Exact latent reconstruction is not a quotient property]
+-Exact latent reconstructability does not factor through the empirical model quotient.
++Assume \(O\neq\varnothing\) and a model class containing \((O,\id_O)\) and its Boolean hidden extension. Exact latent reconstructability does not factor through the empirical model quotient of that class.
+ \label{thm:decoderdoesnotdescend}
+ \end{theorem}
+ 
+ \begin{proof}
+-Choose an inhabited exactly decodable base model with an injective observation map. Its Boolean hidden extension is empirically equivalent to the base. The extension has a noninjective observation map and no exact latent decoder. Therefore the property has different truth values on two representatives of one empirical class. A property with that variation cannot descend to the quotient.
++Use the identity model on \(O\); it is inhabited and has the identity decoder. Its Boolean hidden extension is empirically equivalent to the base. The extension has a noninjective observation map and no exact latent decoder. Therefore the property has different truth values on two representatives of one empirical class. A property with that variation cannot descend to the quotient.
+ \end{proof}
+-The theorem is the quotient form of \Cref{thm:noexperimentdecoder}. All information available through reachable observation sets, identity experiments, complete accessible predicates, and empirical classes is compatible with both decoder outcomes.
++The theorem is the quotient form of \Cref{thm:noexperimentdecoder}. The identity model and its Boolean extension have the same reachable set and opposite decoder statuses. Thus no criterion based on that set works for every model in the stated class. This is a global nonidentifiability result, not a claim that every empirical class contains both decoder statuses. In particular, an empty reachable set forces an empty latent space; its total decoder exists exactly when \(O=\varnothing\).
+--- a/sections/11_synthesis.tex
++++ b/sections/11_synthesis.tex
+@@ -2,8 +2,6 @@
+ \label{sec:synthesis}
+ 
+ The preceding results combine into one constructive theorem. The theorem begins with an arbitrary inhabited model and an arbitrary admissible experiment. It returns a strict hidden extension that preserves the complete accessible boundary while preventing exact latent reconstruction.
+-
+-\begin{proofstatement}Given a model, one latent state \(x_0\), and one admissible experiment. To construct a strict extension in the same empirical class, with the same reachable observations and outcome set, but without an exact latent decoder. Route: use the Boolean extension and the projection onto the base latent coordinate.\end{proofstatement}
+ 
+ \begin{theorem}[Boundary limited observer synthesis]
+ Let \(\Model=(X_\Model,\pi_\Model)\) be a generative model, let \(x_0\in X_\Model\) be an inhabited witness, and let \(e:O\to R\) be an admissible experiment. Then there exists a model \(\Extended\) such that:
+@@ -75,7 +73,7 @@
+ 
+ \subsection{What the theorem establishes}
+ 
+-The theorem establishes a logical separation between empirical completeness and latent completeness. The extension agrees with the base on the entire reachable observation set. It therefore agrees under every fixed observation only experiment, including the identity experiment. It nevertheless differs in latent multiplicity and exact reconstructability.
++The theorem establishes a logical separation between empirical completeness and latent completeness. The extension agrees with the base on the entire reachable observation set. It therefore agrees under every fixed observation only experiment, including the identity experiment. The extension has distinct hidden labels and no exact decoder. If the original model is exactly decodable, their decoder statuses differ. If the original already has no decoder, both statuses are false.
+ 
+ The theorem also identifies the additional burden carried by a uniqueness claim. To conclude that one latent representation is uniquely determined, the argument must use assumptions not contained in reachable observation equality alone. Such assumptions may include dynamical constraints, causal interventions, regularity conditions, minimality, priors, known cardinality, or a refined observation interface. The theorem does not decide which additional assumptions are scientifically justified. It shows why some additional condition is required.
+ 
+--- a/sections/12_computational_methods.tex
++++ b/sections/12_computational_methods.tex
+@@ -21,7 +21,7 @@
+ Predicate summaries & Existential success profiles and complete finite truth profiles for three accessible predicates. \\
+ Empirical quotient & Grouping of models by equality of reachable observation sets and comparison of latent properties within one class. \\
+ Refinement summaries & Interface sizes, strictness, collapsed pairs, reverse refinement, and induced quotient map properties. \\
+-Validation & Eighteen automated tests and runner assertions covering the intended finite invariance and refinement checks. \\
++Validation & Eighteen repository tests, six revision regression tests, and runner assertions covering the intended finite invariance and refinement checks. \\
+ \bottomrule
+ \end{tabularx}
+ \end{table}
+@@ -80,11 +80,11 @@
+ 
+ \subsection{Automated validation}
+ 
+-The implementation includes eighteen automated tests. They cover injective and noninjective base models, Boolean and finite hidden extensions, equality of experiment outcome sets, predicate profiles, empirical quotient grouping, observation fibers, refinement preservation, strict collapse, quotient map surjectivity and noninjectivity, reverse refinement failure, relabeling equivalence, composition, and invalid coarsening rejection. The runner also contains explicit assertions that stop execution if any intended finite relation fails.
++The reference implementation includes eighteen automated tests. This revision adds six tests of assumption boundaries, supplied in the source package. They cover injective and noninjective base models, Boolean and finite hidden extensions, equality of experiment outcome sets, predicate profiles, empirical quotient grouping, observation fibers, refinement preservation, strict collapse, quotient map surjectivity and noninjectivity, reverse refinement failure, relabeling equivalence, composition, and invalid coarsening rejection. The runner also contains explicit assertions that stop execution if any intended finite relation fails.
+ 
+ 
+ \subsection{Formal and computational verification boundary}
+ 
+-The mathematical declarations and proofs were checked in Lean against the mathlib library, and the finite examples were evaluated by exhaustive Python enumeration. These procedures serve different roles. The proof checker verifies derivability within the encoded formal system. The simulations verify the stated equalities and counts for the enumerated finite models. Neither procedure establishes that the formal encoding is the unique description of a physical system or that the simulated interface is biologically or physically complete.
++The pinned repository records successful Lean checking against mathlib. This revision inspects the encoded statements without claiming a new local Lean build. The finite examples are rerun by exhaustive Python enumeration. These procedures serve different roles. The proof checker verifies derivability within the encoded formal system. The simulations verify the stated equalities and counts for the enumerated finite models. Neither procedure establishes that the formal encoding is the unique description of a physical system or that the simulated interface is biologically or physically complete.
+ 
+ This separation follows from the interface framework. Every computation requires a representation of physical or conceptual states, an allowed evolution, and a readout \parencite{Horsman2014,Horsman2015}. The verified theorem is exact relative to its definitions. A proposed application must additionally justify the map from the application domain into those definitions and quantify approximation, noise, and omitted variables.
+--- a/sections/13_results.tex
++++ b/sections/13_results.tex
+@@ -202,4 +202,4 @@
+ 
+ \subsection{Validation result}
+ 
+-All eighteen automated tests pass. The executable runner also verifies Boolean extension, multiplicity, experiment, predicate, empirical quotient, and interface refinement checks before writing the output files.
++All eighteen repository tests and all six revision regression tests pass. All twelve regenerated CSV outputs match the archived files byte for byte. The executable runner also verifies Boolean extension, multiplicity, experiment, predicate, empirical quotient, and interface refinement checks before writing the output files.
+--- a/sections/14_significance.tex
++++ /dev/null
+@@ -1,94 +0,0 @@
+-\section{Interpretation and scientific significance}
+-\label{sec:significance}
+-
+-\subsection{The result is a limit on inference, not a positive ontology}
+-
+-The synthesis theorem is constructive, but the hidden coordinate is a mathematical witness. It demonstrates that reachable-observation equality does not select a unique latent representation from the declared model class. The theorem does not select the extension as physically realized, prove that nature contains a Boolean hidden variable, or establish a single-observer ontology. It establishes a burden of proof for any claim that the accessible boundary uniquely determines latent structure.
+-
+-That burden can be met in a domain-specific model. Dynamics, interventions, conservation laws, regularity conditions, minimality criteria, priors, known cardinality, or a refined interface may exclude hidden extensions. The theorem does not reject those conditions. It shows that they must be stated because they are not contained in equality of reachable observations alone.
+-
+-\subsection{Complete accessible information is relative to an interface}
+-
+-The identity experiment returns every reachable accessible observation without downstream compression. The hidden extension remains empirically equivalent to the base even under that experiment. The limitation is already present in the latent-to-observation map.
+-
+-The complete predicate profile reaches the same conclusion from another direction. Agreement on every accessible predicate characterizes equality of reachable observation sets. Exact-decoder status can still vary inside the empirical class. The quotient formulation gives the precise result: a property is empirically identifiable exactly when it is constant on empirical-equivalence classes. Exact latent reconstructability is not.
+-
+-The interpretive safeguard is therefore two-sided:
+-\[
+-\text{not represented}\neq\text{nonexistent},
+-\qquad
+-\text{not represented}\not\Longrightarrow\text{existent}.
+-\]
+-The theorem establishes underdetermination. It does not establish ontology.
+-
+-\subsection{Paradox as a candidate boundary signal}
+-
+-The motivating discussion treats paradox not only as a contradiction to be eliminated but as a possible indicator that a representational system has reached the limits of its own closure. The candidate interpretation is:
+-\begin{quote}
+-\emph{Paradox is not necessarily a defect in the system. It may be a measurement of where the system's representational closure fails.}
+-\end{quote}
+-This is not a consequence of noninjectivity alone. A contradiction can result from inconsistent premises, ambiguous language, type confusion, numerical error, or a genuinely undecidable or undefinable construction. Classical work on type restrictions, incompleteness, semantic undefinability, and diagonalization shows several distinct mechanisms by which self-reference produces limits \parencite{Russell1908,Godel1931,Tarski1936,Lawvere1969}. Recent work on self-referential living systems likewise argues that self-reference should be modeled rather than merely removed \parencite{Abramsky2025}.
+-
+-The future scientific task is therefore diagnostic. A proposed boundary signal must distinguish at least four cases: an ordinary modeling error, an unresolved empirical equivalence class, a formal limitation, and a genuine change in representational access. Until such distinctions are operationalized, paradox remains a research cue rather than evidence for a metaphysical conclusion.
+-
+-\subsection{Containment is not falseness}
+-
+-A contained or dependent representation can be real at the level on which it operates. A simulated trajectory is real as a trajectory in the simulation. A neural representation is real as a neural state even when it is not identical to its external cause. A social commitment, pain report, mathematical proof, or memory can be relationally real without being an observer-independent primitive.
+-
+-The corresponding interpretive proposition is:
+-\begin{quote}
+-\emph{Containment is not the same as falseness. Dependence is not the same as nonexistence.}
+-\end{quote}
+-This proposition does not decide whether the containing structure is physical, informational, biological, computational, or metaphysical. It rejects only the inference that dependence makes an experience or relation unreal. The distinction is compatible with Kantian, constructivist, cybernetic, and autopoietic traditions that separate the conditions of access from a claim that experience is mere illusion \parencite{Kant1998,VonFoerster1981,MaturanaVarela1980}.
+-
+-\subsection{Internal meaning and external absoluteness}
+-
+-Freedom, meaning, beauty, certainty, and truth can function as system-relative relations without thereby being either arbitrary or externally absolute. The mathematical analogue is a quotient invariant: a property can be completely well defined on the accessible quotient even when it does not identify a unique latent representative. Internal validity and latent uniqueness are different questions.
+-
+-The stronger philosophical hypothesis is that what observers call meaning is produced through recursive interaction among the system, its interface, and its history. In this view, meaning is not diminished by being relational. It is constrained by the transformations under which it remains stable. This hypothesis is related to cybernetic and enactive accounts of sense-making \parencite{MaturanaVarela1980,VonFoerster1981} and to current generative-model approaches in which an agent's world model determines the states it can infer and act upon \parencite{Parr2022,Laukkonen2025}. It is not proved by the quotient theorem.
+-
+-\subsection{The embedded observer problem}
+-
+-The present formalization is stated from the external analyst's viewpoint. The broader question concerns an observer whose body, cognition, instruments, language, and inference rules are internal to the system. Such an observer may model itself, act on the world, and thereby change the data from which its next model is constructed.
+-
+-Active inference explicitly models recurrent perception-action cycles and hidden causes inferred through observations \parencite{Friston2010,Parr2022,Friston2025ScaleFree}. Recent proposals connect recursive world modeling, precision control, and consciousness \parencite{Laukkonen2025,Whyte2026,Robinson2025}. These theories do not establish the candidate invariant, and the present theorem does not establish their consciousness claims. Their relevance is structural: they supply mathematical languages for systems whose internal models participate in the dynamics being modeled.
+-
+-\subsection{Competing hypotheses and discriminating predictions}
+-
+-The single-observer hypothesis, a plural-observer physical universe, an information-based ontology without a singular observer, and a cognitive uncertainty model can all be compatible with the same current observations. The appropriate response is not to select the most emotionally powerful explanation. It is to identify a prediction on which the models diverge.
+-
+-The stopping rule is therefore retained as a scientific constraint:
+-\begin{center}
+-\fbox{\parbox{0.86\textwidth}{\centering An external or single-observer hypothesis earns support only through a discriminating prediction.}}
+-\end{center}
+-This principle is illustrated by recent adversarial collaborations in consciousness science, where competing theories were required to state divergent predictions in advance and were tested on common multimodal data \parencite{Cogitate2025,Robinson2025}. Those studies challenge major predictions without delivering a final theory. Their importance here is methodological: empirical equivalence should be broken by prospective tests, not by adding an unmeasured ontology after the result.
+-
+-
+-\subsection{Constraint, self-organization, and the formation of unified regimes}
+-
+-The hidden-extension theorem is not a theory of emergence, but it clarifies what an emergence theory must add. Prigogine's nonequilibrium thermodynamics, Kauffman's studies of self-organization, and Deacon's constraint-based account of emergence each ask how organized macroscopic regimes arise and persist without being reducible to a list of local components \parencite{NicolisPrigogine1977,Kauffman1993,Deacon2011}. Grossberg develops a neural account in which resonant matching and adaptive dynamics stabilize coherent cognitive states \parencite{Grossberg2021}. Complexity research emphasizes that the relevant organization may reside in interactions, constraints, and multiscale regularities rather than in one component \parencite{Mitchell2009}.
+-
+-These programs are relevant to the materialism and consciousness application because they supply candidate dynamics for reducing effective degrees of freedom and maintaining a reportable regime. They do not establish that consciousness is identical to low entropy, integration, resonance, or constraint. The interface analysis contributes a prior question: which features of any proposed unified regime are actually identifiable through the declared experimental and biological interfaces?
+-
+-
+-\subsection{Exact formal logic and bounded physical interfaces}
+-
+-The exactness of a formal proof and the boundedness of a physical interface are compatible statements. Formal derivation can be exact relative to the encoded definitions and rules. The physical process that stores, checks, displays, or interprets that derivation still uses a finite device and a declared encoding. The conclusion is therefore not that ``everything is merely approximate.'' It is that approximation enters when an abstract object is implemented, measured, translated, or applied to a physical domain.
+-
+-This prevents several category errors. Computational logic is not automatically identical to human reasoning. A brain--computer interface does not expose the complete neural or experiential state of its user. A quantum processor does not present its quantum state directly to a classical observer. An analog device does not solve a differential equation independently of calibration and physical tolerance. A guidance system does not possess an external view of its own trajectory. A sensor suite does not expose the complete state of the object or environment it estimates. A particle detector does not turn an exclusion contour into an observer-independent statement of nonexistence. In every case, the scientific claim must identify the state represented, the map used, the result returned, and the distinctions the interface cannot resolve.
+-
+-\subsection{Why the distinction matters in scientific practice}
+-
+-Scientific models often contain unmeasured variables. A fit to observable data can be accurate while the internal explanation remains nonunique. Structural identifiability analysis was developed to detect this problem before parameter estimates are interpreted mechanistically \parencite{BellmanAstrom1970,CobelliDiStefano1980,Raue2009,Chis2011,Villaverde2016,Guillaume2019}. Markov-equivalent causal graphs and nonidentifiable learned representations provide related examples \parencite{VermaPearl1990,Chickering1995,Andersson1997,Locatello2019}.
+-
+-Interface refinement provides a constructive response. Rather than asking only whether a model is identifiable under the current measurement, one can ask which fibers must be split to identify the property of interest. A refined sensor, additional modality, temporal trajectory, or intervention can replace the current equivalence relation by a finer one.
+-
+-\subsection{Broad conclusion of the verified layer}
+-
+-The mathematical conclusion can be stated without metaphysical commitment:
+-\[
+-\text{complete at the observation boundary}
+-\quad\not\Longrightarrow\quad
+-\text{complete at the latent level}.
+-\]
+-The open question begins where this theorem ends: determining whether similar boundary-relative limitations recur in formal self-reference, embedded cognition, biology, artificial intelligence, and physical measurement, and whether any common invariant survives those domain changes.
+--- a/sections/17_limitations.tex
++++ b/sections/17_limitations.tex
+@@ -1,7 +1,7 @@
+-\section{Limitations, applications, hypotheses, and future work}
++\section{Broader applications and research hypotheses}
+ \label{sec:limitations}
+ 
+-The present framework is exact, deterministic, static, and intentionally bounded. The limitations below define both the assumptions required for broader applications and the research program that follows.
++This appendix retains the broader research program. Its hypotheses are not consequences of the reconstruction theorem. The formal framework is exact, deterministic, static, and intentionally bounded. The limitations below define both the assumptions required for broader applications and the research program that follows.
+ 
+ \subsection{Set-based empirical equivalence and exact equality}
+ 
+@@ -84,7 +84,7 @@
+ 
+ The interpretive application is that containment does not imply falseness. Experiences and relations may be real within a containing process even when their ontology is dependent. Meaning, beauty, freedom, and truth may be internally stable outputs of a system without being established as absolute outside it. This claim is philosophical rather than empirical. Leibnizian perspectivism, Whiteheadian relation, and Peircean fallibilism provide three different historical comparisons for this claim \parencite{Leibniz1989,Whitehead1978,Peirce1877,Peirce1878}. Future work should formalize it as invariance under a declared family of transformations: which relations remain stable across observers, interfaces, encodings, or scales?
+ 
+-\subsection{Identity, \(0!\), layered tensors, and geometry}
++\subsection{Identity, factorial zero, layered tensors, and geometry}
+ 
+ A separate mathematical note is reserved for the recurring motif that the unit value \(1\) appears as \(0!\), the empty product, \(e^0\), \(\Gamma(1)\), \(\det I\), probability normalization, and identity action. The proposed conceptual sequence is
+ \[
+@@ -93,11 +93,11 @@
+ \text{connection}\longrightarrow
+ \text{curvature}.
+ \]
+-The intended intuition is that Christoffel symbols arise when an identity-like metric structure varies across coordinates, and curvature arises from derivatives and products of the connection. This is a differential-geometric observation that must be derived independently \parencite{Nakahara2003}. It is not a result of the present theorem, and \(0!=1\) does not by itself generate a connection or curvature tensor.
++The intended intuition is that Christoffel symbols arise when an identity-like metric structure varies across coordinates, and curvature arises from derivatives and products of the connection. For a specified smooth metric, the Levi-Civita connection depends on the metric and its first derivatives; curvature depends on the connection and its derivatives. Coordinate-dependent metric components can produce nonzero connection coefficients even in flat space, so they do not alone establish curvature. This geometric calculation must be developed independently \parencite{Nakahara2003}. It is not a result of the present theorem, and \(0!=1\) does not by itself generate a connection or curvature tensor.
+ 
+ \subsection{Neural manifolds and reportability}
+ 
+-High-dimensional neural activity reconstructed as a toroidal grid-cell manifold provides a direct application of the multi-stage interface problem \parencite{Gardner2022,Hermansen2024,DiSarra2025}. The source state, electrode signal, spike-sorted representation, behavioral alignment, dimensional reconstruction, topological summary, biological access, and verbal report are not one object. Future work should define the maps between these levels and test which topological and dynamical conclusions survive justified changes in sampling, preprocessing, reconstruction, and behavioral context.
++Published reconstructions of grid-cell population activity motivate an application of the multi-stage interface problem \parencite{Gardner2022,Hermansen2024,DiSarra2025}. The source state, electrode signal, spike-sorted representation, behavioral alignment, dimensional reconstruction, topological summary, biological access, and verbal report are not one object. Future work should define the maps between these levels and test which topological and dynamical conclusions survive justified changes in sampling, preprocessing, reconstruction, and behavioral context.
+ 
+ 
+ \subsection{Heterogeneous computational and engineered interfaces}
+--- a/sections/18_conclusion.tex
++++ /dev/null
+@@ -1,36 +0,0 @@
+-\section{Conclusion}
+-\label{sec:conclusion}
+-
+-The paper began with a question broader than latent reconstruction: can an embedded representational system fully perceive or justify the boundary that generates its own capacity to represent? The present work does not answer that question in general. It proves a bounded result that any adequate answer must respect.
+-
+-A declared observation map partitions source states into fibers. Quantities available only through the observation are constant on those fibers. Internal tests receive the same input from observationally equivalent states. A globally exact decoder requires injectivity. The observable quotient retains exactly the distinctions represented by the interface, while refinement orders interfaces by the distinctions they preserve.
+-
+-At the model level, equality of reachable observation sets defines empirical equivalence. Empirically equivalent models have the same possible outcomes under every observation-only experiment and agree on complete accessible predicate profiles. Hidden extensions show what that completeness omits. Latent multiplicity, fiber size, and exact-decoder status can change while the complete reachable observation set remains fixed.
+-
+-The synthesis theorem combines these facts. Every inhabited model and admissible experiment admit a strict latent cover in the same empirical class, with the same reachable observations and possible outcomes, but without an exact latent decoder. The finite simulation suite displays the construction in enumerated models and reproduces the interface-refinement maps and empirical classes used in the theorem's interpretation.
+-
+-The exact conclusion is:
+-\[
+-\text{complete access to an observation boundary}
+-\not\Longrightarrow
+-\text{complete access to latent structure}.
+-\]
+-The corresponding safeguard is equally important:
+-\[
+-\text{not represented}\neq\text{nonexistent},
+-\qquad
+-\text{not represented}\not\Longrightarrow\text{existent}.
+-\]
+-The theorem establishes underdetermination rather than ontology.
+-
+-Paradox may be investigated as a possible boundary signal. Embedded self-modeling requires a theory in which the observer and its interface participate in the same dynamics. Containment does not automatically imply falseness, and relational meaning can remain real within a containing system. Materialism, consciousness, death, light, a foundational observer, intentional forgetting, and external-source proposals remain hypotheses. None inherits proof from the synthesis theorem. Each must define its observables, competing models, and failure conditions.
+-
+-
+-Leibnizian perspective explains why one world may admit different internally complete views; Peircean and Popperian inquiry explain why those views must be exposed to consequences that could separate them; Whiteheadian process and cybernetic feedback explain why the observer route is dynamic rather than a passive snapshot \parencite{Leibniz1989,Peirce1877,Peirce1878,Popper1959,Whitehead1978,Wiener1948}. These traditions do not prove the theorem, and the theorem does not establish their metaphysical conclusions. It gives a precise condition they must respect whenever a proposed observer map is noninjective.
+-
+-
+-The same principle applies across heterogeneous physical interfaces. Digital, analog, quantum, neural, and human systems can implement different representations even when they return a common abstract result. A sensor suite combines partial measurements into a state estimate without exposing the complete state it represents. An inertial guidance system acts from that estimate and its error model rather than an external view of its actual path. Particle physics distinguishes theoretical prohibition, detector inaccessibility, and statistical exclusion. These examples are not interchangeable, but each shows why the meaning of an output depends on the interface that made it accessible.
+-
+-The methodological rule is final: a preferred ontology earns support only when it predicts an accessible difference that empirically equivalent alternatives do not share. Where no such difference is available, the honest result is an equivalence class, not a verdict.
+-
+-The motivating statement is: \emph{life is about living for the sake of the paradoxes that rule us}. In scientific form, the task is to determine which paradoxes are errors, which are unresolved alternatives, which are formal limits, and which reveal a boundary that a refined interface can make newly visible.
+--- a/sections/app_a_declarations.tex
++++ b/sections/app_a_declarations.tex
+@@ -1,9 +1,9 @@
++\begin{landscape}
+ \section{Verified declaration map}
+ \label{app:declarations}
+ 
+-This appendix maps the principal human readable claims to exact declaration names in \nolinkurl{BoundaryObserver.lean}. The declaration names provide traceability. They are not substitutes for the proofs presented in the main text.
++This appendix maps the principal human readable claims to exact declaration names in \nolinkurl{BoundaryObserver.lean}. The declaration names provide traceability. They are not substitutes for the proofs presented in the article appendices.
+ 
+-\begin{landscape}
+ \small
+ \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.41\linewidth}@{}}
+ \caption{Principal declarations and paper roles}\label{tab:declarations}\\
+@@ -17,46 +17,46 @@
+ \endhead
+ \bottomrule
+ \endfoot
+-\nolinkurl{ObserverInterface} & Main article, Section 4 & Declares an observation type and a map from world states to observations. \\
+-\nolinkurl{ObsEq} & Main article, Section 4 & Defines state equivalence by equality of accessible observations. \\
+-\nolinkurl{factorized_quantity_respects_obsEq} & Main article, Section 4 & Proves that interface factorized quantities are constant on observation fibers. \\
+-\nolinkurl{exact_decoder_implies_injective} & Main article, Section 4 & Proves that a globally exact decoder implies observation injectivity. \\
+-\nolinkurl{no_exact_decoder_of_not_injective} & Main article, Section 4 & Gives the reconstruction obstruction for a noninjective map. \\
+-\nolinkurl{internal_test_cannot_distinguish_obsEq} & Main article, Section 4 & Proves that an observation only binary test cannot separate one fiber. \\
+-\nolinkurl{finite_interface_has_collision} & Main article, Section 4 & Uses finite cardinality to produce distinct states with one observation. \\
+-\nolinkurl{finite_interface_has_no_exact_decoder} & Main article, Section 4 & Connects finite capacity deficit to exact decoder failure. \\
+-\nolinkurl{ObservableQuotient} & Main article, Section 5 & Quotients world states by observational equivalence. \\
+-\nolinkurl{observableQuotient_universal_property} & Main article, Section 5 & Characterizes unique factorization of fiber constant quantities. \\
+-\nolinkurl{observable_variation_prevents_factorization} & Main article, Section 5 & Shows that variation within one fiber prevents interface factorization. \\
+-\nolinkurl{InterfaceRefines} & Main article, Section 6 & Defines coarsening by a commuting observation equation. \\
+-\nolinkurl{refinement_preserves_obsEq} & Main article, Section 6 & Proves that fine equivalence implies coarse equivalence. \\
+-\nolinkurl{factorization_monotone_under_refinement} & Main article, Section 6 & Lifts every coarse accessible quantity to the fine interface. \\
+-\nolinkurl{quotientMapOfRefinement_surjective} & Main article, Section 6 & Proves that the induced fine to coarse quotient map is surjective. \\
+-\nolinkurl{strictlyRefines_prevents_reverse_refinement} & Main article, Section 6 & Proves that strict refinement cannot be reversed. \\
+-\nolinkurl{strictlyRefines_quotientMap_not_injective} & Main article, Section 6 & Proves that strict coarsening collapses quotient classes. \\
+-\nolinkurl{quotientMapOfMutualRefinement_bijective} & Main article, Section 6 & Establishes quotient bijection under mutual refinement. \\
+-\nolinkurl{GenerativeModel} & Main article, Section 7 & Declares a latent state type and a latent to observation map. \\
+-\nolinkurl{Produces} & Main article, Section 7 & Defines reachability of one observation. \\
+-\nolinkurl{ModelObsEq} & Main article, Section 7 & Defines model equivalence by equality of produced observations. \\
+-\nolinkurl{ExperimentOutcomeSet} & Main article, Section 7 & Collects the possible results of one admissible experiment. \\
+-\nolinkurl{modelObsEq_preserves_experimentOutcomeSet} & Main article, Section 7 & Proves outcome set equality for empirically equivalent models. \\
+-\nolinkurl{identityExperiment} & Main article, Section 7 & Returns the accessible observation unchanged. \\
+-\nolinkurl{exactLatentDecoder_not_determinedBy_identityExperiment} & Main article, Section 8 & Proves that even complete accessible observations do not determine decoder existence. \\
+-\nolinkurl{PredicateProfile} & Main article, Section 8 & Records which accessible predicates can succeed. \\
+-\nolinkurl{modelObsEq_iff_predicateProfile_eq} & Main article, Section 8 & Characterizes empirical equivalence by complete predicate profiles. \\
+-\nolinkurl{exactLatentDecoder_not_determinedByPredicateProfile} & Main article, Section 8 & Shows that complete predicate profiles do not determine exact reconstruction. \\
+-\nolinkurl{LatentCover} & Main article, Section 9 & Declares a surjective observation preserving projection to a base model. \\
+-\nolinkurl{StrictLatentCover} & Main article, Section 9 & Adds noninjectivity of the latent projection. \\
+-\nolinkurl{hiddenExtensionModel} & Main article, Section 9 & Adjoins a hidden factor and ignores it during observation. \\
+-\nolinkurl{finiteMultiplicityModel} & Main article, Section 9 & Creates arbitrary finite hidden multiplicity. \\
+-\nolinkurl{countableMultiplicityModel} & Main article, Section 9 & Creates a natural number hidden coordinate. \\
+-\nolinkurl{countableMultiplicityFiber_contains_nat} & Main article, Section 9 & Embeds the natural numbers into one observation fiber. \\
+-\nolinkurl{no_inhabited_model_is_latentlyMaximal} & Main article, Section 9 & Constructs a strict empirically equivalent extension of every inhabited model. \\
+-\nolinkurl{EmpiricalModelQuotient} & Main article, Section 10 & Quotients generative models by empirical equivalence. \\
+-\nolinkurl{observationInvariant_iff_factorsThroughEmpiricalModelQuotient} & Main article, Section 10 & Characterizes observation invariant properties by quotient factorization. \\
+-\nolinkurl{empiricalModelQuotient_map_universal_property} & Main article, Section 10 & Gives unique descent of arbitrary observation invariant measurements. \\
+-\nolinkurl{exactLatentDecoder_not_factorsThroughEmpiricalModelQuotient} & Main article, Section 10 & Proves that decoder existence is not a property of the empirical class. \\
+-\nolinkurl{empiricalModelQuotientEquivRealizableObservationSet} & Main article, Section 10 & Identifies empirical classes with realizable reachable observation sets. \\
+-\nolinkurl{boundaryLimitedObserver_synthesis} & Main article, Section 11 & Constructs the strict Boolean extension with the five conclusions stated in the main theorem. \\
++\nolinkurl{ObserverInterface} & Article, Appendix B & Declares an observation type and a map from world states to observations. \\
++\nolinkurl{ObsEq} & Article, Appendix B & Defines state equivalence by equality of accessible observations. \\
++\nolinkurl{factorized_quantity_respects_obsEq} & Article, Appendix B & Proves that interface factorized quantities are constant on observation fibers. \\
++\nolinkurl{exact_decoder_implies_injective} & Article, Appendix B & Proves that a globally exact decoder implies observation injectivity. \\
++\nolinkurl{no_exact_decoder_of_not_injective} & Article, Appendix B & Gives the reconstruction obstruction for a noninjective map. \\
++\nolinkurl{internal_test_cannot_distinguish_obsEq} & Article, Appendix B & Proves that an observation only binary test cannot separate one fiber. \\
++\nolinkurl{finite_interface_has_collision} & Article, Appendix B & Uses finite cardinality to produce distinct states with one observation. \\
++\nolinkurl{finite_interface_has_no_exact_decoder} & Article, Appendix B & Connects finite capacity deficit to exact decoder failure. \\
++\nolinkurl{ObservableQuotient} & Article, Appendix C & Quotients world states by observational equivalence. \\
++\nolinkurl{observableQuotient_universal_property} & Article, Appendix C & Characterizes unique factorization of fiber constant quantities. \\
++\nolinkurl{observable_variation_prevents_factorization} & Article, Appendix C & Shows that variation within one fiber prevents interface factorization. \\
++\nolinkurl{InterfaceRefines} & Article, Appendix D & Defines coarsening by a commuting observation equation. \\
++\nolinkurl{refinement_preserves_obsEq} & Article, Appendix D & Proves that fine equivalence implies coarse equivalence. \\
++\nolinkurl{factorization_monotone_under_refinement} & Article, Appendix D & Lifts every coarse accessible quantity to the fine interface. \\
++\nolinkurl{quotientMapOfRefinement_surjective} & Article, Appendix D & Proves that the induced fine to coarse quotient map is surjective. \\
++\nolinkurl{strictlyRefines_prevents_reverse_refinement} & Article, Appendix D & Proves that strict refinement cannot be reversed. \\
++\nolinkurl{strictlyRefines_quotientMap_not_injective} & Article, Appendix D & Proves that strict coarsening collapses quotient classes. \\
++\nolinkurl{quotientMapOfMutualRefinement_bijective} & Article, Appendix D & Establishes quotient bijection under mutual refinement. \\
++\nolinkurl{GenerativeModel} & Article, Appendix E & Declares a latent state type and a latent to observation map. \\
++\nolinkurl{Produces} & Article, Appendix E & Defines reachability of one observation. \\
++\nolinkurl{ModelObsEq} & Article, Appendix E & Defines model equivalence by equality of produced observations. \\
++\nolinkurl{ExperimentOutcomeSet} & Article, Appendix E & Collects the possible results of one admissible experiment. \\
++\nolinkurl{modelObsEq_preserves_experimentOutcomeSet} & Article, Appendix E & Proves outcome set equality for empirically equivalent models. \\
++\nolinkurl{identityExperiment} & Article, Appendix E & Returns the accessible observation unchanged. \\
++\nolinkurl{exactLatentDecoder_not_determinedBy_identityExperiment} & Article, Appendix F & Proves that even complete accessible observations do not determine decoder existence. \\
++\nolinkurl{PredicateProfile} & Article, Appendix F & Records which accessible predicates can succeed. \\
++\nolinkurl{modelObsEq_iff_predicateProfile_eq} & Article, Appendix F & Characterizes empirical equivalence by complete predicate profiles. \\
++\nolinkurl{exactLatentDecoder_not_determinedByPredicateProfile} & Article, Appendix F & Shows that complete predicate profiles do not determine exact reconstruction. \\
++\nolinkurl{LatentCover} & Article, Appendix G & Declares a surjective observation preserving projection to a base model. \\
++\nolinkurl{StrictLatentCover} & Article, Appendix G & Adds noninjectivity of the latent projection. \\
++\nolinkurl{hiddenExtensionModel} & Article, Appendix G & Adjoins a hidden factor and ignores it during observation. \\
++\nolinkurl{finiteMultiplicityModel} & Article, Appendix G & Creates arbitrary finite hidden multiplicity. \\
++\nolinkurl{countableMultiplicityModel} & Article, Appendix G & Creates a natural number hidden coordinate. \\
++\nolinkurl{countableMultiplicityFiber_contains_nat} & Article, Appendix G & Embeds the natural numbers into one observation fiber. \\
++\nolinkurl{no_inhabited_model_is_latentlyMaximal} & Article, Appendix G & Constructs a strict empirically equivalent extension of every inhabited model. \\
++\nolinkurl{EmpiricalModelQuotient} & Article, Appendix H & Quotients generative models by empirical equivalence. \\
++\nolinkurl{observationInvariant_iff_factorsThroughEmpiricalModelQuotient} & Article, Appendix H & Characterizes observation invariant properties by quotient factorization. \\
++\nolinkurl{empiricalModelQuotient_map_universal_property} & Article, Appendix H & Gives unique descent of arbitrary observation invariant measurements. \\
++\nolinkurl{exactLatentDecoder_not_factorsThroughEmpiricalModelQuotient} & Article, Appendix H & Proves that decoder existence is not a property of the empirical class. \\
++\nolinkurl{empiricalModelQuotientEquivRealizableObservationSet} & Article, Appendix H & Identifies empirical classes with realizable reachable observation sets. \\
++\nolinkurl{boundaryLimitedObserver_synthesis} & Article, Appendix I & Constructs the strict Boolean extension with the five conclusions of the synthesis theorem. \\
+ \end{longtable}
+ \end{landscape}
+--- a/sections/app_b_full_data.tex
++++ b/sections/app_b_full_data.tex
+@@ -1,10 +1,11 @@
++\begin{landscape}
+ \section{Repository data tables}
+ \label{app:fulldata}
+ 
+ This appendix prints the principal committed finite records. The complete machine readable files are included under \texttt{data/original\_csv/}. No values in these tables were inferred from figure positions.
+ 
+ \subsection{Complete model summary}
+-\begin{landscape}
++
+ \scriptsize
+ \begin{longtable}{@{}lrrrrrrccc@{}}
+ \caption{Complete \texttt{model\_summary.csv}}\label{tab:fullmodelsummary}\\
+@@ -28,8 +29,8 @@
+ \end{longtable}
+ \end{landscape}
+ 
++\begin{landscape}
+ \subsection{Complete experiment outcome records}
+-\begin{landscape}
+ \scriptsize
+ \begin{longtable}{@{}p{0.13\linewidth}p{0.27\linewidth}rp{0.25\linewidth}rc@{}}
+ \caption{Complete \texttt{experiment\_outcomes.csv}}\label{tab:fullexperiments}\\
+@@ -71,6 +72,7 @@
+ compressed\_width\_2 & injective\_base\_8\_fold\_extension & 8 & \{0, 1, 2\} & 3 & True \\
+ \bottomrule
+ \end{longtable}
++
+ \end{landscape}
+ 
+ \subsection{Predicate records}
+--- a/sections/app_c_original_figures.tex
++++ b/sections/app_c_original_figures.tex
+@@ -1,7 +1,7 @@
+ \section{Original repository figures}
+ \label{app:originalfigures}
+ 
+-The following six images are the committed PNG outputs from \texttt{simulations/results/}. They are included without redrawing. The main text uses vector reproductions generated from the same CSV files and plotting logic.
++The following six images are the committed PNG outputs from \texttt{simulations/results/}. They are included without redrawing. The article appendices use vector reproductions generated from the same CSV files and plotting logic.
+ 
+ \begin{figure}[H]
+ \centering
+--- a/sections/app_d_provenance.tex
++++ b/sections/app_d_provenance.tex
+@@ -3,7 +3,7 @@
+ 
+ The manifest was generated from the files included with this paper. Git blob hashes were calculated with \texttt{git hash-object}. SHA256 hashes were calculated from the file bytes. The full hashes are stored in \texttt{data\_manifest.json}; abbreviated Git blob hashes are printed below.
+ 
+-\small\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.28\textwidth}r>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}@{}}
++\begin{longtable}{@{}lrrl@{}}
+ \caption{Committed CSV provenance}\label{tab:manifest}\\
+ \toprule
+ File & Data rows & Git blob SHA prefix & Role \\
+@@ -26,7 +26,7 @@
+ quotient\_maps.csv & 36 & \texttt{498dacd13751} & Unaggregated quotient map entries \\
+ refinement\_summary.csv & 5 & \texttt{b9cfae935abf} & Refinement and quotient map summary \\
+ \bottomrule
+-\end{longtable}\normalsize
++\end{longtable}
+ 
+ The original repository PNG files are also hash recorded. The vector paper figures are generated products and are not represented as committed repository PNGs. The collision plot is explicitly marked supplemental because no collision PNG is produced by the current repository runner.
+ 
+@@ -38,11 +38,12 @@
+ \toprule
+ Check & Recorded result \\
+ \midrule
+-Direct formal compilation & Passed with no diagnostics \\
+-Full project build & Passed, 8,581 jobs \\
++Local Lean compilation in this revision & Not rerun \\
++Repository Lean CI & Successful for the pinned commit; \url{https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/29449488270} \\
+ Unfinished proof commands & None in project source \\
+ Simulation runner & Completed all Boolean, multiplicity, experiment, predicate, quotient, and refinement assertions \\
+-Automated tests & 18 passed \\
++Automated tests & 18 repository tests and 6 revision regression tests passed \\
++CSV reproduction & All 12 files byte identical to the archived outputs \\
+ Repository state & Commit \RepoCommit \\
+ \bottomrule
+ \end{tabularx}
+--- /dev/null
++++ b/sections/app_motivation.tex
+@@ -0,0 +1,89 @@
++\section{Motivation and broader questions}
++\label{app:motivation}
++
++\subsection{The original epistemological problem}
++
++The investigation begins before the usual inverse problem. The original question is not merely whether an unknown state can be reconstructed from data. It is whether a system can fully perceive or justify the boundary that generates its own capacity to represent anything at all. An embedded observer does not stand outside the complete system with unrestricted access. Its body, sensors, instruments, language, memory, mathematics, and inference rules are themselves parts of the representational route through which the system becomes accessible.
++
++
++The question has a longer intellectual genealogy than the language of modern inverse problems suggests. Plato's cave separates experienced appearances from the conditions that produce them, while Aristotle distinguishes kinds of cause and levels of explanation \parencite{Plato1992,Aristotle1984}. Husserl later asks how scientific objects are constituted relative to the structures of experience and the lifeworld \parencite{Husserl1970}. Leibniz treated each monad as a perspective on one world and coupled that perspectivism to the principles of sufficient reason and the identity of indiscernibles \parencite{Leibniz1989,LeibnizClarke2000}. Peirce treated inquiry as a fallible process whose concepts acquire content through conceivable practical consequences \parencite{Peirce1877,Peirce1878}. Whitehead shifted emphasis from static substances to processes and relations \parencite{Whitehead1978}. These positions are not adopted as premises. They identify three questions that recur in the present framework: how perspective limits access, what could justify selection among empirically equivalent descriptions, and whether preserved relations may be more stable than a chosen representation.
++
++The strongest candidate invariant motivating the inquiry is therefore:
++\begin{quote}
++\emph{No sufficiently expressive representational system can completely justify or perceive the boundary that generates its own representational capacity.}
++\end{quote}
++This statement is a research conjecture, not a theorem of the present paper. It is adjacent to classical limits on formal self-reference and semantic closure associated with Russell, G\"odel, Tarski, and Lawvere \parencite{Cantor1891,Russell1908,Godel1931,Tarski1936,Lawvere1969,Hofstadter1979,Hofstadter2007}; to Kant's distinction between conditions of experience and things considered independently of those conditions \parencite{Kant1998}; and to second-order cybernetics, in which the observer is included within the system of observation \parencite{Ashby1956,VonFoerster1981,MaturanaVarela1980}. Recent work has again called for general theories of observers and formalisms for self-referential living systems \parencite{Elshatlawy2025,Abramsky2025}. None of these sources proves the candidate invariant in the form stated here. They establish the intellectual neighborhood in which it must be tested.
++
++\subsection{From the broad conjecture to a bounded theorem}
++
++The present paper does not claim to solve the complete embedded-boundary problem. It isolates a necessary mathematical layer. Once a declared source space is mapped into a more limited accessible space, what can be proved about reconstruction, observational equivalence, and model identity from that interface alone?
++
++Let \(X\) be a source state space, let \(O\) be an accessible observation space, and let \(\pi:X\to O\) be the observation map. When
++\[
++\pi(x_1)=\pi(x_2)
++\qquad\text{for}\qquad
++x_1\neq x_2,
++\]
++the two source states are different but indistinguishable through that interface. A procedure whose input is only the shared observation cannot return both states exactly. The analysis develops this local statement into a theory of fibers, quotients, refinement, empirical equivalence, experiments, hidden extensions, and exact decoding.
++
++The bounded theorem is deliberately weaker than the motivating conjecture. It does not prove that every sufficiently expressive system has a noninjective self-interface. It proves what follows \emph{if} the declared interface is noninjective, and it constructs model extensions showing that equality at an empirical boundary does not force uniqueness of latent representation.
++
++\begin{figure}[tbp]
++\centering
++\begin{tikzpicture}[
++  node distance=4.5mm,
++  box/.style={draw,rounded corners=2pt,align=center,inner sep=5.5pt,text width=0.78\textwidth},
++  arr/.style={-{Latex[length=2.4mm]},line width=0.7pt}
++]
++\node[box] (a) {Original epistemological problem: can an embedded representational system justify the boundary that generates its own representational capacity?};
++\node[box,below=of a] (b) {Candidate cross-domain invariant: complete internal self-justification may fail when the means of representation are themselves boundary-limited.};
++\node[box,below=of b] (c) {Bounded mathematical question: what follows from a specified map \(X\xrightarrow{\pi}O\xrightarrow{e}R\)?};
++\node[box,below=of c] (d) {Verified results: fibers, quotient factorization, exact-decoding obstruction, refinement, empirical equivalence, and strict hidden extensions.};
++\node[box,below=of d] (e) {Finite computations: exhaustive enumerated models, experiments, predicate profiles, empirical classes, and quotient maps.};
++\node[box,below=of e] (f) {Interpretation and model competition: what the results permit, what they do not decide, and which hypotheses require discriminating predictions.};
++\node[box,below=of f] (g) {Future empirical and metaphysical research: embedded self-modeling, consciousness, scale transitions, death, light, and external-source hypotheses.};
++\foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g}{\draw[arr] (\x) -- (\y);}
++\end{tikzpicture}
++\caption{Conceptual hierarchy. The present theorem occupies the verified middle layer. The broader epistemological conjecture and downstream applications are retained but are not presented as consequences of the theorem.}
++\label{fig:conceptualhierarchy}
++\end{figure}
++
++\subsection{Three epistemic levels}
++
++Every major statement is assigned to one of three levels.
++
++\begin{table}[tbp]
++\centering
++\caption{Epistemic levels used throughout the paper.}
++\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}X X@{}}
++\toprule
++Level & Content & Permitted conclusion \\
++\midrule
++Motivating experience or observation & Isolation, self-reference, uncertainty, apparent contradiction, measured outputs, or the felt presence of a boundary. & Establishes the phenomenon or question that requires explanation; does not select an ontology. \\
++Mathematical and computational result & Definitions, deductive theorems, countermodels, finite calculations, and verified code. & Establishes only what follows from stated assumptions and enumerated constructions. \\
++Metaphysical or application hypothesis & A single foundational observer, intentional forgetting, external structure, scale-conditioned death, or a theory of unified consciousness. & Remains a hypothesis until it produces a discriminating prediction and survives empirical comparison. \\
++\bottomrule
++\end{tabularx}
++\label{tab:epistemiclevels}
++\end{table}
++
++The distinction is essential. Direct experience can motivate a formal question. A theorem can establish a structural limit. Neither step, by itself, proves a preferred metaphysical interpretation. The gap between the second and third levels is not an embarrassment to be concealed. It is the point at which competing models and new measurements are required.
++
++\subsection{Competing models and the stopping rule}
++
++The motivating problem is not investigated by assuming one total explanation. At minimum, the broader program must compare:
++\begin{enumerate}[label=(\alph*)]
++\item one foundational observer that generates a contained reality and relinquishes access to its own control;
++\item many genuinely independent observers within a shared physical world;
++\item a physical universe that produces bounded biological observers;
++\item an information-based reality without a singular foundational observer; and
++\item a cognitive model through which an embedded mind organizes severe uncertainty and self-reference.
++\end{enumerate}
++These alternatives may agree on all presently accessible observations. The mathematical theory developed in the article explains why such agreement matters: an empirical equivalence class does not select one latent representative without added structure.
++
++The research program therefore adopts a stopping rule:
++\begin{quote}
++\emph{Treat the single-observer model, intentional forgetting, revelation, and every external-source model as metaphysical hypotheses unless they produce a testable prediction that distinguishes them from competing models, including through different outcome probabilities.}
++\end{quote}
++The rule follows Peirce's fallibilist treatment of inquiry and Popper's demand that a scientific proposal expose itself to possible failure rather than acquire protection through reinterpretation \parencite{Peirce1877,Popper1959}. It is also consistent with current efforts to make theories of consciousness explicit, preregistered, and vulnerable to divergent outcomes rather than protected by post hoc reinterpretation \parencite{Cogitate2025,Robinson2025}. It does not abandon the hypotheses. It specifies what would count as progress.
++
+--- /dev/null
++++ b/sections/app_scope_checks.tex
+@@ -0,0 +1,32 @@
++\section{Assumption checks and counterexamples}
++\label{app:scopechecks}
++These examples establish the qualifications used in the main text. They are elementary derivations and executable regression cases, not additions to the pinned Lean formalization.
++
++\subsection{Reachable collisions in a composite map}
++Let \(f:\{0,1\}\to\{0,1,2\}\) satisfy \(f(0)=0\), \(f(1)=1\). Let \(g(0)=0\), \(g(1)=g(2)=1\). The map \(g\) is noninjective, but \(g\circ f=\id_{\{0,1\}}\). Its collision lies outside the restriction of \(g\) to the reachable set \(f[X]\). Conversely, if distinct original states satisfy \(f(x)=f(y)\), then \(g(f(x))=g(f(y))\) for every downstream function \(g\). This proves the corrected composition statement.
++
++\subsection{Decoder status of an already noninjective base}
++Take \(X=\{0,1\}\), \(O=\{0\}\), and \(\pi(x)=0\). No exact decoder exists. Its Boolean extension also has a constant observation map and no decoder. Thus the extension theorem guarantees failure of decoding for the extension, while a change of decoder status additionally requires a decodable base.
++
++\subsection{Empty spaces and total decoders}
++If \(O=\varnothing\), existence of \(\pi:X\to O\) forces \(X=\varnothing\). The empty decoder is a left inverse. If \(X=\varnothing\) but \(O\neq\varnothing\), no total map \(d:O\to X\) exists, although \(\pi\) is injective. If \(X\neq\varnothing\) and \(\pi\) is injective, fix \(x_0\in X\). Define \(d(o)\) as the unique preimage for reachable \(o\), and as \(x_0\) otherwise. Then \(d\circ\pi=\id_X\). These cases justify the exact-decoder condition and the nonempty assumption in the global nonidentifiability theorems.
++
++\subsection{Equal possible outputs and different probability laws}
++For \(0<p<1\), the Bernoulli law has reachable outcomes \(\{0,1\}\). In particular, \(p=1/10\) and \(p=9/10\) share this set but differ in \(\Pr(Y=1)\). Any extension of empirical equivalence to statistical experiments must include the probability law. Equality of reachable sets alone supplies no statement about equal frequencies or likelihoods.
++
++\subsection{Temporal reconstruction and conditioning}
++For \(\dot x_1=x_2\), \(\dot x_2=0\), and \(y=x_1\), the exact solution is
++\[
++y(t)=x_1(0)+t x_2(0).
++\]
++At time zero, all values of \(x_2(0)\) share one output for a fixed \(x_1(0)\). The two-sample map is
++\[
++\begin{pmatrix}y(0)\\y(T)\end{pmatrix}
++=\begin{pmatrix}1&0\\1&T\end{pmatrix}
++\begin{pmatrix}x_1(0)\\x_2(0)\end{pmatrix}.
++\]
++Its determinant is \(T\), so it is invertible when \(T\neq0\), with
++\[
++x_1(0)=y(0),\qquad x_2(0)=\frac{y(T)-y(0)}{T}.
++\]
++If the two output errors are bounded by \(\eta\), the recovered \(x_2\) error is at most \(2\eta/|T|\). Opposite signed endpoint errors attain the bound. Invertibility alone therefore gives no uniform stability as \(T\to0\). The regression test uses rational arithmetic, so it checks the exact formulas without integration or floating point tolerances.
+--- /dev/null
++++ b/sections/main_body.tex
+@@ -0,0 +1,134 @@
++\section{Introduction}
++\label{sec:mainintro}
++Scientific measurements represent selected features of a system. A measurement can be accurate for its intended purpose while leaving several source states compatible with the same output. The resulting inverse problem depends on the observation map, the allowed model class, and the quantity to be reconstructed.
++
++Identifiability theory asks which model properties observations determine. Statistical formulations compare probability laws, while dynamical observability uses outputs together with specified evolution and inputs \parencite{Rothenberg1971,HermannKrener1977}. The present analysis isolates a simpler question: what follows from a deterministic observation map and the set of outputs it can produce? This restriction permits exact statements about fibers, reconstruction, and comparison of interfaces.
++
++The main construction appends a coordinate that the observation map ignores. The extended model produces the same reachable observations, but distinct hidden labels prevent exact reconstruction. The construction proves nonuniqueness within a model class that permits such extensions. Additional dynamics, interventions, or physical constraints may exclude them. Related limits in learned latent representations likewise depend on the assumptions imposed on the model class \parencite{Locatello2019}.
++
++The contribution is a unified formalization of these set theoretic facts, their refinement relations, and their finite computational witnesses. It does not establish a general impossibility of self-observation or a theory of consciousness. Section~\ref{sec:mainframework} defines the model and principal equations. Section~\ref{sec:mainresult} states the main result. Sections~\ref{sec:mainmethods} and~\ref{sec:mainfindings} give the methods and findings, followed by their implications and conclusion. Detailed proofs, counterexamples, and the broader research program follow in the appendices.
++
++\section{Observation model and principal equations}
++\label{sec:mainframework}
++An interface is a map \(\pi:X\to O\) from a source state space to an observation space. Two states are observationally equivalent when their outputs agree:
++\begin{equation}
++x\sim_\pi y\ \Longleftrightarrow\ \pi(x)=\pi(y),
++\qquad Q_\pi=X/{\sim_\pi}.
++\label{eq:stateequivalence}
++\end{equation}
++Each class is a fiber of \(\pi\). The quotient \(Q_\pi\) is bijective with the reachable range \(\pi[X]\). A quantity \(f:X\to V\) is determined on that range precisely when it is constant on every fiber, equivalently when it factors uniquely through the quotient. This is a statement about set functions; it supplies no algorithm or error bound.
++
++A globally exact decoder is a total map \(d:O\to X\) satisfying
++\begin{equation}
++d\circ\pi=\id_X\quad\Longrightarrow\quad\pi\text{ is injective}.
++\label{eq:decoder}
++\end{equation}
++When \(X\neq\varnothing\), injectivity is also sufficient: invert \(\pi\) on its range and use one fixed state on unreachable observations. When \(X=\varnothing\), a total decoder exists exactly when \(O=\varnothing\). The definitions distinguish a decoder on all of \(O\) from one defined only on reachable observations.
++
++A model \(\Model=(X_\Model,\pi_\Model)\) has reachable set \(\Obs(\Model)=\pi_\Model[X_\Model]\). Models with the same observation codomain are compared by
++\begin{equation}
++\Model\approx\Model'\ \Longleftrightarrow\
++\Obs(\Model)=\Obs(\Model').
++\label{eq:modelequivalence}
++\end{equation}
++Throughout this paper, \emph{empirical equivalence} means this equality of reachable sets. No probability law is part of the definition. An admissible experiment is a fixed function \(e:O\to R\) that processes an observation. Its possible outcomes are
++\begin{equation}
++\Out_e(\Model)=e[\Obs(\Model)],\qquad
++\Model\approx\Model'\ \Longrightarrow\
++\Out_e(\Model)=\Out_e(\Model').
++\label{eq:outcomes}
++\end{equation}
++Such an experiment neither changes the source dynamics nor acquires another measurement. Interventions and temporal records require an enlarged model.
++
++Interfaces on the same source space can retain different distinctions. A fine interface \(\pi_F:X\to O_F\) refines \(\pi_C:X\to O_C\) when a coarsening map \(c\) satisfies
++\begin{equation}
++\pi_C=c\circ\pi_F.
++\label{eq:refinement}
++\end{equation}
++This relation is reflexive and transitive. It induces a surjection \([x]_F\mapsto[x]_C\) between observable quotients. If a pair is separated by \(F\) and merged by \(C\), that quotient map is noninjective and reverse refinement is impossible. The proofs are in \Cref{sec:interfaces,sec:observablequotient,sec:refinement}.
++
++\section{Main result: equivalent outputs and nonunique latent models}
++\label{sec:mainresult}
++The hidden extension makes the reconstruction limit explicit. For a model with \(X_\Model\neq\varnothing\), define
++\begin{equation}
++X_{\Extended}=X_\Model\times\{0,1\},\qquad
++\pi_{\Extended}(x,b)=\pi_\Model(x),\qquad p(x,b)=x.
++\label{eq:extension}
++\end{equation}
++The map \(p\) is surjective and preserves observations. Distinct Boolean labels over the same base state produce a collision.
++
++\begin{theorem}[Hidden extension and reconstruction]
++For every model with a nonempty latent space, the extension in \eqref{eq:extension} has the same reachable set and the same possible outcomes under every fixed observation processing map \(e\). It has no globally exact decoder. If the base has an exact decoder, the two models have different decoder statuses.
++\label{thm:mainhidden}
++\end{theorem}
++
++The proof follows from two identities. Each base output is produced by \((x,0)\), and every extended output is a base output. Meanwhile, \((x,0)\) and \((x,1)\) are distinct states with the same observation. Equation~\eqref{eq:decoder} excludes a decoder. The complete construction and supporting results appear in \Cref{sec:hidden,sec:synthesis}.
++
++For \(O\neq\varnothing\), compare the identity model \((O,\id_O)\) with its Boolean extension. Both reach all of \(O\), but only the identity model has an exact decoder. Thus no function of the reachable set can determine decoder existence for every model in a class containing both. This does not mean that every equivalence class contains both statuses, nor that adjoining a hidden coordinate changes the status of an already nondecodable base.
++
++The same limitation holds for a complete family of Boolean predicates on observations. A predicate records whether it succeeds at any reachable output. Agreement for all predicates is equivalent to reachable-set equality, because predicates testing equality to individual observations determine membership. Model properties descend to the empirical quotient exactly when they are constant on its classes. These statements are proved in \Cref{sec:predicates,sec:empiricalquotient}.
++
++\section{Methods}
++\label{sec:mainmethods}
++The study combines deductive proofs with exhaustive finite calculations. The calculations enumerate declared mathematical models; no biological measurements or physical parameter estimates enter the analysis. The reference code is \texttt{BoundaryObserver} at commit \nolinkurl{eb96b984ae999ee6cbc0aae33c2d501c46d9540f}. The formal source remains unchanged in this revision.
++
++The finite base has \(X=O=\{0,1,2,3,4,5\}\) and \(\pi(x)=x\). A comparison model observes \(x\bmod3\). Hidden extensions use \(m\in\{1,2,3,5,8\}\) labels for each base state, with \(\pi_m(x,h)=x\). For each reachable output, the program enumerates its fiber and calculates
++\begin{equation}
++C(\Model)=\sum_{o\in\Obs(\Model)}\binom{|\pi_\Model^{-1}(o)|}{2},
++\qquad C(\Model_m)=3m(m-1).
++\label{eq:collisions}
++\end{equation}
++The collision count measures unordered pairs with equal outputs. It is not a probability or an entropy.
++
++Four processing maps test identity, a threshold at three, a three category partition, and width two compression. Three predicates test evenness, values at least three, and membership in \(\{0,5\}\). A separate eight state example compares identity, paired buckets, binary regions, and a relabeled identity. Every claimed finite relation is evaluated over its full declared domain.
++
++The revision reruns the eighteen repository tests and six additional tests of the assumptions and counterexamples. It also regenerates all twelve CSV outputs and compares their bytes with the archived files. The repository records successful Lean CI for the pinned commit; a new Lean build is not claimed here. The added examples have explicit proofs in \Cref{app:scopechecks} and are not represented as newly checked Lean declarations. Commands, exact outputs, and declaration correspondence are supplied in the package and companion supplement.
++
++\section{Findings}
++\label{sec:mainfindings}
++The finite calculations reproduce the predicted separation between latent multiplicity and reachable outputs. The injective base has six singleton fibers and a decoder. Its Boolean extension has twelve states, six two-state fibers, and no decoder. The modulo three comparison has three reachable outputs, three collisions, and no decoder.
++
++\begin{table}[htbp]
++\centering\small
++\caption{Exhaustive hidden extension calculations. Each row reaches the same six observations.}
++\label{tab:mainmultiplicity}
++\begin{tabular}{@{}rrrrrl@{}}
++\toprule
++\(m\)&Latent states&Reachable outputs&Fiber size&Collisions&Exact decoder\\
++\midrule
++1&6&6&1&0&Yes\\
++2&12&6&2&6&No\\
++3&18&6&3&18&No\\
++5&30&6&5&60&No\\
++8&48&6&8&168&No\\
++\bottomrule
++\end{tabular}
++\end{table}
++
++All twenty eight model and experiment comparisons preserve the corresponding outcome set. All twenty one existential predicate comparisons and all twenty one complete truth-table comparisons agree with the base. These three selected predicates illustrate invariance; the theorem concerning every predicate is established separately by proof.
++
++Refinement retains eight, four, and two observable classes for identity, paired buckets, and binary regions. Identity to paired, paired to region, and identity to region respectively collapse four, eight, and twelve previously distinguished pairs. Each induced quotient map is surjective and noninjective. Relabeling preserves all eight classes and gives a bijection. Complete tables and figures appear in \Cref{sec:results} and the supplement.
++
++All twenty four tests pass. The twelve regenerated CSV files are byte identical to the archived outputs. The finite counts use exact enumeration and integer arithmetic. They have no integration step, sampling uncertainty, or asymptotic numerical convergence claim. Exhaustive agreement for these examples does not establish a result for every model; the general conclusions depend on the proofs.
++
++\section{Discussion}
++\label{sec:maindiscussion}
++The result identifies a restriction on inference from a specified interface. If a quantity varies within an observation fiber, that observation alone cannot determine it exactly. A stronger reconstruction claim must state the assumptions that eliminate the ambiguity. Such assumptions may include known dynamics, additional sensors, interventions, regularity, or a justified restriction of the latent model class.
++
++Equality of reachable sets is weaker than statistical equivalence. Bernoulli laws with parameters \(1/10\) and \(9/10\) both permit the outputs zero and one, but assign different probabilities to them. The present definition omits that distinction. A statistical extension must compare induced probability laws or likelihoods rather than only possible outputs \parencite{Rothenberg1971}.
++
++An instantaneous collision also need not prevent reconstruction from time dependent observations. For the known system
++\begin{equation}
++\dot x_1=x_2,\qquad\dot x_2=0,\qquad y=x_1,
++\end{equation}
++one output leaves \(x_2\) undetermined, while \(y(0)\) and \(y(T)\), for \(T\neq0\), determine both initial coordinates. Measurement error in the reconstructed second coordinate is amplified as \(|T|\) becomes small. The derivation and error bound are in \Cref{app:scopechecks}. This distinction is consistent with dynamical observability theory \parencite{HermannKrener1977}.
++
++Neural applications require the same separation between source state, measurement, and reconstruction. Published grid-cell studies motivate analysis of how population geometry depends on the measurement interface \parencite{Gardner2022}. A spatial tuning map, a temporal population trajectory, a topological reconstruction, and evidence of attraction are different objects. The present set theoretic result supplies no inference from toroidal geometry to an attracting invariant torus. That inference requires specified dynamics and evidence concerning invariance and stability.
++
++The hidden coordinate is a mathematical witness permitted by the model class. Its construction does not demonstrate an unmeasured physical variable. Questions about embedded self-modeling, consciousness, or continuity across scales require additional definitions and observations. They are retained as a research program in \Cref{sec:limitations,app:motivation}, with their status separated from the theorem.
++
++\section{Conclusion}
++\label{sec:mainconclusion}
++A declared observation map determines a partition of source states. Exact reconstruction requires that the map preserve every source distinction, and reachable-set equality does not determine decoder existence across an unrestricted class of latent models. The Boolean extension supplies a constructive witness, while interface refinement describes how a richer measurement can preserve distinctions lost by a coarser one.
++
++The finite calculations reproduce the stated counts and invariance relations. The scope of the result remains deterministic and set based. Probability laws, temporal measurements, physical constraints, and reconstruction error must be specified before applying it to a scientific system. The resulting practical question is which additional measurement or model assumption would separate the states relevant to the proposed inference.
+--- a/supplement.tex
++++ b/supplement.tex
+@@ -1,7 +1,9 @@
+ \documentclass[11pt]{article}
++\pdfminorversion=7
+ \usepackage[letterpaper,top=0.75in,bottom=0.8in,left=0.8in,right=0.8in]{geometry}
+ \usepackage{amsmath,amssymb,amsthm,mathtools}
+-\usepackage{newtxtext,newtxmath}
++\usepackage[T1]{fontenc}
++\usepackage{mathptmx}
+ \usepackage{microtype}
+ \usepackage{booktabs,longtable,array,tabularx,multirow}
+ \usepackage{graphicx}
+@@ -14,6 +16,7 @@
+ \usepackage{listings}
+ \usepackage{xcolor}
+ \usepackage[hidelinks]{hyperref}
++\hypersetup{pdftitle={Boundary Limited Observer Systems: Computational and Formal Supplement},pdfauthor={Christopher Ezernack}}
+ \usepackage[nameinlink,capitalise]{cleveref}
+ \pagestyle{plain}
+ \setlength{\parindent}{0.25in}
+--- /dev/null
++++ b/verification/test_scope_cases.py
+@@ -0,0 +1,69 @@
++"""Regression witnesses for the assumptions in Appendix J.
++
++These exact finite checks supplement the manuscript derivations. They are not
++Lean proofs, statistical experiments, or biological measurements.
++"""
++from fractions import Fraction
++from itertools import product
++from pathlib import Path
++import sys
++
++sys.path.insert(0, str(Path(__file__).parent / 'reference_code'))
++from simulations.boundary_observer.models import GenerativeModel, boolean_hidden_extension
++
++
++def test_later_collision_must_be_reachable_from_the_source():
++    f = {0: 0, 1: 1}
++    g = {0: 0, 1: 1, 2: 1}
++    assert g[1] == g[2]
++    assert {x: g[f[x]] for x in f} == f
++    # If the original states collide, all deterministic downstream maps retain it.
++    collapsed = {0: 1, 1: 1}
++    for outputs in product(range(3), repeat=3):
++        assert outputs[collapsed[0]] == outputs[collapsed[1]]
++
++
++def test_nondecodable_base_and_extension_have_the_same_decoder_status():
++    base = GenerativeModel('constant', (0, 1), (0,), {0: 0, 1: 0})
++    extended = boolean_hidden_extension(base)
++    assert base.is_empirically_equivalent_to(extended)
++    assert not base.exact_latent_decoder_possible
++    assert not extended.exact_latent_decoder_possible
++
++
++def test_empty_domain_and_empty_codomain_are_distinct_decoder_cases():
++    empty = GenerativeModel('empty', (), (), {})
++    unreachable = GenerativeModel('unreachable', (), (0,), {})
++    assert empty.is_injective and empty.exact_latent_decoder_possible
++    assert unreachable.is_injective and not unreachable.exact_latent_decoder_possible
++
++
++def test_equal_reachable_sets_do_not_imply_equal_probability_laws():
++    low = {0: Fraction(9, 10), 1: Fraction(1, 10)}
++    high = {0: Fraction(1, 10), 1: Fraction(9, 10)}
++    assert sum(low.values()) == sum(high.values()) == 1
++    assert {x for x, p in low.items() if p > 0} == {x for x, p in high.items() if p > 0}
++    assert low[1] != high[1]
++
++
++def test_two_temporal_outputs_reconstruct_state_with_the_stated_error_bound():
++    for a, b in product(range(-3, 4), repeat=2):
++        for T in (Fraction(-2), Fraction(1, 100), Fraction(1, 2), Fraction(2)):
++            y0, yT = Fraction(a), a + T*b
++            assert (y0, (yT-y0)/T) == (a, b)
++            eta = Fraction(1, 1000)
++            for e0, eT in product((-eta, Fraction(0), eta), repeat=2):
++                recovered = ((yT+eT)-(y0+e0))/T
++                assert abs(recovered-b) <= 2*eta/abs(T)
++            assert abs(((yT+eta)-(y0-eta))/T-b) == 2*eta/abs(T)
++
++
++def test_decoder_decision_matches_exhaustive_search_over_all_small_maps():
++    # Independently enumerate total decoders, including all empty-set cases.
++    for nx, no in product(range(4), repeat=2):
++        X, O = tuple(range(nx)), tuple(range(no))
++        for observation in product(O, repeat=nx):
++            model = GenerativeModel('enumerated', X, O, dict(zip(X, observation)))
++            exists = any(all(decoder[observation[x]] == x for x in X)
++                         for decoder in product(X, repeat=no))
++            assert model.exact_latent_decoder_possible == exists
+--- /dev/null
++++ b/verification/verify_outputs.py
+@@ -0,0 +1,25 @@
++"""Regenerate the reference CSV files and compare their exact bytes."""
++from pathlib import Path
++import hashlib
++import json
++import subprocess
++import sys
++import tempfile
++
++root = Path(__file__).resolve().parents[1]
++runner = root / 'verification/reference_code/simulations/run_simulations.py'
++with tempfile.TemporaryDirectory(prefix='boundary-output-check-') as work:
++    output = Path(work)
++    subprocess.run([sys.executable, str(runner), '--output-dir', str(output)], check=True)
++    checks = []
++    for original in sorted((root / 'data/original_csv').glob('*.csv')):
++        actual = (output / original.name).read_bytes()
++        expected = original.read_bytes()
++        checks.append({'file': original.name, 'byte_identical': actual == expected,
++                       'sha256': hashlib.sha256(actual).hexdigest()})
++    assert len(checks) == 12
++    assert all(c['byte_identical'] for c in checks), checks
++    report = {'reference_commit': 'eb96b984ae999ee6cbc0aae33c2d501c46d9540f',
++              'csv_count': len(checks), 'checks': checks}
++    (root / 'verification/output_verification.json').write_text(json.dumps(report, indent=2)+'\n')
++    print('All 12 CSV files match the archived outputs byte for byte.')

@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+\pdfminorversion=7
+\usepackage[letterpaper,top=0.75in,bottom=0.8in,left=0.8in,right=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{microtype}
+\usepackage{booktabs,longtable,array,tabularx,multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{pdflscape}
+\usepackage{xurl}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Boundary Limited Observer Systems: Computational and Formal Supplement},pdfauthor={Christopher Ezernack}}
+\usepackage[nameinlink,capitalise]{cleveref}
+\pagestyle{plain}
+\setlength{\parindent}{0.25in}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.1}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false}
+\setlist{nosep,leftmargin=2em}
+\newcommand{\RepoCommit}{\texttt{eb96b984ae999ee6cbc0aae33c2d501c46d9540f}}
+\lstdefinelanguage{Python}{
+  morekeywords={def,return,for,in,if,not,and,True,False,class,property},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+  morestring=[b]'
+}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  framerule=0.35pt,
+  rulecolor=\color{black!45},
+  backgroundcolor=\color{black!2},
+  breaklines=true,
+  showstringspaces=false
+}
+\begin{document}
+\begin{flushleft}
+{\LARGE\bfseries Boundary Limited Observer Systems}\par
+\vspace{0.25em}
+{\large Computational and Formal Supplement}\par
+\vspace{0.5em}
+{\normalsize Christopher Ezernack}\par
+\end{flushleft}
+\vspace{0.5em}
+\hrule
+\vspace{0.8em}
+
+This supplement contains implementation excerpts, a declaration concordance, complete generated tables, original simulation figures, and reproducibility records.
+
+\input{sections/supp_code}
+\appendix
+\input{sections/app_a_declarations}
+\input{sections/app_b_full_data}
+\input{sections/app_c_original_figures}
+\input{sections/app_d_provenance}
+\end{document}

@@ -1,0 +1,138 @@
+\section{Observer interfaces, accessible quantities, and exact decoding}
+\label{sec:interfaces}
+
+The observer interface determines the distinctions available to every downstream quantity or test. The construction is deliberately static: unlike dynamical observability, which uses an output trajectory together with specified dynamics and inputs, it studies one declared map from source states to accessible observations \parencite{Kalman1963,HermannKrener1977,Sontag1998}. This section develops the state level theory before introducing models.
+
+\begin{definition}[Observer interface]
+An observer interface on a world state space \(X\) is a pair
+\[
+I=(O,\pi),
+\]
+where \(O\) is an accessible observation space and \(\pi:X\to O\) is the observation map.
+\end{definition}
+\begin{definition}[Observational equivalence]
+For \(x,y\in X\), define
+\[
+x\sim_I y
+\quad\Longleftrightarrow\quad
+\pi(x)=\pi(y).
+\]
+\end{definition}
+\begin{proposition}
+Observational equivalence is reflexive, symmetric, and transitive.
+\end{proposition}
+
+\begin{proof}
+Reflexivity follows from \(\pi(x)=\pi(x)\). Symmetry follows because equality is symmetric. Transitivity follows because \(\pi(x)=\pi(y)\) and \(\pi(y)=\pi(z)\) imply \(\pi(x)=\pi(z)\).
+\end{proof}
+The equivalence class of \(x\) is the fiber
+\[
+[x]_I=\pi^{-1}(\pi(x)).
+\]
+The class contains exactly the source states that the interface represents by the same accessible value. Equivalence is therefore relative to \(I\). A second interface may separate states that the first interface merges.
+
+\subsection{Quantities that factor through the interface}
+
+Here accessibility means determination by a set function of the observation. Existence of that function does not establish an effective algorithm, finite computational cost, or stability under measurement error.
+
+\begin{definition}[Interface accessible quantity]
+Let \(q:X\to V\). The quantity \(q\) factors through \(I\) when there exists a map \(\bar q:O\to V\) such that
+\[
+q=\bar q\circ\pi.
+\]
+\end{definition}
+\begin{theorem}[Fiber constancy]
+If \(q\) factors through \(I\), then \(q\) is constant on every observation fiber. In particular,
+\[
+x\sim_I y
+\quad\Longrightarrow\quad
+q(x)=q(y).
+\]
+\end{theorem}
+
+\begin{proof}
+Assume \(q=\bar q\circ\pi\). Let \(x\sim_I y\). By definition, \(\pi(x)=\pi(y)\). Applying \(\bar q\) to both sides gives
+\[
+\bar q(\pi(x))=\bar q(\pi(y)).
+\]
+Substitution of \(q=\bar q\circ\pi\) yields \(q(x)=q(y)\).
+\end{proof}
+The converse is developed through the observable quotient in \Cref{sec:observablequotient}. A quantity constant on every fiber has a unique quotient representation.
+
+\begin{corollary}[Variation prevents interface factorization]
+If \(x\sim_I y\) and \(q(x)\neq q(y)\), then \(q\) does not factor through \(I\).
+\end{corollary}
+
+\begin{proof}
+If \(q\) factored through \(I\), fiber constancy would imply \(q(x)=q(y)\), contradicting the assumption.
+\end{proof}
+\subsection{Internal tests}
+
+An internal test is a special case of an accessible quantity.
+
+\begin{definition}[Internal test]
+An internal binary test is a function
+\[
+t:O\to\{\mathrm{false},\mathrm{true}\}.
+\]
+\end{definition}
+\begin{proposition}[No internal test separates one fiber]
+If \(x\sim_I y\), then
+\[
+t(\pi(x))=t(\pi(y))
+\]
+for every internal test \(t\).
+\end{proposition}
+
+\begin{proof}
+The equality \(\pi(x)=\pi(y)\) remains equal after applying the function \(t\).
+\end{proof}
+This result is elementary, but it identifies the relevant restriction. The test is not weak because it is Boolean. It is restricted because its domain is \(O\). Replacing the Boolean codomain by an arbitrary set does not restore distinctions that have already collapsed in the input.
+
+\subsection{Exact reconstruction}
+
+Exact reconstruction requires a left inverse of the observation map. Left inverses and injectivity are standard function-theoretic notions \parencite[Chs. 10--11]{Halmos1974}; their use here is specialized to an observer interface.
+
+\begin{definition}[Globally exact decoder]
+A globally exact decoder for \(I\) is a function \(d:O\to X\) such that
+\[
+d\circ\pi=\id_X.
+\]
+\end{definition}
+\begin{theorem}[Exact decoding implies injectivity]
+If a globally exact decoder exists, then \(\pi\) is injective.
+\label{thm:decoderinjective}
+\end{theorem}
+
+\begin{proof}
+Assume \(d\circ\pi=\id_X\). Let \(x,y\in X\) and assume \(\pi(x)=\pi(y)\). Applying \(d\) gives
+\[
+d(\pi(x))=d(\pi(y)).
+\]
+The left inverse condition reduces this equality to \(x=y\). Therefore \(\pi\) is injective.
+\end{proof}
+\begin{corollary}[Noninjectivity prevents exact decoding]
+If \(\pi\) is noninjective, then no globally exact decoder exists.
+\end{corollary}
+
+\begin{proof}
+The statement is the contrapositive of \Cref{thm:decoderinjective}.
+\end{proof}
+The conclusion concerns exact reconstruction of every state. It does not prevent partial reconstruction, probabilistic inference, recovery under additional assumptions, or recovery after refining the interface. It states that one many to one map cannot have a left inverse on its entire domain.
+
+\subsection{Finite capacity obstruction}
+
+Finite interfaces make the obstruction quantitative. The proof uses only the finite cardinality obstruction for an injective map; no stochastic or numerical assumption is introduced.
+
+\begin{theorem}[Finite pigeonhole obstruction]
+Let \(X\) and \(O\) be finite. If
+\[
+|O|<|X|,
+\]
+then every observation map \(\pi:X\to O\) is noninjective. Therefore there exist distinct \(x,y\in X\) such that \(x\sim_I y\), and no globally exact decoder exists.
+\end{theorem}
+
+\begin{proof}
+Assume for contradiction that \(\pi\) is injective. An injective map from a finite set \(X\) into a finite set \(O\) implies \(|X|\leq |O|\). This contradicts \(|O|<|X|\). Hence \(\pi\) is noninjective. The collision and decoder conclusions follow from the definitions and the preceding corollary.
+\end{proof}
+The theorem does not require noise, approximation, or numerical instability. It is a cardinality result. If the interface has fewer accessible states than the source space, some source distinction must collapse.

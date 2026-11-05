@@ -1,0 +1,66 @@
+{
+  "reference_commit": "eb96b984ae999ee6cbc0aae33c2d501c46d9540f",
+  "csv_count": 12,
+  "checks": [
+    {
+      "file": "collapsed_pairs.csv",
+      "byte_identical": true,
+      "sha256": "fb93cae43a10af761f925acebbb687b9b06389075aaa6eaf5e4105940dab1425"
+    },
+    {
+      "file": "empirical_quotient.csv",
+      "byte_identical": true,
+      "sha256": "37a9cdcb8847198aee05727742cc4dc8d3f4e215d9d6d297cc68d4547f711a0d"
+    },
+    {
+      "file": "experiment_outcomes.csv",
+      "byte_identical": true,
+      "sha256": "10eec139e293a33a58424740312d8b6b1702e25bec9b633d8599b4646f6a585f"
+    },
+    {
+      "file": "interface_summary.csv",
+      "byte_identical": true,
+      "sha256": "a994ab6d3aff01f1f0a3b594834c6cbbc40270a467688d4231f878ec02713e8a"
+    },
+    {
+      "file": "model_summary.csv",
+      "byte_identical": true,
+      "sha256": "101ecbd8c7897a8416d228f2e00c993fe199fb91f3b8811445438b3a7d831d66"
+    },
+    {
+      "file": "multiplicity_summary.csv",
+      "byte_identical": true,
+      "sha256": "47b840fda440b714594a3739eb20d47765ce57b0cb468d0596ad34125e58bbcb"
+    },
+    {
+      "file": "nonidentifiable_properties.csv",
+      "byte_identical": true,
+      "sha256": "965c25f65c1d47a59ef121a5b6a8515f48c6300ef2f51426a0b27fb022da2c06"
+    },
+    {
+      "file": "observation_fibers.csv",
+      "byte_identical": true,
+      "sha256": "1add4d9a8d1a7c7441ef9afa9df1a11d00a2e1487f55fc875ccb365204f622c1"
+    },
+    {
+      "file": "predicate_success_profiles.csv",
+      "byte_identical": true,
+      "sha256": "b426139bedb06cce96066eafc92a113ce4b36165d237c9f9d7b33284d64b24ab"
+    },
+    {
+      "file": "predicate_truth_profiles.csv",
+      "byte_identical": true,
+      "sha256": "6f0ec0d22fd1c984fdd54ba02dbcc25cbb7dec53b257e1fcf1a7b74521df74c6"
+    },
+    {
+      "file": "quotient_maps.csv",
+      "byte_identical": true,
+      "sha256": "c7e7cd00645d2fae4f2f76a2c60135ca73251f705898ba0132422fc387d5e1a6"
+    },
+    {
+      "file": "refinement_summary.csv",
+      "byte_identical": true,
+      "sha256": "696a0f4fad4c683b603b7a73cc5e3210a1eb95492e5d0a16d9eb13fce1e9d85f"
+    }
+  ]
+}

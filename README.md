@@ -10,6 +10,27 @@ limits on exact decoding, hidden latent extensions, interface refinement,
 observable quotients, empirical model quotients, and observation-only
 experiments.
 
+## Revised manuscript
+
+The reviewed paper places its main argument, equations, methods, findings, and
+conclusion in the first five pages. Detailed proofs and workings begin on page 6.
+
+- [Article PDF](paper/Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf)
+- [Computational and formal supplement](paper/Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf)
+- [LaTeX source and build instructions](paper/README.md)
+- [Correction record](paper/REVISION_NOTES.md)
+- [Exact changes against the original draft package](paper/EXACT_CHANGES.diff)
+
+The paper directory preserves the approved review package. Its revision notes
+and manifest record the checks performed before this repository publication.
+
+The corrected interpretation distinguishes reachable observation sets from
+probability laws and temporal records. A Boolean hidden extension has no exact
+decoder when its latent base is nonempty; decoder status differs from the base
+only if the base is exactly decodable. The finite examples are mathematical
+constructions and provide no empirical evidence of biological hidden variables
+or neural attractors.
+
 ## Three levels of description
 
 BoundaryObserver keeps three levels separate:
@@ -51,7 +72,7 @@ The complete formal development is in
 | --- | --- |
 | `ObserverInterface` | Specifies an accessible observation type and a map from world states to observations. |
 | `ObsEq` | States that two world states produce the same accessible observation. |
-| `FactorsThrough` | Expresses that a quantity can be computed entirely from the accessible observation. |
+| `FactorsThrough` | Expresses that a quantity is determined by a set function of the accessible observation; no algorithm or stability bound is asserted. |
 | `HasExactDecoder` | Requires a decoder that is a left inverse of the observation map. |
 | `InternalTest` | A Boolean test whose input is only an accessible observation. |
 | `GenerativeModel` | Specifies a latent state type and a latent-to-observation map. |
@@ -60,7 +81,7 @@ The complete formal development is in
 | `AdmissibleExperiment` | An observation-only function `Obs → Result`. |
 | `ExperimentOutcomeSet` | The set of all results an admissible experiment can produce under a model. |
 | `ObservableQuotient` | Quotients world states by equality of their accessible observations. |
-| `InterfaceRefines` | States that coarse observations can be computed from fine observations while preserving every world's observation. |
+| `InterfaceRefines` | States that a set function of fine observations gives the coarse observations for every world state. |
 | `StrictlyRefines` | A refinement that preserves strictly more distinctions than the coarse interface. |
 | `LatentCover` | A surjective, observation-preserving projection from an extended latent model to a base model. |
 | `StrictLatentCover` | A latent cover whose projection is noninjective, so the extension contains a genuine additional latent distinction. |
@@ -199,7 +220,8 @@ hidden extensions, observation fibers, admissible experiments, predicate
 success and truth profiles, empirical classes, interface refinement, strict
 coarsening, and induced finite quotient maps.
 
-The current suite contains **18 passing tests**.
+The current suite contains **24 passing tests**: the original 18 tests and six
+regression checks for the manuscript assumptions and counterexamples.
 
 To reproduce all generated outputs and run the tests:
 
@@ -208,7 +230,8 @@ python3 -m venv simulations/.venv
 source simulations/.venv/bin/activate
 python -m pip install -r simulations/requirements.txt
 python simulations/run_simulations.py
-python -m pytest simulations/tests
+python -m pytest simulations/tests -q
+python paper/verification/verify_outputs.py
 ```
 
 Documentation and generated reports:
@@ -226,6 +249,8 @@ implementation; it does not replace or extend the logical scope of the proofs.
 
 ## Current status
 
-The Lean formalization, executable finite simulations, 18-test validation
-suite, generated reports, CSV summaries, plots, and repository validation are
-complete.
+The revised manuscript, supplement, exact correction record, and supporting
+checks are included in `paper/`. All 24 Python tests pass, and the twelve
+regenerated CSV outputs match the archived files byte for byte. The Lean source
+is unchanged from the reference commit. The review inspected successful
+repository CI; it did not perform a fresh local Lean build.
