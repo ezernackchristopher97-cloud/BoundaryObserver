@@ -60,7 +60,7 @@
 \hrule
 \vspace{0.8em}
 
-The finite calculations use one runner to enumerate the observation fibers, process the reachable outputs, and compare interfaces. The excerpts below come directly from the pinned source files. Appendix~\ref{app:declarations} links the formal claims to Lean declarations. Appendix~\ref{app:fulldata} prints the principal data tables. Appendix~\ref{app:provenance} identifies the complete CSV records and verification commands.
+The finite model assigns hidden labels to each source state and records only the base coordinate. The code enumerates states with identical readings, calculates the possible results of each processing rule, and compares interfaces. The tables identify the corresponding Lean declarations (Appendix~\ref{app:declarations}), finite counts (Appendix~\ref{app:fulldata}), and source files (Appendix~\ref{app:provenance}).
 
 \input{sections/supp_code}
 \appendix
@@ -69,11 +69,11 @@ The finite calculations use one runner to enumerate the observation fibers, proc
 \input{sections/app_c_original_figures}
 \input{sections/app_d_provenance}
 \subsection{Reproduce the finite checks}
-From the \nolinkurl{paper/} directory, run the archived implementation tests, the eight manuscript checks, and the comparison against the twelve CSV files.
+Run the following commands from the \nolinkurl{paper/} directory to check the finite models and compare all twelve CSV files.
 \begin{lstlisting}[language={}]
 python -m pytest verification/reference_code/simulations/tests \
   verification/test_scope_cases.py verification/test_round_two.py -q
 python verification/verify_outputs.py
 \end{lstlisting}
-The two checks in \nolinkurl{test_round_two.py} enumerate small reachable sets and binary joint measurements. Their general statements are proved in the article.
+The two tests in \nolinkurl{test_round_two.py} enumerate small reachable sets and pairs of binary measurements.
 \end{document}

@@ -38,10 +38,10 @@ manifest = json.loads((ROOT / "data_manifest.json").read_text())
 
 lines: list[str] = []
 lines += [
-    r"\section{Repository data tables}",
+    r"\section{Finite model data}",
     r"\label{app:fulldata}",
     "",
-    r"This appendix prints the principal committed finite records. The complete machine readable files are included under \texttt{data/original\_csv/}. No values in these tables were inferred from figure positions.",
+    r"The files in \nolinkurl{data/original_csv/} contain the complete finite calculations. The tables report the values in these files.",
     "",
     r"\subsection{Complete model summary}",
     r"\begin{landscape}",
@@ -89,7 +89,7 @@ lines += [r"\bottomrule", r"\end{longtable}", ""]
 
 lines += [
     r"\subsection{Predicate records}",
-    r"The existential profile file contains 21 model and predicate rows. The truth profile file contains the corresponding 21 complete truth table rows. Every comparison column is true. The three unique base truth tables are printed below.",
+    r"Each of three predicates was evaluated on all seven models. The 21 success profiles and the 21 truth tables match those of the base. The table gives the three distinct truth tables.",
     r"\begin{table}[H]",
     r"\centering",
     r"\caption{Unique predicate truth tables from \texttt{predicate\_truth\_profiles.csv}}",
@@ -184,7 +184,7 @@ for _, r in refine.iterrows():
 lines += [r"\bottomrule", r"\end{longtable}", r"\end{landscape}", ""]
 
 lines += [
-    r"The files \texttt{observation\_fibers.csv}, \texttt{quotient\_maps.csv}, and \texttt{collapsed\_pairs.csv} contain the unaggregated fiber, class map, and pair records. They are included in the package because printing every latent state tuple would add length without adding a distinct result.",
+    r"The files \texttt{observation\_fibers.csv}, \texttt{quotient\_maps.csv}, and \texttt{collapsed\_pairs.csv} contain the unaggregated fiber, class map, and pair records. Each row identifies an individual fiber, class mapping, or pair.",
 ]
 (SECTIONS / "app_b_full_data.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -193,7 +193,7 @@ lines = [
     r"\section{Data provenance and file integrity}",
     r"\label{app:provenance}",
     "",
-    r"The manifest was generated from the files included with this paper. Git blob hashes were calculated with \texttt{git hash-object}. SHA256 hashes were calculated from the file bytes. The full hashes are stored in \texttt{data\_manifest.json}; abbreviated Git blob hashes are printed below.",
+    r"The file \nolinkurl{data_manifest.json} records the SHA256 digest and Git blob hash of each CSV file. Table~\ref{tab:manifest} gives the row count and the first twelve characters of the Git hash.",
     "",
     r"\begin{longtable}{@{}lrrl@{}}",
     r"\caption{Committed CSV provenance}\label{tab:manifest}\\",
@@ -226,21 +226,20 @@ for name, info in manifest["csv_files"].items():
     )
 lines += [r"\bottomrule", r"\end{longtable}", ""]
 lines += [
-    r"The original repository PNG files are also hash recorded. The vector paper figures are generated products and are not represented as committed repository PNGs. The collision plot is explicitly marked supplemental because no collision PNG is produced by the current repository runner.",
+    r"The manifest also records hashes for the six original PNG figures. The vector figures use the same CSV records. The collision plot uses the pair counts from those records.",
     "",
     r"\subsection{Validation record}",
     r"\begin{table}[H]",
     r"\centering",
-    r"\caption{Repository validation record used by the paper}",
+    r"\caption{Formal and computational checks}",
     r"\begin{tabularx}{\textwidth}{@{}lX@{}}",
     r"\toprule",
     r"Check & Recorded result \\",
     r"\midrule",
-    r"Local Lean compilation in this revision & Not rerun \\",
-    r"Repository Lean CI & Successful on manuscript base 340d70b. \url{https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/41970754861} \\",
+    r"Repository Lean CI & Passed at commit \texttt{ec1ad1d}. \url{https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/42137133326} \\",
     r"Unfinished proof commands & None in project source \\",
     r"Simulation runner & Completed all Boolean, multiplicity, experiment, predicate, quotient, and refinement assertions \\",
-    r"Automated tests & 18 reference tests and 8 manuscript tests passed \\",
+    r"Automated tests & 18 reference tests and 8 additional finite checks passed \\",
     r"CSV reproduction & All 12 files byte identical to the archived outputs \\",
     r"Reference implementation & Commit \RepoCommit \\",
     r"\bottomrule",

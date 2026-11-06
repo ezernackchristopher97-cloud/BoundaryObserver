@@ -1,7 +1,7 @@
 \section{Broader applications and research hypotheses}
 \label{sec:limitations}
 
-This appendix retains the broader research program. Its hypotheses are not consequences of the reconstruction theorem. The formal framework is exact, deterministic, static, and intentionally bounded. The limitations below define both the assumptions required for broader applications and the research program that follows.
+The observation model compares exact outputs of a fixed deterministic map. Applications to living systems require measurements of time, noise, feedback, or physical organization. Each application also needs an observable that distinguishes its hypothesis from an alternative.
 
 \subsection{Set-based empirical equivalence and exact equality}
 
@@ -9,35 +9,35 @@ Empirical equivalence is equality of reachable observation sets. Real measuremen
 
 \subsection{Static interfaces and unrestricted hidden factors}
 
-A dynamical trajectory can distinguish states that one instantaneous output cannot. Future formalization must include state evolution, inputs, intervention, and complete traces. The hidden-factor construction is also deliberately broad. Domain physics, causal structure, conservation laws, geometry, regularity, or minimality may exclude many extensions. The theorem states only that reachable-set equality does not exclude them by itself.
+Two states can give the same instantaneous reading and different trajectories. A dynamical model must specify evolution, inputs, interventions, and the recorded outputs. Physical laws, regularity, causal structure, or a minimality condition may rule out hidden extensions that the static model allows.
 
 \subsection{Composite chains and local loss analysis}
 
-The conceptual architecture contains apparatus, sampling, encoding, biological access, internal representation, report, and feedback. The current formal core composes these stages into one map. A richer theory should represent each stage and determine where a distinction is preserved, transformed, compressed, dispersed, or collapsed. Such a theory would permit local refinement of one stage and would show whether a later result contains new information or only a re-encoding of an earlier accessible state.
+Apparatus, sampling, encoding, perception, and reporting define stages of an observation. Their composite describes what reaches the final report. Examining each stage can locate the first loss of a source distinction. Adding a new measurement can restore a distinction when that measurement reaches the source by another route.
 
 \subsection{The embedded self-interface}
 
-The present analyst stands outside the declared map. Wiener, von Foerster, Maturana and Varela, Rosen, von Neumann, and recent computational observer programs supply distinct precedents for treating observation, self-production, and feedback as coupled rather than external operations \parencite{Wiener1948,VonFoerster1981,MaturanaVarela1980,Rosen1991,VonNeumann1966,Wolfram2023ObserverTheory,RicklesEtAl2023}. The next major formal problem is an embedded system \(S\) that contains a self-model and uses the output of a self-interface to update its own dynamics:
+An external analyst supplies the source space and observation map. An embedded system forms a self-model and uses its own observations to update its state. Work on feedback, self-production, self-reproducing automata, and computational observers examines parts of this problem \parencite{Wiener1948,VonFoerster1981,MaturanaVarela1980,Rosen1991,VonNeumann1966,Wolfram2023ObserverTheory,RicklesEtAl2023}. One such update has the form
 \[
 S_t\xrightarrow{\pi_{\mathrm{self}}}O^{\mathrm{self}}_t
 \xrightarrow{u}S_{t+1}.
 \]
-The question is not merely whether \(\pi_{\mathrm{self}}\) is injective. It is whether the system can justify the interface and update rule using only resources generated inside the same process. Coalgebra, domain theory, second-order cybernetics, and active inference are candidate tools \parencite{VonFoerster1981,Abramsky2025,Friston2025ScaleFree}. No general self-justification theorem is claimed here.
+Can the system justify its observation map and update rule using its own resources? Coalgebra, domain theory, second-order cybernetics, and active inference offer candidate models for that question \parencite{VonFoerster1981,Abramsky2025,Friston2025ScaleFree}.
 
 \subsection{Cross-domain candidate invariant}
 
-The candidate invariant should be tested separately in logic, computation, cognition, language, biology, artificial intelligence, and physics:
+The conjecture about an observer that studies its own means of observation is
 \begin{quote}
 \emph{No sufficiently expressive representational system can completely justify or perceive the boundary that generates its own representational capacity.}
 \end{quote}
-A successful program must define \emph{system}, \emph{representation}, \emph{boundary}, \emph{justify}, and \emph{complete} in each domain, then identify a common theorem or explain why the analogy fails. G\"odel, Tarski, Lawvere, cybernetics, generalized-observer proposals, and self-referential biology supply test cases rather than proof of universality \parencite{Godel1931,Tarski1936,Lawvere1969,Elshatlawy2025,Abramsky2025}.
+Testing the conjecture requires a definition of the system, its boundary, its representations, and what would constitute complete justification. Results on formal logic, observer models, and living systems provide separate test cases \parencite{Godel1931,Tarski1936,Lawvere1969,Elshatlawy2025,Abramsky2025}.
 
 \subsection{Paradox as a boundary signal}
 
 \begin{hypothesis}[Boundary-signal hypothesis]
-A recurrent paradox may sometimes mark a representational system encountering the limit of its own closure rather than an ordinary contradiction inside the model.
+Some recurrent paradoxes may arise when a representational system encounters a limit on what it can express about itself.
 \end{hypothesis}
-The hypothesis requires a classifier that distinguishes inconsistent assumptions, semantic ambiguity, formal undecidability, empirical underdetermination, and changed access conditions. It is weakened or rejected if all candidate cases are explained by ordinary error without residual structure. It gains support only if a formally defined boundary measure predicts where otherwise independent paradox-like failures occur.
+A test would distinguish inconsistent premises, ambiguous terms, undecidable statements, underdetermined observations, and changes in access. A defined measure of the boundary would have to predict where such failures occur. Cases explained entirely by inconsistent premises or error count against the hypothesis.
 
 \subsection{Observer-relative mathematics}
 
@@ -46,73 +46,73 @@ A further philosophical hypothesis is that mathematics arises through interactio
 \subsection{Materialism, constraint, and unified-state formation}
 
 \begin{hypothesis}[Constraint and unified-state hypothesis]
-A physical account of consciousness is incomplete unless it explains how high-dimensional activity is constrained into a stable, integrated, reportable regime rather than merely listing the participating components.
+A physical account of consciousness must explain which constraints allow high-dimensional activity to sustain a stable, integrated state that a subject can report.
 \end{hypothesis}
-This hypothesis is not the claim that matter cannot produce consciousness. It asks which dynamical constraints, integration mechanisms, or model-selection processes make a system behave as one temporally coherent state. Hard determinist arguments emphasize the causal closure of biological history, while compatibilist accounts locate agency at the level of reasons, alternatives, control, or second-order endorsement \parencite{Sapolsky2023,List2019,Dennett2003,Frankfurt1971}. These positions do not settle consciousness, but they sharpen the requirement that constraint, agency, and reportability be defined at the correct level. Current active-inference, global-workspace, and integrated-information programs offer distinct answers and are now being subjected to prospective comparison \parencite{SethBayne2022,Cogitate2025,Laukkonen2025,Whyte2026,Robinson2025}. The interface analysis adds an identifiability question: do the proposed measurements distinguish the relevant internal mechanisms, or do multiple mechanisms remain in one empirical class?
+The proposed target is the constraint that lets a system behave as one state over time. Hard determinist accounts emphasize the causal history of biological action. Compatibilist accounts examine reasons, alternatives, control, and endorsement \parencite{Sapolsky2023,List2019,Dennett2003,Frankfurt1971}. Studies comparing active inference, global workspace theory, and integrated information theory offer ways of testing distinct mechanisms \parencite{SethBayne2022,Cogitate2025,Laukkonen2025,Whyte2026,Robinson2025}. Such a comparison requires a measurement on which the proposed mechanisms differ.
 
-A disconfirming outcome would be a sufficiently complete component-level account that predicts unified reportability without requiring an additional system-level constraint variable. A supporting result would require a defined constraint measure that predicts transitions in reportability across sleep, anesthesia, perturbation, or pathology better than competing explanations.
+A constraint measure would support the hypothesis if it improved predictions of transitions in reportability during sleep, anesthesia, perturbation, or pathology. A model of the component processes that predicts the same transitions without the added variable would count against it.
 
 \subsection{Scale-conditioned death and observability}
 
 \begin{hypothesis}[Scale-transition hypothesis of death]
-Death is not annihilation of informational structure but a transition in which that structure is redistributed across scales and degrees of freedom, making it no longer observable as a coherent system at the original scale.
+After death, some correlations present at the organismal scale may persist at other spatial or temporal scales even when organismal organization is no longer detectable.
 \end{hypothesis}
-This is a proposed research stance, not a theorem. It must distinguish at least four possibilities: physical persistence of matter and energy, persistence of specific correlations, persistence of organism-level organization, and persistence of subject-level identity. Conservation of energy does not by itself imply conservation of organismal organization or recoverable personal information.
+The physical targets differ. Matter and energy can persist after death. The persistence of a specified correlation, the persistence of organismal organization, and the continuity of personal identity each require a separate criterion.
 
-A valid study would define the original-scale coherence criterion, measure selected correlations before and after organismal death, vary spatial and temporal resolution, and determine whether apparent loss at one scale becomes structured signal at another. Failure to detect a structure cannot establish annihilation; detection of a transformed signal cannot establish continuity of the original organism without a reconstruction criterion.
+A test would define a measure of coherence at the organismal scale and record selected correlations before and after death. Repeating the measurements at several resolutions would reveal which correlations remain detectable. A claim that they preserve organismal organization requires a reconstruction criterion.
 
 \subsection{Light as an informational standard hypothesis}
 
 \begin{hypothesis}[Light and living organization]
 ``Light is the informational standard of the living; when it turns into something else it is the informational standard of the dead.''
 \end{hypothesis}
-The statement is retained exactly as a named hypothesis because it motivated a proposed measurement route. It is not used as a physical fact. To become testable, \emph{informational standard} must be defined as a measurable statistic or family of statistics, and \emph{turns into something else} must specify energy transfer, spectral change, temporal correlation, spatial dispersion, or coupling to another degree of freedom.
+A measurable version of this hypothesis needs an emission statistic and a specified change in that statistic. Candidate changes include a spectral shift, a change in temporal correlation, spatial dispersion, or coupling to another physical variable.
 
-Ultraweak photon emission provides one concrete but limited observable. Living and dead mice show measurable differences in ultraweak emission, and emissions in DNA, cultured cells, and stressed plants can be measured under controlled conditions \parencite{PietruszkaMarzec2024,Salari2025,Mould2024}. These observations neither establish a universal living/dead standard nor show that photon emission encodes complete organismal information. A future study should test whether emission statistics predict defined organization or viability measures beyond temperature, oxidative state, metabolic activity, and tissue composition.
+Ultraweak photon emission is one candidate measurement. Studies report differences in living and dead mice and measurements in DNA, cells, and stressed plants \parencite{PietruszkaMarzec2024,Salari2025,Mould2024}. A test would ask whether a specified emission statistic predicts organismal organization or viability after accounting for temperature, oxidative state, metabolism, and tissue composition.
 
 \subsection{Single-observer, intentional-forgetting, and external-source hypotheses}
 
-The broader metaphysical hypothesis can be stated without converting it into a conclusion: one foundational observer generates a contained reality, relinquishes control or memory, and experiences apparently independent beings through the system. Intentional forgetting is proposed as a condition that permits uncertainty, love, suffering, discovery, and nontrivial choice. A related external-source hypothesis asks whether structure outside the accessible system could leave internal traces through boundary conditions, invariants, or failures of closure.
+One metaphysical hypothesis proposes that a foundational observer generates a contained reality and relinquishes access to its own control or memory. On this account, forgetting permits uncertainty, discovery, and choice in encounters with apparently independent beings. A related hypothesis proposes that an external structure leaves observable traces through boundary conditions, invariants, or failures of closure.
 
-These hypotheses are neither proved nor refuted by the present theorem. Their rule of admissibility is strict:
-\[
-\boxed{\text{No external-source hypothesis earns support without a discriminating prediction.}}
-\]
-A changed subjective sense of access, revelation, or certainty is not by itself a discriminating prediction. A valid test must specify an outcome unlikely under the physical, plural-observer, information-only, and cognitive alternatives. If no such outcome can be stated, the hypothesis remains metaphysical and must not be used to explain the formal result.
+Evidence for such a hypothesis would require a measurable difference from the alternatives.
+
+
+
+A test must name an outcome, give its predicted probability under each model, or identify an output permitted by only one model. If physical, plural-observer, information-based, and cognitive accounts give the same predictions, the observed report leaves the external-source hypothesis undecided.
 
 \subsection{Containment, internal reality, and meaning}
 
-The interpretive application is that containment does not imply falseness. Experiences and relations may be real within a containing process even when their ontology is dependent. Meaning, beauty, freedom, and truth may be internally stable outputs of a system without being established as absolute outside it. This claim is philosophical rather than empirical. Leibnizian perspectivism, Whiteheadian relation, and Peircean fallibilism provide three different historical comparisons for this claim \parencite{Leibniz1989,Whitehead1978,Peirce1877,Peirce1878}. Future work should formalize it as invariance under a declared family of transformations: which relations remain stable across observers, interfaces, encodings, or scales?
+A philosophical hypothesis about containment concerns which relations persist across observers. Experiences and relations could be meaningful within a containing process even if their existence depends on it. Leibniz, Whitehead, and Peirce offer different accounts of perspective, relation, and fallible inquiry \parencite{Leibniz1989,Whitehead1978,Peirce1877,Peirce1878}. A mathematical formulation would specify a family of transformations and test which relations they preserve.
 
 \subsection{Identity, factorial zero, layered tensors, and geometry}
 
-A separate mathematical note is reserved for the recurring motif that the unit value \(1\) appears as \(0!\), the empty product, \(e^0\), \(\Gamma(1)\), \(\det I\), probability normalization, and identity action. The proposed conceptual sequence is
+The unit value \(1\) occurs in \(0!\), the empty product, \(e^0\), \(\Gamma(1)\), the determinant of an identity matrix, and probability normalization. A proposed analogy connects the unit with geometric structure:
 \[
 \text{preserved unit}\longrightarrow
 \text{metric structure}\longrightarrow
 \text{connection}\longrightarrow
 \text{curvature}.
 \]
-The intended intuition is that Christoffel symbols arise when an identity-like metric structure varies across coordinates, and curvature arises from derivatives and products of the connection. For a specified smooth metric, the Levi-Civita connection depends on the metric and its first derivatives; curvature depends on the connection and its derivatives. Coordinate-dependent metric components can produce nonzero connection coefficients even in flat space, so they do not alone establish curvature. This geometric calculation must be developed independently \parencite{Nakahara2003}. It is not a result of the present theorem, and \(0!=1\) does not by itself generate a connection or curvature tensor.
+A geometric calculation requires a specified smooth metric. Its Levi-Civita connection depends on the metric and its first derivatives. Curvature depends on the connection and its derivatives \parencite{Nakahara2003}. Even in flat space, a change of coordinates can produce nonzero connection coefficients. The value \(0!=1\) alone specifies neither a metric nor its curvature.
 
 \subsection{Neural manifolds and reportability}
 
-Published reconstructions of grid-cell population activity motivate an application of the multi-stage interface problem \parencite{Gardner2022,Hermansen2024,DiSarra2025}. The source state, electrode signal, spike-sorted representation, behavioral alignment, dimensional reconstruction, topological summary, biological access, and verbal report are not one object. Future work should define the maps between these levels and test which topological and dynamical conclusions survive justified changes in sampling, preprocessing, reconstruction, and behavioral context.
+Grid-cell population studies recover geometry from a sequence of measurements and transformations \parencite{Gardner2022,Hermansen2024,DiSarra2025}. These include electrode signals, spike sorting, behavioral alignment, dimensional reconstruction, and topological summaries. A test of the recovered geometry can compare results across specified changes in sampling, preprocessing, or behavioral context. A claim about experience requires a further link to perception or report.
 
 
 \subsection{Heterogeneous computational and engineered interfaces}
 
-The same abstract result should not be assumed to have the same meaning in a digital computer, analog device, quantum processor, brain--computer interface, biological observer, multisensor suite, guidance system, or particle detector. Each system has a different physical state space, encoding, admissible operation, error model, and readout. Future formal work should therefore represent a family of interface implementations
+Digital, analog, quantum, neural, and engineered systems have different state spaces, operations, error models, and readouts. A comparison can represent each implementation by
 \[
 (S_i,\eta_i,U_i,\rho_i)
 \]
-and ask when two implementations realize the same abstract map, when they are refinements of one another, and when an output equivalence conceals different internal processes.
+and specify which encodings and readouts realize the same abstract function. The same comparison can determine whether one interface refines another.
 
-Safety-critical systems make the issue concrete. A multisensor suite combines partial, noisy, and sometimes conflicting measurements into an estimated state or decision; the fusion output remains conditional on coverage, calibration, timing, uncertainty, and the selected fusion architecture \parencite{HallLlinas1997,DurrantWhyteHenderson2008}. An inertial guidance system acts from estimated position, velocity, attitude, and uncertainty rather than direct access to an external ground truth \parencite{Kalman1963,TittertonWeston2004}. A particle-physics exclusion contour is conditional on detector acceptance, reconstruction, the tested model, and a statistical rule \parencite{Cowan2011,ParticleDataGroup2026}. These cases should be formalized as different interface classes rather than treated as intuitive analogies alone.
+Multisensor fusion combines partial readings into a state estimate whose uncertainty depends on coverage, calibration, timing, and the fusion rule \parencite{HallLlinas1997,DurrantWhyteHenderson2008}. Inertial guidance uses estimates of position, velocity, and attitude \parencite{Kalman1963,TittertonWeston2004}. A particle-physics exclusion contour depends on detector acceptance, event reconstruction, a model, and a statistical rule \parencite{Cowan2011,ParticleDataGroup2026}.
 
-\subsection{Technical development program}
+\subsection{Open mathematical problems}
 
-The next mathematical developments are:
+Possible extensions of the observation map include the following.
 \begin{enumerate}[label=(\roman*)]
 \item stochastic observation channels and equality of induced measures;
 \item approximate equivalence and quantitative reconstruction error;
@@ -168,4 +168,4 @@ Particle-physics forbidden and excluded regions & Experimental application & Sep
 \end{longtable}
 \endgroup
 
-The distinction among theorem, computation, interpretation, empirical application, and metaphysical hypothesis must remain explicit.
+

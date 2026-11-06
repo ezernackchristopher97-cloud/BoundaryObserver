@@ -1,19 +1,13 @@
 # Boundary Limited Observer Systems
 
-Revised from draft 0.9.1 and published in this repository after author approval.
-The initial review record is dated 5 November 2026 UTC, corresponding to
-4 November in America/Chicago. A subsequent source check corrects the name
-Giovanni di Sarra and includes the published correction to the cited oscillation
-study. Its hashes are in `verification/source_followup.json`. The current round
-revises the article and supplement from commit `340d70b`. Its validation record
-and file hashes are in `verification/round_two.json`.
+The article gives the recovery criterion and its consequences for finite observations. The supplement lists the formal declarations, simulation checks, and data sources.
 
 ## Documents
 
-- `Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf`: revised article. The main narrative ends on page 5; appendices begin on page 6.
-- `Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf`: updated computational and formal supplement.
-- `REVISION_NOTES.md`: corrections, scope, and verification record.
-- `EXACT_CHANGES.diff`: exact textual changes against the original source package.
+- `Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf` contains the article and its mathematical appendices.
+- `Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf` contains the computational and formal supplement.
+- `REVISION_NOTES.md` records the source history. The hashes in `verification/source_followup.json` and `verification/round_two.json` identify the versions reviewed at those stages.
+- `EXACT_CHANGES.diff` records the changes from the original source package.
 
 ## Build
 

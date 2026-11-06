@@ -1,22 +1,22 @@
 \section{Motivation and broader questions}
 \label{app:motivation}
 
-\subsection{The original epistemological problem}
+\subsection{Observation from within a system}
 
-The investigation begins before the usual inverse problem. The original question is not merely whether an unknown state can be reconstructed from data. It is whether a system can fully perceive or justify the boundary that generates its own capacity to represent anything at all. An embedded observer does not stand outside the complete system with unrestricted access. Its body, sensors, instruments, language, memory, mathematics, and inference rules are themselves parts of the representational route through which the system becomes accessible.
+An embedded observer uses its body, senses, instruments, memory, language, and inference rules to form a description of the world. Can it also determine how those means of representation condition its experience? Its evidence for that question must come through the same means of observation.
 
 
-The question has a longer intellectual genealogy than the language of modern inverse problems suggests. Plato's cave separates experienced appearances from the conditions that produce them, while Aristotle distinguishes kinds of cause and levels of explanation \parencite{Plato1992,Aristotle1984}. Husserl later asks how scientific objects are constituted relative to the structures of experience and the lifeworld \parencite{Husserl1970}. Leibniz treated each monad as a perspective on one world and coupled that perspectivism to the principles of sufficient reason and the identity of indiscernibles \parencite{Leibniz1989,LeibnizClarke2000}. Peirce treated inquiry as a fallible process whose concepts acquire content through conceivable practical consequences \parencite{Peirce1877,Peirce1878}. Whitehead shifted emphasis from static substances to processes and relations \parencite{Whitehead1978}. These positions are not adopted as premises. They identify three questions that recur in the present framework: how perspective limits access, what could justify selection among empirically equivalent descriptions, and whether preserved relations may be more stable than a chosen representation.
+Philosophy offers several formulations of this question. Plato distinguishes appearances from what produces them. Aristotle distinguishes kinds of cause \parencite{Plato1992,Aristotle1984}. Husserl examines how the structure of experience enters scientific descriptions \parencite{Husserl1970}. Leibniz relates perspective to sufficient reason and the identity of indiscernibles \parencite{Leibniz1989,LeibnizClarke2000}. Peirce connects the meaning of a concept to its conceivable practical consequences \parencite{Peirce1877,Peirce1878}. Whitehead emphasizes processes and relations \parencite{Whitehead1978}.
 
-The strongest candidate invariant motivating the inquiry is therefore:
+The conjecture about self-observation is
 \begin{quote}
 \emph{No sufficiently expressive representational system can completely justify or perceive the boundary that generates its own representational capacity.}
 \end{quote}
-This statement is a research conjecture, not a theorem of the present paper. It is adjacent to classical limits on formal self-reference and semantic closure associated with Russell, G\"odel, Tarski, and Lawvere \parencite{Cantor1891,Russell1908,Godel1931,Tarski1936,Lawvere1969,Hofstadter1979,Hofstadter2007}; to Kant's distinction between conditions of experience and things considered independently of those conditions \parencite{Kant1998}; and to second-order cybernetics, in which the observer is included within the system of observation \parencite{Ashby1956,VonFoerster1981,MaturanaVarela1980}. Recent work has again called for general theories of observers and formalisms for self-referential living systems \parencite{Elshatlawy2025,Abramsky2025}. None of these sources proves the candidate invariant in the form stated here. They establish the intellectual neighborhood in which it must be tested.
+The conjecture concerns an observer that must account for its own access. Formal self-reference has related limits in logic and semantics \parencite{Cantor1891,Russell1908,Godel1931,Tarski1936,Lawvere1969,Hofstadter1979,Hofstadter2007}. Kant distinguishes the conditions of experience from objects considered independently of those conditions \parencite{Kant1998}. Second-order cybernetics includes the observer in the system it describes \parencite{Ashby1956,VonFoerster1981,MaturanaVarela1980}. Work on generalized observers and self-referential living systems asks how to formalize that relation \parencite{Elshatlawy2025,Abramsky2025}. A general result for embedded physical observers remains open.
 
-\subsection{From the broad conjecture to a bounded theorem}
+\subsection{Recovery through a specified interface}
 
-The present paper does not claim to solve the complete embedded-boundary problem. It isolates a necessary mathematical layer. Once a declared source space is mapped into a more limited accessible space, what can be proved about reconstruction, observational equivalence, and model identity from that interface alone?
+A restricted version of the question has an exact answer. Given a source space and a fixed observation map, which differences between source states can an observation distinguish?
 
 Let \(X\) be a source state space, let \(O\) be an accessible observation space, and let \(\pi:X\to O\) be the observation map. When
 \[
@@ -24,54 +24,13 @@ Let \(X\) be a source state space, let \(O\) be an accessible observation space,
 \qquad\text{for}\qquad
 x_1\neq x_2,
 \]
-the two source states are different but indistinguishable through that interface. A procedure whose input is only the shared observation cannot return both states exactly. The analysis develops this local statement into a theory of fibers, quotients, refinement, empirical equivalence, experiments, hidden extensions, and exact decoding.
+the shared reading identifies a fiber containing both states. A function of that reading can return at most one of them as its answer.
 
-The bounded theorem is deliberately weaker than the motivating conjecture. It does not prove that every sufficiently expressive system has a noninjective self-interface. It proves what follows \emph{if} the declared interface is noninjective, and it constructs model extensions showing that equality at an empirical boundary does not force uniqueness of latent representation.
-
-\begin{figure}[tbp]
-\centering
-\begin{tikzpicture}[
-  node distance=4.5mm,
-  box/.style={draw,rounded corners=2pt,align=center,inner sep=5.5pt,text width=0.78\textwidth},
-  arr/.style={-{Latex[length=2.4mm]},line width=0.7pt}
-]
-\node[box] (a) {Original epistemological problem: can an embedded representational system justify the boundary that generates its own representational capacity?};
-\node[box,below=of a] (b) {Candidate cross-domain invariant: complete internal self-justification may fail when the means of representation are themselves boundary-limited.};
-\node[box,below=of b] (c) {Bounded mathematical question: what follows from a specified map \(X\xrightarrow{\pi}O\xrightarrow{e}R\)?};
-\node[box,below=of c] (d) {Verified results: fibers, quotient factorization, exact-decoding obstruction, refinement, empirical equivalence, and strict hidden extensions.};
-\node[box,below=of d] (e) {Finite computations: exhaustive enumerated models, experiments, predicate profiles, empirical classes, and quotient maps.};
-\node[box,below=of e] (f) {Interpretation and model competition: what the results permit, what they do not decide, and which hypotheses require discriminating predictions.};
-\node[box,below=of f] (g) {Future empirical and metaphysical research: embedded self-modeling, consciousness, scale transitions, death, light, and external-source hypotheses.};
-\foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g}{\draw[arr] (\x) -- (\y);}
-\end{tikzpicture}
-\caption{Conceptual hierarchy. The present theorem occupies the verified middle layer. The broader epistemological conjecture and downstream applications are retained but are not presented as consequences of the theorem.}
-\label{fig:conceptualhierarchy}
-\end{figure}
-
-\subsection{Three epistemic levels}
-
-Every major statement is assigned to one of three levels.
-
-\begin{table}[tbp]
-\centering
-\caption{Epistemic levels used throughout the paper.}
-\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}X X@{}}
-\toprule
-Level & Content & Permitted conclusion \\
-\midrule
-Motivating experience or observation & Isolation, self-reference, uncertainty, apparent contradiction, measured outputs, or the felt presence of a boundary. & Establishes the phenomenon or question that requires explanation; does not select an ontology. \\
-Mathematical and computational result & Definitions, deductive theorems, countermodels, finite calculations, and verified code. & Establishes only what follows from stated assumptions and enumerated constructions. \\
-Metaphysical or application hypothesis & A single foundational observer, intentional forgetting, external structure, scale-conditioned death, or a theory of unified consciousness. & Remains a hypothesis until it produces a discriminating prediction and survives empirical comparison. \\
-\bottomrule
-\end{tabularx}
-\label{tab:epistemiclevels}
-\end{table}
-
-The distinction is essential. Direct experience can motivate a formal question. A theorem can establish a structural limit. Neither step, by itself, proves a preferred metaphysical interpretation. The gap between the second and third levels is not an embarrassment to be concealed. It is the point at which competing models and new measurements are required.
+The reconstruction theorem assumes a specified interface. A hidden extension shows that the same outputs can arise from different latent models. Whether a particular physical system must have a noninjective self-interface remains a separate question.
 
 \subsection{Competing models and the stopping rule}
 
-The motivating problem is not investigated by assuming one total explanation. At minimum, the broader program must compare:
+Several hypotheses can account for an observer who experiences a limit on its access.
 \begin{enumerate}[label=(\alph*)]
 \item one foundational observer that generates a contained reality and relinquishes access to its own control;
 \item many genuinely independent observers within a shared physical world;
@@ -79,11 +38,11 @@ The motivating problem is not investigated by assuming one total explanation. At
 \item an information-based reality without a singular foundational observer; and
 \item a cognitive model through which an embedded mind organizes severe uncertainty and self-reference.
 \end{enumerate}
-These alternatives may agree on all presently accessible observations. The mathematical theory developed in the article explains why such agreement matters: an empirical equivalence class does not select one latent representative without added structure.
+If these models have the same possible reports, those reports alone cannot determine which model produced them.
 
-The research program therefore adopts a stopping rule:
+A comparison requires a difference in predictions.
 \begin{quote}
 \emph{Treat the single-observer model, intentional forgetting, revelation, and every external-source model as metaphysical hypotheses unless they produce a testable prediction that distinguishes them from competing models, including through different outcome probabilities.}
 \end{quote}
-The rule follows Peirce's fallibilist treatment of inquiry and Popper's demand that a scientific proposal expose itself to possible failure rather than acquire protection through reinterpretation \parencite{Peirce1877,Popper1959}. It is also consistent with current efforts to make theories of consciousness explicit, preregistered, and vulnerable to divergent outcomes rather than protected by post hoc reinterpretation \parencite{Cogitate2025,Robinson2025}. It does not abandon the hypotheses. It specifies what would count as progress.
+Peirce and Popper relate inquiry to practical consequences and the possibility of failure \parencite{Peirce1877,Popper1959}. Preregistered tests of consciousness theories specify outcomes that distinguish the competing predictions \parencite{Cogitate2025,Robinson2025}.
 

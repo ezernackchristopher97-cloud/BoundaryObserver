@@ -1,7 +1,7 @@
 \section{Synthesis theorem}
 \label{sec:synthesis}
 
-The preceding results combine into one constructive theorem. The theorem begins with an arbitrary inhabited model and an arbitrary admissible experiment. It returns a strict hidden extension that preserves the complete accessible boundary while preventing exact latent reconstruction.
+Every model with a nonempty state space has a strict hidden extension that preserves all reachable outputs and prevents exact recovery of the extended state.
 
 \begin{theorem}[Boundary limited observer synthesis]
 Let \(\Model=(X_\Model,\pi_\Model)\) be a generative model, let \(x_0\in X_\Model\) be an inhabited witness, and let \(e:O\to R\) be an admissible experiment. Then there exists a model \(\Extended\) such that:
@@ -71,11 +71,11 @@ The extended observation map is noninjective. An exact latent decoder would impl
 \label{fig:dependency}
 \end{figure}
 
-\subsection{What the theorem establishes}
+\subsection{Recovery from possible outputs}
 
-The theorem establishes a logical separation between empirical completeness and latent completeness. The extension agrees with the base on the entire reachable observation set. It therefore agrees under every fixed observation only experiment, including the identity experiment. The extension has distinct hidden labels and no exact decoder. If the original model is exactly decodable, their decoder statuses differ. If the original already has no decoder, both statuses are false.
+The extension and its base agree on the entire reachable set. Every function of the observation, including the identity, gives the same possible outcomes. The extension always lacks an exact decoder. The base may admit one.
 
-The theorem also identifies the additional burden carried by a uniqueness claim. To conclude that one latent representation is uniquely determined, the argument must use assumptions not contained in reachable observation equality alone. Such assumptions may include dynamical constraints, causal interventions, regularity conditions, minimality, priors, known cardinality, or a refined observation interface. The theorem does not decide which additional assumptions are scientifically justified. It shows why some additional condition is required.
+Uniqueness of a latent representation requires a restriction on the admissible models or a further measurement. Dynamics, causal interventions, regularity, minimality, prior probabilities, and known state counts give different restrictions. Their justification depends on the application.
 
 \subsection{Physical interpretation}
 

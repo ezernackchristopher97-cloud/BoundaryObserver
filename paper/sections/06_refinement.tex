@@ -1,7 +1,7 @@
 \section{Interface refinement and information ordering}
 \label{sec:refinement}
 
-Different instruments or representational procedures may observe the same world at different resolutions. Interface refinement is a preorder on interfaces. Identifying mutually refining interfaces gives an order on the corresponding classes. This resembles comparison of statistical experiments by informativeness, but the present relation is deterministic and is defined by an explicit commuting coarsening map rather than by a Markov kernel or decision-risk criterion \parencite{Blackwell1951,Blackwell1953,Torgersen1991}.
+Instruments can measure the same states at different resolutions. Refinement defines a preorder on interfaces and an order on classes of mutually refining interfaces. Statistical experiment theory also compares informativeness \parencite{Blackwell1951,Blackwell1953,Torgersen1991}. For deterministic observation maps, a coarsening function specifies the relation.
 
 Let
 \[
@@ -21,7 +21,7 @@ when there exists a coarsening map \(c:O_F\to O_C\) such that
 \pi_C=c\circ\pi_F.
 \]
 \end{definition}
-The commuting equation states that every coarse observation is determined by a set function of the fine observation. It does not state that the fine observation can be recovered from the coarse observation.
+The coarsening function recovers every coarse observation from its corresponding fine observation. The reverse map may fail to exist.
 
 \begin{proposition}[Refinement is reflexive and transitive]
 Every interface refines itself. If \(F\succeq M\) and \(M\succeq C\), then \(F\succeq C\).
@@ -36,7 +36,7 @@ so \(b\circ a\) witnesses \(F\succeq C\).
 \end{proof}
 \subsection{Monotonicity of accessible structure}
 
-Refinement orders observational equivalence in the expected direction.
+A fine interface preserves every distinction visible to its coarsening.
 
 \begin{theorem}[Fine equivalence implies coarse equivalence]
 If \(F\succeq C\) and \(x\sim_F y\), then \(x\sim_C y\).
@@ -78,7 +78,7 @@ d_F\circ\pi_F
 =\id_X.
 \]
 \end{proof}
-The contrapositive is useful: if the fine interface is noninjective, then no coarsening can be injective. Coarsening cannot restore a distinction that has already disappeared.
+If the fine interface maps two states to the same output, every coarsening also maps them to the same output.
 
 \subsection{Refinement maps between observable quotients}
 

@@ -1,7 +1,7 @@
 \section{Hidden extensions and latent covers}
 \label{sec:hidden}
 
-The preceding sections identify what empirical equivalence preserves. Related identifiability results show that latent representations require additional assumptions to become unique \parencite{Teicher1963,Allman2009,Locatello2019,Hyvarinen2019,Khemakhem2020}; the construction below gives a deterministic set-level witness tailored to the present observer interface. This section constructs models that share all empirically preserved information while differing in latent structure.
+The preceding sections identify what empirical equivalence preserves. Related identifiability results show that latent representations require additional assumptions to become unique \parencite{Teicher1963,Allman2009,Locatello2019,Hyvarinen2019,Khemakhem2020}; the hidden extension constructs models with the same reachable observations and different latent spaces.
 
 \subsection{Duplicate and hidden factor extensions}
 
@@ -86,7 +86,7 @@ For every base state \(x\in X_\Model\), the map
 \]
 is injective, and every state in its image produces \(\pi_\Model(x)\).
 \end{proposition}
-Thus finite latent multiplicity can be increased without changing reachable observations or any admissible outcome set. In the verified source, \texttt{finiteMultiplicityModel M n} uses the hidden type \(\operatorname{Fin}(n+1)\); the paper parameter \(m\) is therefore \(n+1\).
+Thus finite latent multiplicity can be increased without changing reachable observations or any admissible outcome set. In Lean, \texttt{finiteMultiplicityModel M n} uses the hidden type \(\operatorname{Fin}(n+1)\); the label count \(m\) is therefore \(n+1\).
 
 \subsection{Countable hidden multiplicity}
 
@@ -160,4 +160,4 @@ For every generative model with at least one latent state, there exists an empir
 \begin{proof}
 Use the Boolean hidden extension. Projection onto the base state is surjective and observation preserving. The two Boolean values make the projection noninjective.
 \end{proof}
-The Lean predicate \texttt{LatentlyMaximal} means that no strict latent cover exists. The theorem negates that predicate for every inhabited model. This definition is not ordinary maximality in a partial order. A strict cover means a noninjective surjective projection; for infinite models such a projection may be a self-map. For example, \(X=\mathbb N\), \(O=\{0\}\), and \(\pi(n)=0\) admit the strict self-cover \(p(n)=\lfloor n/2\rfloor\). Surjectivity follows from \(p(2n)=n\), and \(p(0)=p(1)\) proves noninjectivity. Additional hidden labels also need not increase an infinite set's cardinality. The proved conclusion is the existence of strict covers within the specified model class. It does not assert a physically realized hierarchy of hidden variables.
+The Lean predicate \texttt{LatentlyMaximal} means that no strict latent cover exists. The theorem negates that predicate for every inhabited model. This definition is not ordinary maximality in a partial order. A strict cover means a noninjective surjective projection; for infinite models such a projection may be a self-map. For example, \(X=\mathbb N\), \(O=\{0\}\), and \(\pi(n)=0\) admit the strict self-cover \(p(n)=\lfloor n/2\rfloor\). Surjectivity follows from \(p(2n)=n\), and \(p(0)=p(1)\) proves noninjectivity. Additional hidden labels also need not increase an infinite set's cardinality. The construction gives strict covers in the specified class. A physical interpretation requires independent evidence for the added variables.

@@ -1,11 +1,11 @@
 \section{Computational methods}
 \label{sec:computationalmethods}
 
-The executable study evaluates finite instances of the formal constructions. It does not estimate a physical parameter or fit a model to biological or physical measurements. It enumerates explicitly defined latent states, observations, experiments, predicates, and refinement maps, and then evaluates the corresponding finite equalities and inequalities.
+The calculation enumerates the latent states, outputs, and pairs of states in each finite model.
 
 \subsection{Implementation and reproducibility}
 
-The finite study was implemented in Python. The program enumerates the declared state spaces and evaluates every observation, fiber, experiment, predicate, empirical class, and refinement relation used in the reported examples. The supplement prints the principal summary tables and includes selected source excerpts and the original simulation figures. The repository supplies the full row-level records.
+The Python program evaluates each processing rule on every reachable observation. It also computes the observation fibers and the refinement maps. The supplement includes source excerpts and the filenames of the complete records.
 
 \begin{table}[tbp]
 \centering
@@ -21,7 +21,7 @@ Experiment summaries & Possible outcome sets and equality with the injective bas
 Predicate summaries & Existential success profiles and complete finite truth profiles for three accessible predicates. \\
 Empirical quotient & Grouping of models by equality of reachable observation sets and comparison of latent properties within one class. \\
 Refinement summaries & Interface sizes, strictness, collapsed pairs, reverse refinement, and induced quotient map properties. \\
-Validation & Eighteen reference tests, eight manuscript tests, and runner assertions covering the intended finite invariance and refinement checks. \\
+Validation & Tests of the reference implementation, scope conditions, and measurement criteria. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -40,7 +40,7 @@ and calculates the unordered collision count
 \[
 C(\Model)=\sum_{o\in\Obs(\Model)}\binom{|F_o|}{2}.
 \]
-This value is a finite count of distinct latent pairs with equal observations. It is not a distance, probability, or uncertainty measure.
+This sum counts unordered pairs of distinct states with the same observation.
 
 \subsection{Hidden multiplicity family}
 
@@ -68,9 +68,9 @@ An exact decoder exists in this family only for \(m=1\).
 
 \subsection{Observation only experiments and predicates}
 
-Four experiments are functions of the accessible observation: the identity map, a threshold at three, a three category partition, and width two numerical compression. The runner evaluates each function on the complete reachable observation set of each model and records the resulting outcome set.
+Four rules process the observation: identity, a threshold at three, a partition into three categories, and a partition into bins of width two. Each rule acts on every reachable output.
 
-The predicate study uses three accessible predicates: evenness, the condition \(o\geq 3\), and membership in \(\{0,5\}\). The existential success profile records whether a predicate is true for at least one reachable observation. A separate truth profile records every predicate value on every reachable observation. The second object is a stronger finite diagnostic, but it is not definitionally identical to the formal existential predicate profile.
+The three predicates test evenness, \(o\geq 3\), and membership in \(\{0,5\}\). The existential profile records whether each predicate succeeds for at least one output. The truth table records its value on every reachable output.
 
 \subsection{Finite empirical quotient and interface refinement}
 
@@ -80,11 +80,11 @@ The refinement study uses one eight state world and four interfaces: identity, p
 
 \subsection{Automated validation}
 
-The reference implementation includes eighteen automated tests. The manuscript suite adds six tests of the original assumptions and two tests for the prescribed reachable set and joint measurement criteria. The latter checks include each subset of codomains of size zero through three and all 4,096 triples of binary maps on four states. They cover injective and noninjective base models, Boolean and finite hidden extensions, equality of experiment outcome sets, predicate profiles, empirical quotient grouping, observation fibers, refinement preservation, strict collapse, quotient map surjectivity and noninjectivity, reverse refinement failure, relabeling equivalence, composition, and invalid coarsening rejection. The runner also contains explicit assertions that stop execution if any intended finite relation fails.
+The reference implementation has eighteen tests. Six further tests check assumptions about composition, decoding, probability, and temporal records. Two tests enumerate all reachable sets in codomains of size zero through three and all 4,096 triples of binary maps on four states. The suite also checks hidden extensions, predicate profiles, quotient grouping, reverse refinement, relabeling, and invalid coarsening. The program stops if any finite identity fails.
 
 
-\subsection{Formal and computational verification boundary}
+\subsection{Formal proofs and finite calculations}
 
-The pinned repository records successful Lean checking against mathlib. This revision inspects the encoded statements without claiming a new local Lean build. The finite examples are rerun by exhaustive Python enumeration. These procedures serve different roles. The proof checker verifies derivability within the encoded formal system. The simulations verify the stated equalities and counts for the enumerated finite models. Neither procedure establishes that the formal encoding is the unique description of a physical system or that the simulated interface is biologically or physically complete.
+Lean checks the proofs from the encoded definitions. Python enumerates the finite examples and checks each count against those definitions. The supplement identifies the Lean declarations and the source of the finite records.
 
-This separation follows from the interface framework. Every computation requires a representation of physical or conceptual states, an allowed evolution, and a readout \parencite{Horsman2014,Horsman2015}. The verified theorem is exact relative to its definitions. A proposed application must additionally justify the map from the application domain into those definitions and quantify approximation, noise, and omitted variables.
+Applying a proof to a physical device requires a model of its state, evolution, and readout \parencite{Horsman2014,Horsman2015}. Measurement noise, approximation error, and omitted variables affect that application.

@@ -1,6 +1,6 @@
 \section{Assumption checks and counterexamples}
 \label{app:scopechecks}
-These examples establish the qualifications used in the main text. They are elementary derivations and executable regression cases, not additions to the pinned Lean formalization.
+A composite map, a probability law, or a record over time can impose different conditions on recovery. The examples also distinguish total decoders from decoders on the reachable range.
 
 \subsection{Reachable collisions in a composite map}
 Let \(f:\{0,1\}\to\{0,1,2\}\) satisfy \(f(0)=0\), \(f(1)=1\). Let \(g(0)=0\), \(g(1)=g(2)=1\). The map \(g\) is noninjective, but \(g\circ f=\id_{\{0,1\}}\). Its collision lies outside the restriction of \(g\) to the reachable set \(f[X]\). Conversely, if distinct original states satisfy \(f(x)=f(y)\), then \(g(f(x))=g(f(y))\) for every downstream function \(g\). This proves the corrected composition statement.

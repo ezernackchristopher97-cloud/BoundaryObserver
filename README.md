@@ -10,30 +10,16 @@ limits on exact decoding, hidden latent extensions, interface refinement,
 observable quotients, empirical model quotients, and observation-only
 experiments.
 
-## Revised manuscript
+## Manuscript
 
-The reviewed paper places its main argument, equations, methods, findings, and
-conclusion in the first five pages. Detailed proofs and workings begin on page 6.
+The article gives a criterion for recovering a target from a measurement. The appendices contain derivations, finite examples, and the assumptions of the formal model.
 
-- [Article PDF](paper/Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf)
+- [Article](paper/Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf)
 - [Computational and formal supplement](paper/Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf)
 - [LaTeX source and build instructions](paper/README.md)
-- [Correction record](paper/REVISION_NOTES.md)
-- [Exact changes against the original draft package](paper/EXACT_CHANGES.diff)
+- [Source and verification history](paper/REVISION_NOTES.md)
 
-The paper directory contains the reviewed manuscript and its source package.
-Its revision notes record the mathematical review and subsequent source checks.
-The original diff and manifest describe the first review. The
-[source follow-up](paper/verification/source_followup.json) records the next citation pass.
-The [second-round record](paper/verification/round_two.json) identifies the current sources,
-reviewed PDFs, finite checks, and formal build used for comparison.
-
-The corrected interpretation distinguishes reachable observation sets from
-probability laws and temporal records. A Boolean hidden extension has no exact
-decoder when its latent base is nonempty; decoder status differs from the base
-only if the base is exactly decodable. The finite examples are mathematical
-constructions and provide no empirical evidence of biological hidden variables
-or neural attractors.
+The models distinguish reachable observation sets from probability laws and temporal records. Adding an unread Boolean coordinate prevents exact recovery of a nonempty latent state. A change in decoder status requires a base model that admits an exact decoder.
 
 ## Three levels of description
 

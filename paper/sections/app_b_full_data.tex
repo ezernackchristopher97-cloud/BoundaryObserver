@@ -1,8 +1,8 @@
 \begin{landscape}
-\section{Repository data tables}
+\section{Finite model data}
 \label{app:fulldata}
 
-This appendix prints the principal committed finite records. The complete machine readable files are included under \texttt{data/original\_csv/}. No values in these tables were inferred from figure positions.
+The files in \nolinkurl{data/original_csv/} contain the complete finite calculations. The tables report the values in these files.
 
 \subsection{Complete model summary}
 
@@ -76,7 +76,7 @@ compressed\_width\_2 & injective\_base\_8\_fold\_extension & 8 & \{0, 1, 2\} & 3
 \end{landscape}
 
 \subsection{Predicate records}
-The existential profile file contains 21 model and predicate rows. The truth profile file contains the corresponding 21 complete truth table rows. Every comparison column is true. The three unique base truth tables are printed below.
+Each of three predicates was evaluated on all seven models. The 21 success profiles and the 21 truth tables match those of the base. The table gives the three distinct truth tables.
 \begin{table}[H]
 \centering
 \caption{Unique predicate truth tables from \texttt{predicate\_truth\_profiles.csv}}
@@ -158,4 +158,4 @@ relabeled\_to\_identity & relabeled\_identity\_interface & identity\_interface &
 \end{longtable}
 \end{landscape}
 
-The files \texttt{observation\_fibers.csv}, \texttt{quotient\_maps.csv}, and \texttt{collapsed\_pairs.csv} contain the unaggregated fiber, class map, and pair records. They are included in the package because printing every latent state tuple would add length without adding a distinct result.
+The files \texttt{observation\_fibers.csv}, \texttt{quotient\_maps.csv}, and \texttt{collapsed\_pairs.csv} contain the unaggregated fiber, class map, and pair records. Each row identifies an individual fiber, class mapping, or pair.

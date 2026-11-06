@@ -1,7 +1,7 @@
 \section{Predicate profiles and empirical identifiability}
 \label{sec:predicates}
 
-A single experiment may omit accessible information. The complete family of accessible predicates removes that objection. The use of complete external tests to characterize an observational equivalence has analogues in automata and process semantics \parencite{Moore1956,Park1981,Milner1989,Rutten2000}; here the predicates range over the accessible observation space rather than over transition traces. This section shows that complete predicate agreement characterizes empirical equivalence, yet still does not determine exact latent reconstructability.
+All Boolean predicates together identify the set of reachable outputs. Tests of external behavior also characterize equivalence in automata and process semantics \parencite{Moore1956,Park1981,Milner1989,Rutten2000}. Here each predicate takes one observation as its argument.
 
 \begin{definition}[Predicate success]
 Let \(p:O\to\{\mathrm{false},\mathrm{true}\}\). The predicate \(p\) can succeed under \(\Model\) when
@@ -64,7 +64,7 @@ A model property \(P\) is observation invariant when
 \]
 \end{definition}
 \begin{definition}[Empirically identifiable property]
-A property is empirically identifiable in the present set based framework when its truth value is constant on every empirical equivalence class.
+A property is empirically identifiable from reachable outputs when its truth value is constant on every empirical equivalence class.
 \end{definition}
 The two definitions are equivalent. The terminology emphasizes two views of the same condition. Observation invariance is a relation between representatives. Empirical identifiability is a property of the quotient class.
 
