@@ -10,7 +10,9 @@ limits on exact decoding, hidden latent extensions, interface refinement,
 observable quotients, empirical model quotients, and observation-only
 experiments.
 
-## Manuscript
+## Observer interface paper
+
+*Boundary Limited Observer Systems* is the November version of *Observer Interfaces and the Nonuniqueness of Latent Reconstruction*. The computational and formal supplement accompanies this article.
 
 The article gives a criterion for recovering a target from a measurement. The appendices contain derivations, finite examples, and the assumptions of the formal model.
 
