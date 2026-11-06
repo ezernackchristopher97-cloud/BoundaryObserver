@@ -4,6 +4,7 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage[T1]{fontenc}
 \usepackage{mathptmx}
+\usepackage{courier}
 \usepackage{microtype}
 \usepackage{booktabs,longtable,array,tabularx,multirow}
 \usepackage{graphicx}
@@ -59,7 +60,7 @@
 \hrule
 \vspace{0.8em}
 
-This supplement contains implementation excerpts, a declaration concordance, complete generated tables, original simulation figures, and reproducibility records.
+The finite calculations use one runner to enumerate the observation fibers, process the reachable outputs, and compare interfaces. The excerpts below come directly from the pinned source files. Appendix~\ref{app:declarations} links the formal claims to Lean declarations. Appendix~\ref{app:fulldata} prints the principal data tables. Appendix~\ref{app:provenance} identifies the complete CSV records and verification commands.
 
 \input{sections/supp_code}
 \appendix
@@ -67,4 +68,12 @@ This supplement contains implementation excerpts, a declaration concordance, com
 \input{sections/app_b_full_data}
 \input{sections/app_c_original_figures}
 \input{sections/app_d_provenance}
+\subsection{Reproduce the finite checks}
+From the \nolinkurl{paper/} directory, run the archived implementation tests, the eight manuscript checks, and the comparison against the twelve CSV files.
+\begin{lstlisting}[language={}]
+python -m pytest verification/reference_code/simulations/tests \
+  verification/test_scope_cases.py verification/test_round_two.py -q
+python verification/verify_outputs.py
+\end{lstlisting}
+The two checks in \nolinkurl{test_round_two.py} enumerate small reachable sets and binary joint measurements. Their general statements are proved in the article.
 \end{document}

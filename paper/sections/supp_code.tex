@@ -1,56 +1,21 @@
-\section{Executable implementation excerpts}
+\section{From source states to the reported counts}
 
-The following excerpts are copied from the repository implementation at commit \nolinkurl{eb96b984ae999ee6cbc0aae33c2d501c46d9540f}. They are included to show the executable operations underlying the finite summaries. The complete source remains in the repository.
+The excerpts below read the reference implementation at commit \nolinkurl{eb96b984ae999ee6cbc0aae33c2d501c46d9540f}. The source files are included under \nolinkurl{verification/reference_code/simulations/boundary_observer/}.
 
-\subsection{Collision count}
-\begin{lstlisting}[language=Python]
-@property
-def latent_collision_count(self) -> int:
-    return sum(
-        comb(len(fiber), 2)
-        for fiber in self.observation_fibers().values()
-    )
-\end{lstlisting}
+\subsection{Construct the hidden states}
+Every base state receives the same number of labels. The observation map reads only the base coordinate.
+\lstinputlisting[firstline=270,lastline=285,gobble=4]{verification/reference_code/simulations/boundary_observer/models.py}
 
-\subsection{Finite hidden extension}
-\begin{lstlisting}[language=Python]
-latent_states = tuple(
-    (state, hidden)
-    for state in base.latent_states
-    for hidden in range(multiplicity)
-)
-observation_by_state = {
-    state: base.observe(state[0])
-    for state in latent_states
-}
-\end{lstlisting}
+\subsection{Count pairs and process the reachable outputs}
+A fiber of size \(k\) contributes \(\binom{k}{2}\) unordered pairs. The runner sums these contributions over all fibers.
+\lstinputlisting[firstline=129,lastline=132,gobble=8]{verification/reference_code/simulations/boundary_observer/models.py}
 
-\subsection{Observation only outcomes}
-\begin{lstlisting}[language=Python]
-def possible_outcomes(self, model):
-    return frozenset(
-        self.transform(observation)
-        for observation in model.reachable_observations
-    )
-\end{lstlisting}
+A processing rule acts once on each reachable observation. The set of results combines repeated outcomes.
+\lstinputlisting[firstline=22,lastline=26,gobble=4]{verification/reference_code/simulations/boundary_observer/experiments.py}
 
-\subsection{Finite empirical quotient grouping}
-\begin{lstlisting}[language=Python]
-grouped = {}
-for model in models:
-    grouped.setdefault(
-        model.reachable_observations, []
-    ).append(model)
-\end{lstlisting}
+\subsection{Compare models and interfaces}
+The model grouping uses the reachable set as its key. Two models with that key occur in the same empirical class even if their latent spaces differ.
+\lstinputlisting[firstline=305,lastline=311,gobble=4]{verification/reference_code/simulations/boundary_observer/models.py}
 
-\subsection{Collapsed pairs under coarsening}
-\begin{lstlisting}[language=Python]
-return tuple(
-    (left, right)
-    for left, right in combinations(
-        self.fine.world_states, 2
-    )
-    if not self.fine.observationally_equivalent(left, right)
-    and self.coarse.observationally_equivalent(left, right)
-)
-\end{lstlisting}
+The refinement calculation enumerates each unordered pair of world states once. It records a pair when the fine interface distinguishes it and the coarse interface identifies it.
+\lstinputlisting[firstline=186,lastline=191,gobble=8]{verification/reference_code/simulations/boundary_observer/interfaces.py}

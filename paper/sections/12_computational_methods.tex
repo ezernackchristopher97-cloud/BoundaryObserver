@@ -5,7 +5,7 @@ The executable study evaluates finite instances of the formal constructions. It 
 
 \subsection{Implementation and reproducibility}
 
-The finite study was implemented in Python. The program enumerates the declared state spaces and evaluates every observation, fiber, experiment, predicate, empirical class, and refinement relation used in the reported examples. The accompanying supplement contains the complete generated tables, selected implementation excerpts, and original simulation figures.
+The finite study was implemented in Python. The program enumerates the declared state spaces and evaluates every observation, fiber, experiment, predicate, empirical class, and refinement relation used in the reported examples. The supplement prints the principal summary tables and includes selected source excerpts and the original simulation figures. The repository supplies the full row-level records.
 
 \begin{table}[tbp]
 \centering
@@ -21,14 +21,14 @@ Experiment summaries & Possible outcome sets and equality with the injective bas
 Predicate summaries & Existential success profiles and complete finite truth profiles for three accessible predicates. \\
 Empirical quotient & Grouping of models by equality of reachable observation sets and comparison of latent properties within one class. \\
 Refinement summaries & Interface sizes, strictness, collapsed pairs, reverse refinement, and induced quotient map properties. \\
-Validation & Eighteen repository tests, six revision regression tests, and runner assertions covering the intended finite invariance and refinement checks. \\
+Validation & Eighteen reference tests, eight manuscript tests, and runner assertions covering the intended finite invariance and refinement checks. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsection{Finite models, fibers, and collision counts}
 
-The primary finite model has latent states
+The finite models use integer observation labels. We compare their reachable sets in the common space \(O=\{0,1,2,3,4,5\}\), including the modulo-three outputs \(0,1,2\) by their usual inclusion. The primary model has latent states
 \[
 X=\{0,1,2,3,4,5\}
 \]
@@ -80,7 +80,7 @@ The refinement study uses one eight state world and four interfaces: identity, p
 
 \subsection{Automated validation}
 
-The reference implementation includes eighteen automated tests. This revision adds six tests of assumption boundaries, supplied in the source package. They cover injective and noninjective base models, Boolean and finite hidden extensions, equality of experiment outcome sets, predicate profiles, empirical quotient grouping, observation fibers, refinement preservation, strict collapse, quotient map surjectivity and noninjectivity, reverse refinement failure, relabeling equivalence, composition, and invalid coarsening rejection. The runner also contains explicit assertions that stop execution if any intended finite relation fails.
+The reference implementation includes eighteen automated tests. The manuscript suite adds six tests of the original assumptions and two tests for the prescribed reachable set and joint measurement criteria. The latter checks include each subset of codomains of size zero through three and all 4,096 triples of binary maps on four states. They cover injective and noninjective base models, Boolean and finite hidden extensions, equality of experiment outcome sets, predicate profiles, empirical quotient grouping, observation fibers, refinement preservation, strict collapse, quotient map surjectivity and noninjectivity, reverse refinement failure, relabeling equivalence, composition, and invalid coarsening rejection. The runner also contains explicit assertions that stop execution if any intended finite relation fails.
 
 
 \subsection{Formal and computational verification boundary}

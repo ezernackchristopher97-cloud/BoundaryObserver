@@ -69,7 +69,7 @@ is a bijection between the empirical model quotient and the collection of realiz
 \begin{proof}
 The map is well defined because empirically equivalent models have equal reachable sets. It is injective because equal reachable sets imply empirical equivalence and therefore equal quotient classes. It is surjective by the definition of realizability.
 \end{proof}
-This theorem specifies exactly what the empirical quotient retains. It retains the reachable set. It does not retain latent cardinality, observation fiber size, hidden factor type, or exact decoder status.
+Each empirical class therefore specifies one reachable set. Whether a latent property is fixed within that class depends on the allowed models. For example, an empty reachable set forces an empty latent space.
 
 \subsection{Exact reconstruction does not descend}
 
@@ -81,4 +81,12 @@ Assume \(O\neq\varnothing\) and a model class containing \((O,\id_O)\) and its B
 \begin{proof}
 Use the identity model on \(O\); it is inhabited and has the identity decoder. Its Boolean hidden extension is empirically equivalent to the base. The extension has a noninjective observation map and no exact latent decoder. Therefore the property has different truth values on two representatives of one empirical class. A property with that variation cannot descend to the quotient.
 \end{proof}
-The theorem is the quotient form of \Cref{thm:noexperimentdecoder}. The identity model and its Boolean extension have the same reachable set and opposite decoder statuses. Thus no criterion based on that set works for every model in the stated class. This is a global nonidentifiability result, not a claim that every empirical class contains both decoder statuses. In particular, an empty reachable set forces an empty latent space; its total decoder exists exactly when \(O=\varnothing\).
+The identity model proves a global failure of identifiability. The same argument locates the ambiguous classes more precisely.
+
+\begin{corollary}[Decoder status at a prescribed reachable set]
+Let \(\varnothing\ne S\subseteq O\). If the model class contains the inclusion \(i:S\hookrightarrow O\) and its Boolean extension, the empirical class for \(S\) contains both an exactly decodable model and one without a decoder. If the reachable set is empty, all compatible models have the same decoder status.
+\end{corollary}
+
+\begin{proof}
+Choose \(s_0\in S\). The map \(d:O\to S\) that returns \(o\) for \(o\in S\) and \(s_0\) otherwise satisfies \(d\circ i=\id_S\). Its Boolean extension reaches the same set, and \((s_0,0)\) and \((s_0,1)\) prevent exact decoding. If the reachable set is empty, a source state would give a reachable value, so the source is empty. A total map from \(O\) into the empty set exists precisely when \(O\) is empty.
+\end{proof}

@@ -23,9 +23,10 @@ conclusion in the first five pages. Detailed proofs and workings begin on page 6
 
 The paper directory contains the reviewed manuscript and its source package.
 Its revision notes record the mathematical review and subsequent source checks.
-The original diff and manifest describe the first reviewed version; the
-[source follow-up record](paper/verification/source_followup.json) identifies
-later citation corrections and their file hashes.
+The original diff and manifest describe the first review. The
+[source follow-up](paper/verification/source_followup.json) records the next citation pass.
+The [second-round record](paper/verification/round_two.json) identifies the current sources,
+reviewed PDFs, finite checks, and formal build used for comparison.
 
 The corrected interpretation distinguishes reachable observation sets from
 probability laws and temporal records. A Boolean hidden extension has no exact
@@ -223,8 +224,9 @@ hidden extensions, observation fibers, admissible experiments, predicate
 success and truth profiles, empirical classes, interface refinement, strict
 coarsening, and induced finite quotient maps.
 
-The current suite contains **24 passing tests**: the original 18 tests and six
-regression checks for the manuscript assumptions and counterexamples.
+The repository simulation suite contains 24 tests. The manuscript suite runs the
+18 reference implementation tests plus eight checks of its mathematical examples.
+The two suites overlap.
 
 To reproduce all generated outputs and run the tests:
 
@@ -253,7 +255,7 @@ implementation; it does not replace or extend the logical scope of the proofs.
 ## Current status
 
 The revised manuscript, supplement, exact correction record, and supporting
-checks are included in `paper/`. All 24 Python tests pass, and the twelve
-regenerated CSV outputs match the archived files byte for byte. The Lean source
-is unchanged from the reference commit. The review inspected successful
-repository CI; it did not perform a fresh local Lean build.
+checks are included in `paper/`. The 24 repository tests and 26 manuscript checks
+pass. All twelve regenerated CSV files match their archived bytes. The
+[Lean build for the manuscript base](https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/41970754861)
+succeeded. The second round reviewed that build and made no edits to the Lean file.

@@ -1,0 +1,58 @@
+{
+  "base_commit": "340d70b83a77568ebef0df3074349fdd4a683fe9",
+  "reference_implementation": "eb96b984ae999ee6cbc0aae33c2d501c46d9540f",
+  "paper": {
+    "article_pages": 64,
+    "article_body_pages": 5,
+    "supplement_pages": 13,
+    "unresolved_references": false,
+    "overfull_boxes": false,
+    "cited_keys_resolved": 141
+  },
+  "tests": {
+    "manuscript_checks": 26,
+    "repository_simulation_tests": 24,
+    "suites_overlap": true,
+    "archived_csvs_matched_byte_for_byte": 12,
+    "round_two_cases": "Each subset of codomains of size 0 through 3; all 4,096 triples of binary maps on four source states."
+  },
+  "lean": {
+    "unchanged": true,
+    "local_rebuild": false,
+    "mapped_declarations_found": 41,
+    "base_ci_status": "success",
+    "base_ci_url": "https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/41970754861"
+  },
+  "source_review": {
+    "type": "selective byline and claim checks",
+    "records": [
+      "https://arxiv.org/abs/2308.16068v2",
+      "https://www.nature.com/articles/s41593-025-01880-y",
+      "https://pubmed.ncbi.nlm.nih.gov/41343515/",
+      "https://doi.org/10.1038/s41586-021-04268-7",
+      "https://proceedings.mlr.press/v97/locatello19a"
+    ]
+  },
+  "files_sha256": {
+    "README.md": "9dbfc135b9af928fc54803d3ac61bb24348371f71eda71f9209a473531d703f1",
+    "paper/Boundary_Limited_Observer_Systems_Draft_0_9_1.pdf": "3a93b781eacad7c332ba448fe5d1bcebdca7ebffff22237019c9f29608f68d01",
+    "paper/Boundary_Limited_Observer_Systems_Draft_0_9_1_Supplement.pdf": "2176d0fb2f7df2fe83de0829a26ca1c33a58c4b9debed62cbd0fd55370bb08d8",
+    "paper/README.md": "b897c73c3769e79fbfba286624004ffdbe6316a6da7b02b5b77e040e3007c83c",
+    "paper/REVISION_NOTES.md": "8ab6cd4ad15ea6e95569d4961c90179537cd979043ad22894fa382d1e7272291",
+    "paper/generate_appendices.py": "9f34a6ba5166488a2abd5769dcc667b42dcf45a3fdf8a9283b24d6dcf807cf15",
+    "paper/main.tex": "acbc35f4943de604b5030708ee1ca9acf0a24efba5ccfef83d4c2d2e84253c36",
+    "paper/references.bib": "32fe7da62bf6490bdfb80a1388e6ffbbe86cc7890c1c2a89c47dfccb3914cf2c",
+    "paper/sections/00_abstract.tex": "41ecff8377a3edb143591df4a6e7451d9739498bc91e105ebab82852bfedee70",
+    "paper/sections/07_models_experiments.tex": "a33b97c706e580b717b3c7377368edf294b1c33922baf0e7b0a67df5067c00f5",
+    "paper/sections/10_empirical_quotient.tex": "a8a39d50c862c54bb092e084f32ce919c5a85d4efbddfc0517c9592412a4b290",
+    "paper/sections/11_synthesis.tex": "abcf574467828e9ac2dbf9b6caae6cec2522a586eb5e419bf3a9692bd7615109",
+    "paper/sections/12_computational_methods.tex": "44d665e9a9a6e5dd71dec7c788ea9968dda2f67b07db28a2685b65d9cbd97c19",
+    "paper/sections/13_results.tex": "0be17a0ecdd88bd81beb84658fe91a50d1a8af5a84357155980ec37b36e8b651",
+    "paper/sections/15_related_work.tex": "0048f0d331dfee0c7e485bf23e7e9d80cc53855ddeb679f82ab29918ec7a7076",
+    "paper/sections/app_d_provenance.tex": "c5c3d62793505b4ab66ec1d38db4a11b72b0fc53af877740b27f8a5ff8286ada",
+    "paper/sections/main_body.tex": "147f19ecfb3b1aa1865864dba46bb52375404f11a978db01e865ac94d0c61b47",
+    "paper/sections/supp_code.tex": "b0599ed1c917e867ba3ea2fe794101ab3acc0c2c9e4550df2dd59153af5d55b9",
+    "paper/supplement.tex": "f708475a0b12415ce85dbc550f4a81f4bf1705c8092327af5c84e018195b39a0",
+    "paper/verification/test_round_two.py": "e3d4de07c3c406259037fb1cba7347861bda378ba7730b4b7d55feec9f4b81a1"
+  }
+}

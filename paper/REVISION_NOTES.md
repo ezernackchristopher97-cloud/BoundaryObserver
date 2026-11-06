@@ -61,3 +61,37 @@ updated PDF compiled without unresolved references or overfull boxes, and all
 changed pages were rendered and inspected. Formal source and Python tests are
 unchanged. `SOURCE_FOLLOWUP.diff` records the source changes after the approved
 commit; `verification/source_followup.json` records the new file hashes.
+
+## Second editorial and mathematical review
+
+The second round starts at `340d70b83a77568ebef0df3074349fdd4a683fe9`. The
+article now opens with inference from a report and distinguishes recovering a
+specified target from deciding whether an entire latent state is recoverable.
+For each nonempty reachable set, its inclusion and Boolean extension witness
+opposite decoder statuses in any class containing both. The proof handles
+the empty reachable set separately. The discussion derives the necessary and
+sufficient separation condition for a second measurement to identify a target.
+
+The modulo-three construction is compared with the other models in a common
+six-label observation space. The finite comparisons include seven representations
+(including the base) and four processing rules. Individual pair and quotient-map
+records are in the CSV files. The supplement now typesets its Python excerpts
+directly from the pinned implementation and gives the commands needed to repeat
+the checks. The two new finite checks cover small reachable sets and all 4,096
+triples of binary reports, readings, and targets on a four-state source.
+
+Corrected the bylines for [Rickles et al.](https://arxiv.org/abs/2308.16068v2),
+[Tononi et al.](https://www.nature.com/articles/s41593-025-01880-y), and
+[Robinson et al.](https://pubmed.ncbi.nlm.nih.gov/41343515/). The Robinson article
+is a study protocol. The article uses the [simultaneous grid-cell study](https://doi.org/10.1038/s41586-021-04268-7)
+for evidence about measured population geometry. Every cited key resolves locally.
+The external source review covers selected references, not the full background bibliography.
+
+The 26 manuscript checks and the 24 repository simulation tests pass in their
+respective suites. All twelve regenerated CSV files match the archived bytes.
+All 41 declaration names in the supplement occur in the Lean file. The
+[successful CI build](https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/41970754861)
+checked the manuscript base. The new corollaries have direct proofs and finite
+checks. No new local Lean build was performed. Earlier manifests and diffs remain
+historical records. Current hashes and build details appear in
+`verification/round_two.json`.

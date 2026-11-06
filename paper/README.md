@@ -4,7 +4,9 @@ Revised from draft 0.9.1 and published in this repository after author approval.
 The initial review record is dated 5 November 2026 UTC, corresponding to
 4 November in America/Chicago. A subsequent source check corrects the name
 Giovanni di Sarra and includes the published correction to the cited oscillation
-study. See `verification/source_followup.json` for the updated file hashes.
+study. Its hashes are in `verification/source_followup.json`. The current round
+revises the article and supplement from commit `340d70b`. Its validation record
+and file hashes are in `verification/round_two.json`.
 
 ## Documents
 
@@ -32,15 +34,16 @@ Use Python 3.12 or another compatible Python 3 installation. Install the referen
 python -m venv .venv
 . .venv/bin/activate
 python -m pip install -r verification/reference_code/simulations/requirements.txt
-python -m pytest verification/reference_code/simulations/tests verification/test_scope_cases.py -q
+python -m pytest verification/reference_code/simulations/tests verification/test_scope_cases.py verification/test_round_two.py -q
 python verification/verify_outputs.py
 ```
 
-The expected results are 24 passing tests and 12 byte-identical CSV files. The output comparison writes `verification/output_verification.json`.
+The expected results are 26 passing tests and 12 byte-identical CSV files. The output comparison writes `verification/output_verification.json`.
 
-`verification/reference_code/simulations` is an unchanged snapshot of the reference implementation at commit `eb96b984ae999ee6cbc0aae33c2d501c46d9540f`. `verification/BoundaryObserver.lean` is the corresponding unchanged formal source. The added tests cover reachable collisions, already nondecodable bases, empty spaces, probability laws, temporal reconstruction and error amplification, and exhaustive decoder search over small finite maps.
+`verification/reference_code/simulations` is an unchanged snapshot of the reference implementation at commit `eb96b984ae999ee6cbc0aae33c2d501c46d9540f`. `verification/BoundaryObserver.lean` is the corresponding unchanged formal source. The added tests cover reachable collisions, already nondecodable bases, empty spaces, probability laws, temporal reconstruction and error amplification, and exhaustive decoder search over small finite maps. The two second-round checks cover classification by reachable set
+and identifiability from joint measurements.
 
-The reference repository records successful Lean CI at https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/29449488270. No fresh local Lean build is claimed. Additional manuscript examples have written proofs and Python checks; they are not new Lean declarations.
+GitHub records [successful Lean CI for the manuscript base](https://github.com/ezernackchristopher97-cloud/BoundaryObserver/actions/runs/41970754861). No fresh local Lean build is claimed. Additional manuscript examples have written proofs and Python checks; they are not new Lean declarations.
 
 ## Scope
 
